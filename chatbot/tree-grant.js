@@ -136,9 +136,14 @@ function lookupAddress(address) {
     // Normalize the input - remove extra spaces, periods, convert to uppercase
     const normalized = address.toUpperCase().replace(/\./g, '').replace(/\s+/g, ' ').trim();
 
+    console.log('Looking up address:', address);
+    console.log('Normalized:', normalized);
+    console.log('Total addresses in list:', ELIGIBLE_ADDRESSES.length);
+
     // Check for exact match
     const exactMatch = ELIGIBLE_ADDRESSES.find(addr => addr === normalized);
     if (exactMatch) {
+        console.log('Exact match found:', exactMatch);
         return { success: true, address: exactMatch };
     }
 
@@ -148,9 +153,11 @@ function lookupAddress(address) {
     );
 
     if (partialMatch) {
+        console.log('Partial match found:', partialMatch);
         return { success: true, address: partialMatch };
     }
 
+    console.log('No match found for:', normalized);
     return { success: false };
 }
 
