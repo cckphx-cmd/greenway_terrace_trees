@@ -678,35 +678,128 @@
             gap: 0.5rem;
         }
 
-        .chatbot-embed {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Floating Chatbot Widget */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
             background: white;
             border-radius: 20px;
-            height: 700px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            flex-direction: column;
+            transform: translateY(calc(100% + 100px));
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
             overflow: hidden;
         }
 
-        .chatbot-embed iframe {
+        .chatbot-widget.open {
+            transform: translateY(0);
+        }
+
+        .chatbot-widget-header {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbot-header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+        }
+
+        .chatbot-widget-header h3 {
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .chatbot-widget-header p {
+            font-size: 0.85rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .chatbot-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+            line-height: 1;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .chatbot-widget-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+
+        /* Floating Button */
+        .chatbot-float-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+            border: none;
+            box-shadow: 0 6px 24px rgba(199, 91, 57, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 9998;
+            padding: 12px;
+        }
+
+        .chatbot-float-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(199, 91, 57, 0.5);
+        }
+
+        .chatbot-float-button img {
             width: 100%;
             height: 100%;
-            border: none;
-            border-radius: 20px;
+            object-fit: contain;
         }
 
-        .embed-placeholder {
-            text-align: center;
-            padding: 2rem;
-        }
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 120px);
+                bottom: 80px;
+                right: 20px;
+            }
 
-        .embed-placeholder img {
-            width: 120px;
-            margin-bottom: 1rem;
+            .chatbot-float-button {
+                width: 60px;
+                height: 60px;
+            }
         }
 
         /* FAQ Section */
@@ -1316,34 +1409,24 @@
         </div>
     </section>
 
-    <!-- Chatbot Section -->
+    <!-- Application Info Section -->
     <section class="chatbot-section" id="roadrunner">
-        <h2>Ask the Roadrunner</h2>
-        <p>Your friendly guide to everything about the tree grant. Verify your address, check application status, take a tree quiz, or submit your application.</p>
-        
+        <h2>Ready to Apply?</h2>
+        <p>Click the roadrunner assistant in the bottom-right corner to verify your address, take a tree quiz, check your application status, or submit your application!</p>
+
         <div class="chatbot-features">
             <div class="chatbot-feature">
-                Address Verification
+                ✓ Address Verification
             </div>
             <div class="chatbot-feature">
-                Status Check
+                ✓ Tree Selection Quiz
             </div>
             <div class="chatbot-feature">
-                Tree Quiz
+                ✓ Status Check
             </div>
             <div class="chatbot-feature">
-                Submit Application
+                ✓ Submit Application
             </div>
-        </div>
-
-        <div class="chatbot-embed">
-            <iframe
-                src="chatbot/index.html"
-                width="100%"
-                height="100%"
-                style="border: none; border-radius: 16px; min-height: 500px;"
-                title="Tree Grant Chatbot"
-            ></iframe>
         </div>
     </section>
 
@@ -1645,6 +1728,43 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });
+
+        // Floating chatbot controls
+        function toggleChatbot() {
+            const widget = document.getElementById('chatbotWidget');
+            const button = document.getElementById('chatbotButton');
+            const isOpen = widget.classList.contains('open');
+
+            if (isOpen) {
+                widget.classList.remove('open');
+                button.style.display = 'flex';
+            } else {
+                widget.classList.add('open');
+                button.style.display = 'none';
+            }
+        }
     </script>
+
+    <!-- Floating Chatbot Widget -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-widget-header">
+            <img src="images/roadrunner-mascot.png" alt="Roadrunner" class="chatbot-header-icon">
+            <div>
+                <h3>Tree Grant Assistant</h3>
+                <p>Ask me anything!</p>
+            </div>
+            <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+        </div>
+        <iframe
+            src="chatbot/index.html"
+            class="chatbot-widget-iframe"
+            title="Tree Grant Chatbot"
+        ></iframe>
+    </div>
+
+    <!-- Floating Chatbot Button -->
+    <button id="chatbotButton" class="chatbot-float-button" onclick="toggleChatbot()">
+        <img src="images/roadrunner-mascot.png" alt="Chat with Roadrunner">
+    </button>
 </body>
 </html>
