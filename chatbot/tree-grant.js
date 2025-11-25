@@ -131,33 +131,114 @@ function showTextInput(placeholder, onSubmit) {
     input.focus();
 }
 
-// Lookup address in local list
+// Normalize address for fuzzy matching
+function normalizeAddress(address) {
+    let normalized = address.toUpperCase().trim();
+
+    // Remove periods and extra spaces
+    normalized = normalized.replace(/\./g, '').replace(/\s+/g, ' ');
+
+    // Expand common abbreviations
+    const abbreviations = {
+        ' ST': ' STREET',
+        ' AVE': ' AVENUE',
+        ' RD': ' ROAD',
+        ' DR': ' DRIVE',
+        ' LN': ' LANE',
+        ' BLVD': ' BOULEVARD',
+        ' PL': ' PLACE',
+        ' CT': ' COURT',
+        ' N ': ' NORTH ',
+        ' S ': ' SOUTH ',
+        ' E ': ' EAST ',
+        ' W ': ' WEST ',
+    };
+
+    // Apply abbreviation expansions
+    for (const [abbr, full] of Object.entries(abbreviations)) {
+        if (normalized.includes(abbr)) {
+            normalized = normalized.replace(abbr, full);
+        }
+    }
+
+    return normalized.trim();
+}
+
+// Calculate similarity score between two strings (0 = identical, higher = more different)
+function calculateDistance(str1, str2) {
+    const s1 = str1.toLowerCase();
+    const s2 = str2.toLowerCase();
+
+    // If one string contains the other, give it a good score
+    if (s1.includes(s2) || s2.includes(s1)) {
+        return Math.abs(s1.length - s2.length) * 0.1;
+    }
+
+    // Levenshtein distance calculation
+    const matrix = [];
+    for (let i = 0; i <= s2.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= s1.length; j++) {
+        matrix[0][j] = j;
+    }
+    for (let i = 1; i <= s2.length; i++) {
+        for (let j = 1; j <= s1.length; j++) {
+            if (s2.charAt(i - 1) === s1.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
+            }
+        }
+    }
+
+    // Normalize by length to get a score between 0 and 1
+    const maxLength = Math.max(s1.length, s2.length);
+    return matrix[s2.length][s1.length] / maxLength;
+}
+
+// Lookup address in local list with fuzzy matching
 function lookupAddress(address) {
-    // Normalize the input - remove extra spaces, periods, convert to uppercase
-    const normalized = address.toUpperCase().replace(/\./g, '').replace(/\s+/g, ' ').trim();
+    const normalized = normalizeAddress(address);
 
     console.log('Looking up address:', address);
     console.log('Normalized:', normalized);
     console.log('Total addresses in list:', ELIGIBLE_ADDRESSES.length);
 
-    // Check for exact match
+    // Try exact match first
     const exactMatch = ELIGIBLE_ADDRESSES.find(addr => addr === normalized);
     if (exactMatch) {
         console.log('Exact match found:', exactMatch);
         return { success: true, address: exactMatch };
     }
 
-    // Check for partial match (in case of slight variations)
-    const partialMatch = ELIGIBLE_ADDRESSES.find(addr =>
-        addr.includes(normalized) || normalized.includes(addr)
-    );
+    // Fuzzy match with threshold (similar to Fuse.js threshold: 0.3)
+    const threshold = 0.3;
+    let bestMatch = null;
+    let bestScore = Infinity;
 
-    if (partialMatch) {
-        console.log('Partial match found:', partialMatch);
-        return { success: true, address: partialMatch };
+    for (const eligibleAddr of ELIGIBLE_ADDRESSES) {
+        const normalizedEligible = normalizeAddress(eligibleAddr);
+        const score = calculateDistance(normalized, normalizedEligible);
+
+        if (score < bestScore) {
+            bestScore = score;
+            bestMatch = eligibleAddr;
+        }
     }
 
-    console.log('No match found for:', normalized);
+    console.log('Best match:', bestMatch, 'Score:', bestScore);
+
+    if (bestScore <= threshold) {
+        console.log('Fuzzy match found:', bestMatch);
+        return { success: true, address: bestMatch };
+    }
+
+    console.log('No match found for:', normalized, '(best score was', bestScore, ')');
     return { success: false };
 }
 
