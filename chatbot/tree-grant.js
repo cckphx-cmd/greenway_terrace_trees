@@ -279,8 +279,7 @@ Please enter your street address:
 
 <strong>IMPORTANT:</strong><br>
 • Single-family homes or duplexes/triplexes only<br>
-• No apartments or condos with 4+ units<br>
-• <strong>Trees must be planted in the FRONT YARD only</strong>
+• No apartments or condos with 4+ units
 </div>`, false, true); // Skip scroll on first message
 
     showTextInput('Enter your address...', (address) => {
@@ -304,7 +303,7 @@ function askAddressConfirmation(matchedAddress) {
     showButtons([
         { text: "Yes, that's correct", action: () => {
             addMessage("Yes, that's correct", true);
-            askFrontYardConfirmation();
+            askHomeowner();
         }},
         { text: "No, try again", action: () => {
             addMessage("No, try again", true);
@@ -466,40 +465,54 @@ function showMainMenu() {
     ]);
 }
 
-function askTreeSelectionDirect(showNative = true) {
+function askTreeSelectionDirect() {
     updateProgress('Step 3: Tree Selection', 50);
 
     // Initialize selectedTrees array
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
-        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from our native and non-native options:`);
+        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from our native and non-native options. Scroll to see all choices:`);
     }
 
-    // Get trees based on toggle
-    const trees = showNative ? NATIVE_TREES : NON_NATIVE_TREES;
-    const treeType = showNative ? 'Native' : 'Non-Native';
-    const oppositeType = showNative ? 'non-native' : 'native';
+    // Create buttons for all trees with section headers
+    const buttons = [];
 
-    // Create buttons for trees
-    const buttons = trees.map(tree => {
+    // Add native trees header (as disabled button for visual grouping)
+    buttons.push({
+        text: '── NATIVE TREES ──',
+        className: 'section-header',
+        action: () => {} // No action for header
+    });
+
+    // Add native trees
+    NATIVE_TREES.forEach(tree => {
         const isSelected = state.data.selectedTrees.includes(tree.name);
-        return {
+        buttons.push({
             text: tree.name,
             className: isSelected ? 'selected' : '',
             action: () => {
-                handleTreeSelectionDirect(tree.name, showNative);
+                handleTreeSelectionDirect(tree.name);
             }
-        };
+        });
     });
 
-    // Add toggle button
+    // Add non-native trees header
     buttons.push({
-        text: `Switch to ${oppositeType} trees`,
-        className: '',
-        action: () => {
-            addMessage(`Switch to ${oppositeType} trees`, true);
-            askTreeSelectionDirect(!showNative);
-        }
+        text: '── NON-NATIVE TREES ──',
+        className: 'section-header',
+        action: () => {} // No action for header
+    });
+
+    // Add non-native trees
+    NON_NATIVE_TREES.forEach(tree => {
+        const isSelected = state.data.selectedTrees.includes(tree.name);
+        buttons.push({
+            text: tree.name,
+            className: isSelected ? 'selected' : '',
+            action: () => {
+                handleTreeSelectionDirect(tree.name);
+            }
+        });
     });
 
     // Add a "Done selecting" button
@@ -525,7 +538,7 @@ function askTreeSelectionDirect(showNative = true) {
     showButtons(buttons);
 }
 
-function handleTreeSelectionDirect(treeName, showNative) {
+function handleTreeSelectionDirect(treeName) {
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
     }
@@ -553,7 +566,7 @@ function handleTreeSelectionDirect(treeName, showNative) {
 
     // Re-show the selection buttons
     clearInput();
-    askTreeSelectionDirect(showNative);
+    askTreeSelectionDirect();
 }
 
 function startTreeQuiz() {
@@ -653,7 +666,7 @@ function showTreeRecommendations() {
     ]);
 }
 
-function askTreeSelection(recommendations, showNative = null) {
+function askTreeSelection(recommendations) {
     // Initialize selectedTrees array and show recommendations message once
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
@@ -662,38 +675,50 @@ function askTreeSelection(recommendations, showNative = null) {
         const recNames = recommendations.map(t => t.name).join(', ');
         addMessage(`Based on your quiz answers, we recommend these 3 trees: <strong>${recNames}</strong>`);
 
-        addMessage(`<br>But you can browse all native and non-native options. Select up to 2 trees:`);
+        addMessage(`<br>But you can browse all native and non-native options. Scroll to see all choices. Select up to 2 trees:`);
     }
 
-    // Determine which trees to show (default to user's quiz preference)
-    if (showNative === null) {
-        showNative = state.data.nativePreference === 'native';
-    }
+    // Create buttons for all trees with section headers
+    const buttons = [];
 
-    // Get trees based on toggle
-    const trees = showNative ? NATIVE_TREES : NON_NATIVE_TREES;
-    const oppositeType = showNative ? 'non-native' : 'native';
-
-    // Create buttons for trees
-    const buttons = trees.map(tree => {
-        const isSelected = state.data.selectedTrees.includes(tree.name);
-        return {
-            text: tree.name,
-            className: isSelected ? 'selected' : '',
-            action: () => {
-                handleTreeSelection(tree.name, recommendations, showNative);
-            }
-        };
+    // Add native trees header
+    buttons.push({
+        text: '── NATIVE TREES ──',
+        className: 'section-header',
+        action: () => {} // No action for header
     });
 
-    // Add toggle button
+    // Add native trees
+    NATIVE_TREES.forEach(tree => {
+        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const isRecommended = recommendations.some(r => r.name === tree.name);
+        buttons.push({
+            text: isRecommended ? `${tree.name} ⭐` : tree.name,
+            className: isSelected ? 'selected' : '',
+            action: () => {
+                handleTreeSelection(tree.name, recommendations);
+            }
+        });
+    });
+
+    // Add non-native trees header
     buttons.push({
-        text: `Switch to ${oppositeType} trees`,
-        className: '',
-        action: () => {
-            addMessage(`Switch to ${oppositeType} trees`, true);
-            askTreeSelection(recommendations, !showNative);
-        }
+        text: '── NON-NATIVE TREES ──',
+        className: 'section-header',
+        action: () => {} // No action for header
+    });
+
+    // Add non-native trees
+    NON_NATIVE_TREES.forEach(tree => {
+        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const isRecommended = recommendations.some(r => r.name === tree.name);
+        buttons.push({
+            text: isRecommended ? `${tree.name} ⭐` : tree.name,
+            className: isSelected ? 'selected' : '',
+            action: () => {
+                handleTreeSelection(tree.name, recommendations);
+            }
+        });
     });
 
     // Add a "Done selecting" button
@@ -719,7 +744,7 @@ function askTreeSelection(recommendations, showNative = null) {
     showButtons(buttons);
 }
 
-function handleTreeSelection(treeName, recommendations, showNative) {
+function handleTreeSelection(treeName, recommendations) {
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
     }
@@ -747,7 +772,7 @@ function handleTreeSelection(treeName, recommendations, showNative) {
 
     // Re-show the selection buttons
     clearInput();
-    askTreeSelection(recommendations, showNative);
+    askTreeSelection(recommendations);
 }
 
 function collectPropertyInfo() {
@@ -789,7 +814,11 @@ function askComplexInstall() {
 }
 
 function askContactPreference() {
-    addMessage(`How would you prefer to be contacted?`);
+    addMessage(`<div class="important-box">
+<strong>DATA PRIVACY NOTICE</strong><br><br>
+Your information will be used solely to process your tree grant application and contact you about this program. We will not share your data with third parties except as required for tree planting coordination with the City of Phoenix and Canopy Tree Care.<br><br>
+By continuing, you consent to the collection and use of your contact information for this program.
+</div><br>How would you prefer to be contacted?`);
     showButtons([
         { text: "Email", action: () => {
             addMessage("Email", true);
@@ -946,9 +975,6 @@ A: You can select up to 2 trees from our approved list based on your property.<b
 
 <strong>Q: What if I'm a renter?</strong><br>
 A: You need landlord approval. We provide a template letter.<br><br>
-
-<strong>Q: Front yard only?</strong><br>
-A: Yes, this program only covers front yard planting.<br><br>
 
 <strong>Q: What if I have questions?</strong><br>
 A: Contact Courtney Kingsbury at <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a>`);

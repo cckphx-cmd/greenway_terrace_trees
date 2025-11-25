@@ -105,6 +105,8 @@
             background: white;
             border-top: 1px solid #e5e7eb;
             min-height: 80px;
+            max-height: 50vh;
+            overflow-y: auto;
         }
 
         .button-group {
@@ -160,6 +162,27 @@
         button.done-button:hover {
             background: linear-gradient(135deg, #5C7A5F 0%, #4A6149 100%);
             border-color: #5C7A5F;
+        }
+
+        button.section-header {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: default;
+            pointer-events: none;
+            box-shadow: none;
+            padding: 8px 0;
+            min-height: auto;
+        }
+
+        button.section-header:hover {
+            background: transparent;
+            color: #6b7280;
+            transform: none;
+            box-shadow: none;
         }
 
         input[type="text"],
