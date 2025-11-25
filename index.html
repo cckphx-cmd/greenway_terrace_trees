@@ -1733,16 +1733,31 @@
         function toggleChatbot() {
             const widget = document.getElementById('chatbotWidget');
             const button = document.getElementById('chatbotButton');
+            const iframe = document.querySelector('.chatbot-widget-iframe');
             const isOpen = widget.classList.contains('open');
 
             if (isOpen) {
                 widget.classList.remove('open');
                 button.style.display = 'flex';
             } else {
+                // Reload iframe to reset scroll position
+                const src = iframe.src;
+                iframe.src = src;
+
                 widget.classList.add('open');
                 button.style.display = 'none';
             }
         }
+
+        // Close chatbot on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const widget = document.getElementById('chatbotWidget');
+                if (widget.classList.contains('open')) {
+                    toggleChatbot();
+                }
+            }
+        });
     </script>
 
     <!-- Floating Chatbot Widget -->
