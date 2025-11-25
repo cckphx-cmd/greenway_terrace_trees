@@ -565,20 +565,28 @@ function showTreeRecommendations() {
 }
 
 function askTreeSelection(recommendations) {
-    // Initialize selectedTrees array if it doesn't exist
+    // Initialize selectedTrees array and show recommendations message once
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
-        addMessage(`Please select your tree(s) - you can choose up to 2 trees:`);
+
+        // Show the 3 recommendations
+        const recNames = recommendations.map(t => t.name).join(', ');
+        addMessage(`Based on your quiz answers, we recommend these 3 trees: <strong>${recNames}</strong>`);
+
+        addMessage(`<br>But you can choose ANY trees you like from all 16 options below. Select up to 2 trees:`);
     }
 
-    // Create buttons for each tree
-    const buttons = recommendations.map(tree => {
+    // Get ALL trees (both native and non-native)
+    const allTrees = [...NATIVE_TREES, ...NON_NATIVE_TREES];
+
+    // Create buttons for ALL trees
+    const buttons = allTrees.map(tree => {
         const isSelected = state.data.selectedTrees.includes(tree.name);
         return {
             text: tree.name,
             className: isSelected ? 'selected' : '',
             action: () => {
-                handleTreeSelection(tree.name, recommendations);
+                handleTreeSelection(tree.name, allTrees);
             }
         };
     });
@@ -606,7 +614,7 @@ function askTreeSelection(recommendations) {
     showButtons(buttons);
 }
 
-function handleTreeSelection(treeName, recommendations) {
+function handleTreeSelection(treeName, allTrees) {
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
     }
@@ -631,6 +639,9 @@ function handleTreeSelection(treeName, recommendations) {
         ? `Current selection: <strong>${state.data.selectedTrees.join(', ')}</strong> (${state.data.selectedTrees.length}/2)`
         : 'No trees selected yet';
     addMessage(currentSelection);
+
+    // Get the original 3 recommendations to pass along
+    const recommendations = getTreeRecommendations();
 
     // Re-show the selection buttons
     clearInput();
@@ -850,5 +861,12 @@ A: Contact Courtney Kingsbury at <a href="mailto:cckphx@gmail.com" class="link">
 
 // Start the conversation
 window.onload = () => {
+    // Scroll to top on load
+    const messagesDiv = document.getElementById('chatMessages');
+    if (messagesDiv) {
+        messagesDiv.scrollTop = 0;
+    }
+    window.scrollTo(0, 0);
+
     startWelcome();
 };
