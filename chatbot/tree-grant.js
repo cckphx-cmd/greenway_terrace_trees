@@ -466,28 +466,40 @@ function showMainMenu() {
     ]);
 }
 
-function askTreeSelectionDirect() {
+function askTreeSelectionDirect(showNative = true) {
     updateProgress('Step 3: Tree Selection', 50);
 
     // Initialize selectedTrees array
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
-        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from all 16 available options below:`);
+        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from our native and non-native options:`);
     }
 
-    // Get ALL trees (both native and non-native)
-    const allTrees = [...NATIVE_TREES, ...NON_NATIVE_TREES];
+    // Get trees based on toggle
+    const trees = showNative ? NATIVE_TREES : NON_NATIVE_TREES;
+    const treeType = showNative ? 'Native' : 'Non-Native';
+    const oppositeType = showNative ? 'non-native' : 'native';
 
-    // Create buttons for ALL trees
-    const buttons = allTrees.map(tree => {
+    // Create buttons for trees
+    const buttons = trees.map(tree => {
         const isSelected = state.data.selectedTrees.includes(tree.name);
         return {
             text: tree.name,
             className: isSelected ? 'selected' : '',
             action: () => {
-                handleTreeSelectionDirect(tree.name);
+                handleTreeSelectionDirect(tree.name, showNative);
             }
         };
+    });
+
+    // Add toggle button
+    buttons.push({
+        text: `Switch to ${oppositeType} trees`,
+        className: '',
+        action: () => {
+            addMessage(`Switch to ${oppositeType} trees`, true);
+            askTreeSelectionDirect(!showNative);
+        }
     });
 
     // Add a "Done selecting" button
@@ -513,7 +525,7 @@ function askTreeSelectionDirect() {
     showButtons(buttons);
 }
 
-function handleTreeSelectionDirect(treeName) {
+function handleTreeSelectionDirect(treeName, showNative) {
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
     }
@@ -541,7 +553,7 @@ function handleTreeSelectionDirect(treeName) {
 
     // Re-show the selection buttons
     clearInput();
-    askTreeSelectionDirect();
+    askTreeSelectionDirect(showNative);
 }
 
 function startTreeQuiz() {
@@ -641,7 +653,7 @@ function showTreeRecommendations() {
     ]);
 }
 
-function askTreeSelection(recommendations) {
+function askTreeSelection(recommendations, showNative = null) {
     // Initialize selectedTrees array and show recommendations message once
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
@@ -650,22 +662,38 @@ function askTreeSelection(recommendations) {
         const recNames = recommendations.map(t => t.name).join(', ');
         addMessage(`Based on your quiz answers, we recommend these 3 trees: <strong>${recNames}</strong>`);
 
-        addMessage(`<br>But you can choose ANY trees you like from all 16 options below. Select up to 2 trees:`);
+        addMessage(`<br>But you can browse all native and non-native options. Select up to 2 trees:`);
     }
 
-    // Get ALL trees (both native and non-native)
-    const allTrees = [...NATIVE_TREES, ...NON_NATIVE_TREES];
+    // Determine which trees to show (default to user's quiz preference)
+    if (showNative === null) {
+        showNative = state.data.nativePreference === 'native';
+    }
 
-    // Create buttons for ALL trees
-    const buttons = allTrees.map(tree => {
+    // Get trees based on toggle
+    const trees = showNative ? NATIVE_TREES : NON_NATIVE_TREES;
+    const oppositeType = showNative ? 'non-native' : 'native';
+
+    // Create buttons for trees
+    const buttons = trees.map(tree => {
         const isSelected = state.data.selectedTrees.includes(tree.name);
         return {
             text: tree.name,
             className: isSelected ? 'selected' : '',
             action: () => {
-                handleTreeSelection(tree.name, allTrees);
+                handleTreeSelection(tree.name, recommendations, showNative);
             }
         };
+    });
+
+    // Add toggle button
+    buttons.push({
+        text: `Switch to ${oppositeType} trees`,
+        className: '',
+        action: () => {
+            addMessage(`Switch to ${oppositeType} trees`, true);
+            askTreeSelection(recommendations, !showNative);
+        }
     });
 
     // Add a "Done selecting" button
@@ -691,7 +719,7 @@ function askTreeSelection(recommendations) {
     showButtons(buttons);
 }
 
-function handleTreeSelection(treeName, allTrees) {
+function handleTreeSelection(treeName, recommendations, showNative) {
     if (!state.data.selectedTrees) {
         state.data.selectedTrees = [];
     }
@@ -717,12 +745,9 @@ function handleTreeSelection(treeName, allTrees) {
         : 'No trees selected yet';
     addMessage(currentSelection);
 
-    // Get the original 3 recommendations to pass along
-    const recommendations = getTreeRecommendations();
-
     // Re-show the selection buttons
     clearInput();
-    askTreeSelection(recommendations);
+    askTreeSelection(recommendations, showNative);
 }
 
 function collectPropertyInfo() {
