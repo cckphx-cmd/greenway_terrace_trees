@@ -338,7 +338,7 @@ Please enter your street address:
 • No apartments or condos with 4+ units
 </div>`, false, true); // Skip scroll on first message
 
-    showSplitAddressInput((address) => {
+    showTextInput('Enter your address...', (address) => {
         state.data.userAddress = address;
         addMessage(address, true);
 
