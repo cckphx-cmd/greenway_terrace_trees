@@ -130,6 +130,62 @@ function showTextInput(placeholder, onSubmit) {
     input.focus();
 }
 
+// Show split address input (number + street name)
+function showSplitAddressInput(onSubmit) {
+    clearInput();
+    const inputArea = document.getElementById('inputArea');
+
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.gap = '8px';
+    container.style.marginBottom = '8px';
+
+    const numberInput = document.createElement('input');
+    numberInput.type = 'text';
+    numberInput.inputMode = 'numeric';
+    numberInput.pattern = '[0-9]*';
+    numberInput.placeholder = '1234';
+    numberInput.id = 'streetNumber';
+    numberInput.style.width = '30%';
+
+    const streetInput = document.createElement('input');
+    streetInput.type = 'text';
+    streetInput.placeholder = 'W Palm Ln';
+    streetInput.id = 'streetName';
+    streetInput.style.width = '70%';
+
+    const button = document.createElement('button');
+    button.textContent = 'Submit';
+    button.className = 'submit-btn';
+    button.onclick = () => {
+        const number = numberInput.value.trim();
+        const street = streetInput.value.trim();
+        if (number && street) {
+            const fullAddress = `${number} ${street}`;
+            onSubmit(fullAddress);
+        }
+    };
+
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            if (e.target === numberInput && streetInput.value.trim() === '') {
+                streetInput.focus();
+            } else {
+                button.click();
+            }
+        }
+    };
+
+    numberInput.addEventListener('keypress', handleEnter);
+    streetInput.addEventListener('keypress', handleEnter);
+
+    container.appendChild(numberInput);
+    container.appendChild(streetInput);
+    inputArea.appendChild(container);
+    inputArea.appendChild(button);
+    numberInput.focus();
+}
+
 // Normalize address for fuzzy matching
 function normalizeAddress(address) {
     let normalized = address.toUpperCase().trim();
@@ -282,7 +338,7 @@ Please enter your street address:
 • No apartments or condos with 4+ units
 </div>`, false, true); // Skip scroll on first message
 
-    showTextInput('Enter your address...', (address) => {
+    showSplitAddressInput((address) => {
         state.data.userAddress = address;
         addMessage(address, true);
 
@@ -348,6 +404,10 @@ function askHomeowner() {
             addMessage("I rent but don't have permission yet", true);
             state.data.homeownerStatus = 'renter_pending';
             showLandlordLetter();
+        }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            startWelcome();
         }}
     ]);
 }
@@ -458,6 +518,10 @@ function showMainMenu() {
             addMessage("Submit application", true);
             askTreeSelectionDirect();
         }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            askHomeowner();
+        }},
         { text: "Start over", action: () => {
             addMessage("Start over", true);
             location.reload();
@@ -468,11 +532,14 @@ function showMainMenu() {
 function askTreeSelectionDirect() {
     updateProgress('Step 3: Tree Selection', 50);
 
-    // Initialize selectedTrees array
-    if (!state.data.selectedTrees) {
-        state.data.selectedTrees = [];
-        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from our native and non-native options. Scroll to see all choices:`);
+    // Initialize treeQuantities object
+    if (!state.data.treeQuantities) {
+        state.data.treeQuantities = {};
+        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees total. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
     }
+
+    // Calculate total trees selected
+    const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
 
     // Create buttons for all trees with section headers
     const buttons = [];
@@ -486,10 +553,11 @@ function askTreeSelectionDirect() {
 
     // Add native trees
     NATIVE_TREES.forEach(tree => {
-        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const quantity = state.data.treeQuantities[tree.name] || 0;
+        const buttonText = quantity > 0 ? `${tree.name} (${quantity})` : tree.name;
         buttons.push({
-            text: tree.name,
-            className: isSelected ? 'selected' : '',
+            text: buttonText,
+            className: quantity > 0 ? 'selected' : '',
             action: () => {
                 handleTreeSelectionDirect(tree.name);
             }
@@ -505,10 +573,11 @@ function askTreeSelectionDirect() {
 
     // Add non-native trees
     NON_NATIVE_TREES.forEach(tree => {
-        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const quantity = state.data.treeQuantities[tree.name] || 0;
+        const buttonText = quantity > 0 ? `${tree.name} (${quantity})` : tree.name;
         buttons.push({
-            text: tree.name,
-            className: isSelected ? 'selected' : '',
+            text: buttonText,
+            className: quantity > 0 ? 'selected' : '',
             action: () => {
                 handleTreeSelectionDirect(tree.name);
             }
@@ -517,16 +586,20 @@ function askTreeSelectionDirect() {
 
     // Add a "Done selecting" button
     buttons.push({
-        text: state.data.selectedTrees.length > 0
-            ? `Done selecting trees (${state.data.selectedTrees.length} selected)`
+        text: totalTrees > 0
+            ? `Done selecting trees (${totalTrees}/2 trees)`
             : "Done selecting trees",
         className: 'done-button',
         action: () => {
-            if (state.data.selectedTrees.length === 0) {
+            if (totalTrees === 0) {
                 addMessage("Please select at least one tree before continuing.");
                 return;
             } else {
-                const treeList = state.data.selectedTrees.join(', ');
+                // Build tree list with quantities
+                const treeList = Object.entries(state.data.treeQuantities)
+                    .filter(([_, qty]) => qty > 0)
+                    .map(([name, qty]) => qty > 1 ? `${name} (${qty})` : name)
+                    .join(', ');
                 addMessage("Done selecting trees", true);
                 state.data.treeChoices = treeList;
                 addMessage(`Great! You selected: <strong>${treeList}</strong>`);
@@ -539,30 +612,42 @@ function askTreeSelectionDirect() {
 }
 
 function handleTreeSelectionDirect(treeName) {
-    if (!state.data.selectedTrees) {
-        state.data.selectedTrees = [];
+    if (!state.data.treeQuantities) {
+        state.data.treeQuantities = {};
     }
 
-    if (state.data.selectedTrees.includes(treeName)) {
-        // Deselect the tree
-        state.data.selectedTrees = state.data.selectedTrees.filter(t => t !== treeName);
-        addMessage(`Removed: ${treeName}`, true);
+    const currentQty = state.data.treeQuantities[treeName] || 0;
+    const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
+
+    // If clicking an already selected tree, remove one (or all if only 1)
+    if (currentQty > 0) {
+        state.data.treeQuantities[treeName] = currentQty - 1;
+        if (state.data.treeQuantities[treeName] === 0) {
+            delete state.data.treeQuantities[treeName];
+        }
+        addMessage(`Removed 1 ${treeName}`, true);
     } else {
         // Check if limit reached
-        if (state.data.selectedTrees.length >= 2) {
-            addMessage("You can only select up to 2 trees. Please deselect one first or click 'Done selecting trees'.");
+        if (totalTrees >= 2) {
+            addMessage("You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.");
             return;
         }
         // Add the tree
-        state.data.selectedTrees.push(treeName);
+        state.data.treeQuantities[treeName] = 1;
         addMessage(`Selected: ${treeName}`, true);
     }
 
     // Show current selection
-    const currentSelection = state.data.selectedTrees.length > 0
-        ? `Current selection: <strong>${state.data.selectedTrees.join(', ')}</strong> (${state.data.selectedTrees.length}/2)`
-        : 'No trees selected yet';
-    addMessage(currentSelection);
+    const newTotal = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
+    if (newTotal > 0) {
+        const selectionList = Object.entries(state.data.treeQuantities)
+            .filter(([_, qty]) => qty > 0)
+            .map(([name, qty]) => qty > 1 ? `${name} (${qty})` : name)
+            .join(', ');
+        addMessage(`Current selection: <strong>${selectionList}</strong> (${newTotal}/2 trees)`);
+    } else {
+        addMessage('No trees selected yet');
+    }
 
     // Re-show the selection buttons
     clearInput();
@@ -582,6 +667,10 @@ function startTreeQuiz() {
             addMessage("Non-native (Ornamental)", true);
             state.data.nativePreference = 'non-native';
             askTreeSize();
+        }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            showMainMenu();
         }}
     ]);
 }
@@ -603,6 +692,10 @@ function askTreeSize() {
             addMessage("Large (30+ ft at maturity)", true);
             state.data.preferredSize = 'LARGE';
             askPrimaryGoal();
+        }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            startTreeQuiz();
         }}
     ]);
 }
@@ -629,6 +722,10 @@ function askPrimaryGoal() {
             addMessage("All of the above", true);
             state.data.primaryGoal = 'ALL';
             showTreeRecommendations();
+        }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            askTreeSize();
         }}
     ]);
 }
@@ -667,16 +764,19 @@ function showTreeRecommendations() {
 }
 
 function askTreeSelection(recommendations) {
-    // Initialize selectedTrees array and show recommendations message once
-    if (!state.data.selectedTrees) {
-        state.data.selectedTrees = [];
+    // Initialize treeQuantities object and show recommendations message once
+    if (!state.data.treeQuantities) {
+        state.data.treeQuantities = {};
 
         // Show the 3 recommendations
         const recNames = recommendations.map(t => t.name).join(', ');
         addMessage(`Based on your quiz answers, we recommend these 3 trees: <strong>${recNames}</strong>`);
 
-        addMessage(`<br>But you can browse all native and non-native options. Scroll to see all choices. Select up to 2 trees:`);
+        addMessage(`<br>But you can browse all native and non-native options. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
     }
+
+    // Calculate total trees selected
+    const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
 
     // Create buttons for all trees with section headers
     const buttons = [];
@@ -690,11 +790,13 @@ function askTreeSelection(recommendations) {
 
     // Add native trees
     NATIVE_TREES.forEach(tree => {
-        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const quantity = state.data.treeQuantities[tree.name] || 0;
         const isRecommended = recommendations.some(r => r.name === tree.name);
+        const star = isRecommended ? ' ⭐' : '';
+        const buttonText = quantity > 0 ? `${tree.name} (${quantity})${star}` : `${tree.name}${star}`;
         buttons.push({
-            text: isRecommended ? `${tree.name} ⭐` : tree.name,
-            className: isSelected ? 'selected' : '',
+            text: buttonText,
+            className: quantity > 0 ? 'selected' : '',
             action: () => {
                 handleTreeSelection(tree.name, recommendations);
             }
@@ -710,11 +812,13 @@ function askTreeSelection(recommendations) {
 
     // Add non-native trees
     NON_NATIVE_TREES.forEach(tree => {
-        const isSelected = state.data.selectedTrees.includes(tree.name);
+        const quantity = state.data.treeQuantities[tree.name] || 0;
         const isRecommended = recommendations.some(r => r.name === tree.name);
+        const star = isRecommended ? ' ⭐' : '';
+        const buttonText = quantity > 0 ? `${tree.name} (${quantity})${star}` : `${tree.name}${star}`;
         buttons.push({
-            text: isRecommended ? `${tree.name} ⭐` : tree.name,
-            className: isSelected ? 'selected' : '',
+            text: buttonText,
+            className: quantity > 0 ? 'selected' : '',
             action: () => {
                 handleTreeSelection(tree.name, recommendations);
             }
@@ -723,16 +827,20 @@ function askTreeSelection(recommendations) {
 
     // Add a "Done selecting" button
     buttons.push({
-        text: state.data.selectedTrees.length > 0
-            ? `Done selecting trees (${state.data.selectedTrees.length} selected)`
+        text: totalTrees > 0
+            ? `Done selecting trees (${totalTrees}/2 trees)`
             : "Done selecting trees",
         className: 'done-button',
         action: () => {
-            if (state.data.selectedTrees.length === 0) {
+            if (totalTrees === 0) {
                 addMessage("Please select at least one tree before continuing.");
                 return;
             } else {
-                const treeList = state.data.selectedTrees.join(', ');
+                // Build tree list with quantities
+                const treeList = Object.entries(state.data.treeQuantities)
+                    .filter(([_, qty]) => qty > 0)
+                    .map(([name, qty]) => qty > 1 ? `${name} (${qty})` : name)
+                    .join(', ');
                 addMessage("Done selecting trees", true);
                 state.data.treeChoices = treeList;
                 addMessage(`Great! You selected: <strong>${treeList}</strong>`);
@@ -745,30 +853,42 @@ function askTreeSelection(recommendations) {
 }
 
 function handleTreeSelection(treeName, recommendations) {
-    if (!state.data.selectedTrees) {
-        state.data.selectedTrees = [];
+    if (!state.data.treeQuantities) {
+        state.data.treeQuantities = {};
     }
 
-    if (state.data.selectedTrees.includes(treeName)) {
-        // Deselect the tree
-        state.data.selectedTrees = state.data.selectedTrees.filter(t => t !== treeName);
-        addMessage(`Removed: ${treeName}`, true);
+    const currentQty = state.data.treeQuantities[treeName] || 0;
+    const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
+
+    // If clicking an already selected tree, remove one (or all if only 1)
+    if (currentQty > 0) {
+        state.data.treeQuantities[treeName] = currentQty - 1;
+        if (state.data.treeQuantities[treeName] === 0) {
+            delete state.data.treeQuantities[treeName];
+        }
+        addMessage(`Removed 1 ${treeName}`, true);
     } else {
         // Check if limit reached
-        if (state.data.selectedTrees.length >= 2) {
-            addMessage("You can only select up to 2 trees. Please deselect one first or click 'Done selecting trees'.");
+        if (totalTrees >= 2) {
+            addMessage("You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.");
             return;
         }
         // Add the tree
-        state.data.selectedTrees.push(treeName);
+        state.data.treeQuantities[treeName] = 1;
         addMessage(`Selected: ${treeName}`, true);
     }
 
     // Show current selection
-    const currentSelection = state.data.selectedTrees.length > 0
-        ? `Current selection: <strong>${state.data.selectedTrees.join(', ')}</strong> (${state.data.selectedTrees.length}/2)`
-        : 'No trees selected yet';
-    addMessage(currentSelection);
+    const newTotal = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
+    if (newTotal > 0) {
+        const selectionList = Object.entries(state.data.treeQuantities)
+            .filter(([_, qty]) => qty > 0)
+            .map(([name, qty]) => qty > 1 ? `${name} (${qty})` : name)
+            .join(', ');
+        addMessage(`Current selection: <strong>${selectionList}</strong> (${newTotal}/2 trees)`);
+    } else {
+        addMessage('No trees selected yet');
+    }
 
     // Re-show the selection buttons
     clearInput();
@@ -788,6 +908,10 @@ function collectPropertyInfo() {
             addMessage("No", true);
             state.data.stumpRemoval = false;
             askComplexInstall();
+        }},
+        { text: "← Go back", className: 'back-button', action: () => {
+            addMessage("← Go back", true);
+            showMainMenu();
         }}
     ]);
 }
