@@ -55,7 +55,7 @@ function updateProgress(step, percentage) {
 }
 
 // Add message to chat and scroll
-function addMessage(text, isUser = false) {
+function addMessage(text, isUser = false, skipScroll = false) {
     const messagesDiv = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
@@ -67,13 +67,12 @@ function addMessage(text, isUser = false) {
     messageDiv.appendChild(bubble);
     messagesDiv.appendChild(messageDiv);
 
-    // Smooth scroll to bottom with slight delay to ensure rendering
-    setTimeout(() => {
-        messagesDiv.scrollTo({
-            top: messagesDiv.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 100);
+    // Auto-scroll to show new messages (skip for first message)
+    if (!skipScroll) {
+        setTimeout(() => {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }, 50);
+    }
 }
 
 // Clear input area
@@ -282,7 +281,7 @@ Please enter your street address:
 • Single-family homes or duplexes/triplexes only<br>
 • No apartments or condos with 4+ units<br>
 • <strong>Trees must be planted in the FRONT YARD only</strong>
-</div>`);
+</div>`, false, true); // Skip scroll on first message
 
     showTextInput('Enter your address...', (address) => {
         state.data.userAddress = address;
@@ -458,13 +457,91 @@ function showMainMenu() {
         }},
         { text: "Submit application", action: () => {
             addMessage("Submit application", true);
-            collectPropertyInfo();
+            askTreeSelectionDirect();
         }},
         { text: "Start over", action: () => {
             addMessage("Start over", true);
             location.reload();
         }}
     ]);
+}
+
+function askTreeSelectionDirect() {
+    updateProgress('Step 3: Tree Selection', 50);
+
+    // Initialize selectedTrees array
+    if (!state.data.selectedTrees) {
+        state.data.selectedTrees = [];
+        addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees from all 16 available options below:`);
+    }
+
+    // Get ALL trees (both native and non-native)
+    const allTrees = [...NATIVE_TREES, ...NON_NATIVE_TREES];
+
+    // Create buttons for ALL trees
+    const buttons = allTrees.map(tree => {
+        const isSelected = state.data.selectedTrees.includes(tree.name);
+        return {
+            text: tree.name,
+            className: isSelected ? 'selected' : '',
+            action: () => {
+                handleTreeSelectionDirect(tree.name);
+            }
+        };
+    });
+
+    // Add a "Done selecting" button
+    buttons.push({
+        text: state.data.selectedTrees.length > 0
+            ? `Done selecting trees (${state.data.selectedTrees.length} selected)`
+            : "Done selecting trees",
+        className: 'done-button',
+        action: () => {
+            if (state.data.selectedTrees.length === 0) {
+                addMessage("Please select at least one tree before continuing.");
+                return;
+            } else {
+                const treeList = state.data.selectedTrees.join(', ');
+                addMessage("Done selecting trees", true);
+                state.data.treeChoices = treeList;
+                addMessage(`Great! You selected: <strong>${treeList}</strong>`);
+                collectPropertyInfo();
+            }
+        }
+    });
+
+    showButtons(buttons);
+}
+
+function handleTreeSelectionDirect(treeName) {
+    if (!state.data.selectedTrees) {
+        state.data.selectedTrees = [];
+    }
+
+    if (state.data.selectedTrees.includes(treeName)) {
+        // Deselect the tree
+        state.data.selectedTrees = state.data.selectedTrees.filter(t => t !== treeName);
+        addMessage(`Removed: ${treeName}`, true);
+    } else {
+        // Check if limit reached
+        if (state.data.selectedTrees.length >= 2) {
+            addMessage("You can only select up to 2 trees. Please deselect one first or click 'Done selecting trees'.");
+            return;
+        }
+        // Add the tree
+        state.data.selectedTrees.push(treeName);
+        addMessage(`Selected: ${treeName}`, true);
+    }
+
+    // Show current selection
+    const currentSelection = state.data.selectedTrees.length > 0
+        ? `Current selection: <strong>${state.data.selectedTrees.join(', ')}</strong> (${state.data.selectedTrees.length}/2)`
+        : 'No trees selected yet';
+    addMessage(currentSelection);
+
+    // Re-show the selection buttons
+    clearInput();
+    askTreeSelectionDirect();
 }
 
 function startTreeQuiz() {
