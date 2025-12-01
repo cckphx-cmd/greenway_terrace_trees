@@ -39,6 +39,7 @@
             line-height: 1.7;
             position: relative;
             min-height: 100vh;
+            padding-top: 120px;
         }
 
         /* Desert Background - Sonoran Desert with Saguaros and Mountains */
@@ -71,7 +72,7 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
+            top: 42px;
             width: 100%;
             background: rgba(253, 248, 240, 0.95);
             backdrop-filter: blur(20px);
@@ -201,22 +202,30 @@
             color: white;
         }
 
-        /* Deadline Banner */
+        /* Deadline Banner - STICKY AT TOP */
         .deadline-banner {
-            background: linear-gradient(135deg, var(--terracotta) 0%, #D86A4A 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #E07A4F 0%, #F08C64 100%);
             color: white;
-            padding: 1.25rem 2rem;
+            padding: 0.75rem 2rem;
             text-align: center;
-            font-weight: 500;
+            font-weight: 600;
+            z-index: 1001;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         .deadline-banner span {
-            background: rgba(255,255,255,0.2);
-            padding: 0.35rem 1rem;
-            border-radius: 25px;
+            background: rgba(255,255,255,0.25);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             margin: 0 0.5rem;
             font-weight: 700;
         }
+
 
         /* Stats Section */
         .stats {
@@ -1003,6 +1012,11 @@
 <body>
     <div class="desert-bg"></div>
 
+    <!-- Deadline Banner - AT TOP -->
+    <div class="deadline-banner">
+        Applications close <span>December 31, 2025</span> at midnight · Planting week: <span>January 24, 2026</span>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="logo">
@@ -1020,21 +1034,18 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Free Trees for Greenway Terrace</h1>
-            <p class="hero-subtitle">& Surrounding Neighborhoods</p>
-            <p>Hi, my name is Courtney and I'm your neighbor in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.</p>
-            <div class="hero-buttons">
-                <a href="#roadrunner" class="btn btn-primary">Apply Now</a>
-                <a href="#eligibility" class="btn btn-secondary">Check Eligibility</a>
+        <div class="hero-content" style="display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;">
+            <img src="images/courtney-photo.jpg" alt="Courtney Kingsbury" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid var(--terracotta); box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <div style="flex: 1; min-width: 300px;">
+                <h1 style="font-size: 3.6rem; line-height: 1.1;">Free Trees for Greenway Terrace</h1>
+                <p class="hero-subtitle" style="font-size: 1.8rem;">& Surrounding Neighborhoods</p>
+                <p style="font-size: 1.32rem; line-height: 1.6; margin: 1.5rem 0;">Hi, my name is Courtney and I'm your neighbor in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.</p>
+                <div class="hero-buttons">
+                    <a href="#roadrunner" class="btn btn-primary" style="font-size: 1.3rem; padding: 1.2rem 2.5rem;">Apply Here</a>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Deadline Banner -->
-    <div class="deadline-banner">
-        Applications close<span>December 31, 2025</span>at midnight  ·  Planting week:<span>January 24, 2026</span>
-    </div>
 
     <!-- Stats Section -->
     <div class="stats">
@@ -1063,15 +1074,9 @@
             <p>This grant covers Greenway Terrace and surrounding neighborhoods. <strong>Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).</strong></p>
         </div>
 
-        <div class="map-container">
-            <div class="address-checker">
-                <h3>Quick Address Check</h3>
-                <div class="address-form">
-                    <input type="text" id="address-input" placeholder="Enter your address (e.g., 2026 W Virginia Ave)">
-                    <button onclick="checkAddress()">Check</button>
-                </div>
-                <div id="address-result"></div>
-            </div>
+        <div class="map-container" style="text-align: center; padding: 3rem 2rem;">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark);">The chatbot will check your address when you apply.</p>
+            <a href="#roadrunner" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 2.5rem; display: inline-block;">Start Your Application</a>
         </div>
     </section>
 
@@ -1079,43 +1084,32 @@
     <section class="about-section" id="about">
         <div class="about-content">
             <div class="about-text animate-on-scroll">
-                <h2>About the Community Canopy Grant</h2>
-                <p>The Community Canopy Grant is funded by the USDA and U.S. Forest Service to help cool our neighborhoods and combat Phoenix's extreme heat. Our neighborhood was selected to receive free trees!</p>
-                <p>Choose from 16 drought-tolerant species—8 native and 8 desert-adapted—all professionally planted at no cost. Native trees are strongly recommended as temperatures continue to rise.</p>
-                
-                <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">1</div>
-                        <div class="feature-text">
-                            <h4>Professional Planting</h4>
-                            <p>Licensed arborists plant your trees. Dead trees and stumps in your front yard are removed for qualifying homes.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">2</div>
-                        <div class="feature-text">
-                            <h4>Supply Kit Included</h4>
-                            <p>Receive a maintenance bag with watering supplies to help your new trees thrive.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">3</div>
-                        <div class="feature-text">
-                            <h4>Utilities Handled</h4>
-                            <p>Contractors coordinate with 811 to mark all underground utilities before planting.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">4</div>
-                        <div class="feature-text">
-                            <h4>Front Yard Only</h4>
-                            <p>Trees must be planted within your front yard property lines for maximum community cooling benefit.</p>
-                        </div>
+                <h2>About This Project</h2>
+
+                <div style="display: flex; align-items: flex-start; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                    <img src="images/courtney-photo.jpg" alt="Courtney Kingsbury" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid var(--terracotta); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <div style="flex: 1; min-width: 300px;">
+                        <p style="font-size: 1.1rem; line-height: 1.7;">Hi, I'm Courtney, your neighbor over in Greenway Terrace. I've been here for 10 years and my family has been in this neighborhood since it was built. I put this project together to help us get as many trees as possible to as many homes as possible.</p>
                     </div>
                 </div>
-            </div>
-            <div class="mascot-container animate-on-scroll">
-                <img src="images/roadrunner-mascot.png" alt="Roadrunner Mascot - Your Tree Grant Guide">
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision only. We won. The city then expanded eligibility to over 600 homes in the surrounding area, which means more of our neighbors can benefit.</p>
+
+                <h3 style="color: var(--terracotta); margin-top: 2.5rem; margin-bottom: 1rem;">Here's why this matters.</h3>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">Have you ever wondered why our neighborhood isn't built in straight lines? Or why the houses all sit at slightly different angles on their lots?</p>
+
+                <p style="font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0; color: var(--terracotta-dark);">They don't build them like they used to.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">Our homes, and more importantly our trees, were strategically placed based on the science of Sun Path Diagrams and Shadow Analysis. These tools map exactly where the sun will be at any time of day, any day of the year, and predict how shadows will move across properties throughout the seasons. Mid-century builders used this science to angle houses and position trees so that a single tree could shade your house in the morning and your neighbor's driveway in the afternoon. It was intentional. It was brilliant.</p>
+
+                <p style="font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0; color: var(--terracotta-dark);">And over time, we've lost it.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">As trees have come down from storms, age, and disease, we've lost the shade that once kept our homes cool. I know that when older homes start showing their age, our first instinct is to slash and burn. Add different windows. Tear things down. But what we should really be doing is reclaiming the heat mitigation strategies that were already here. These gorgeous mid-century ranch homes were designed to stay cool. We just need to restore what made them work.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">I applied for this grant for one simple reason: my trees died and I'm not in a financial place to replace them. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.</p>
+
+                <p style="font-size: 1.2rem; font-weight: 600; margin: 2rem 0; color: var(--terracotta); font-style: italic;">Join me in bringing the shade back.</p>
             </div>
         </div>
     </section>
@@ -1409,23 +1403,25 @@
         </div>
     </section>
 
-    <!-- Application Info Section -->
+    <!-- Application Options Section -->
     <section class="chatbot-section" id="roadrunner">
-        <h2>Ready to Apply?</h2>
-        <p>Click the roadrunner assistant in the bottom-right corner to verify your address, take a tree quiz, check your application status, or submit your application!</p>
+        <h2>How to Apply</h2>
 
-        <div class="chatbot-features">
-            <div class="chatbot-feature">
-                ✓ Address Verification
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: var(--warm-cream); border: 3px solid var(--terracotta); border-radius: 15px; padding: 2.5rem; margin: 2rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: var(--terracotta); margin-bottom: 1rem; font-size: 1.8rem;">💻 Online Application (Recommended)</h3>
+                <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem;">Click the roadrunner assistant in the bottom-right corner to check eligibility, choose your trees, and submit your application. Takes about 5 minutes!</p>
+                <a href="#" onclick="document.getElementById('roadrunner-chat').click(); return false;" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Start Online Application</a>
             </div>
-            <div class="chatbot-feature">
-                ✓ Tree Selection Quiz
-            </div>
-            <div class="chatbot-feature">
-                ✓ Status Check
-            </div>
-            <div class="chatbot-feature">
-                ✓ Submit Application
+
+            <div style="background: #f5f5f5; border: 2px solid #ccc; border-radius: 15px; padding: 2.5rem; margin: 2rem 0;">
+                <h3 style="color: var(--text-dark); margin-bottom: 1rem; font-size: 1.6rem;">📄 Paper Application</h3>
+                <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem;">Prefer paper? Download the application form and drop it off by December 31, 2025.</p>
+                <a href="paper-application.pdf" download class="btn btn-secondary" style="font-size: 1rem; padding: 0.9rem 1.8rem; margin-bottom: 1.5rem; display: inline-block;">Download Paper Application</a>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--sage);">
+                    <p style="margin: 0; font-weight: 600;">Drop-off Location:</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 1.05rem;">2133 W Edgemont Ave<br>(Look for the marked mail slot)</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1469,7 +1465,7 @@
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Great news! For qualifying homes that sign up for free trees, <strong>dead trees and stumps in your front yard will be removed</strong> as part of the professional planting service.
+                        Great news! For qualifying homes that sign up for free trees, <strong>dead trees or stumps that are blocking where new trees should be planted will be removed</strong> as part of the professional planting service.
                     </div>
                 </div>
             </div>
