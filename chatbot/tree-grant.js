@@ -897,10 +897,10 @@ function handleTreeSelection(treeName, recommendations) {
 
 function collectPropertyInfo() {
     updateProgress('Step 4: Property Information', 70);
-    addMessage(`Now, a few questions about your property:<br><br><strong>Do you need stumps or fully dead trees removed?</strong>`);
+    addMessage(`Now, a few questions about your property:<br><br><strong>Do you have any dead trees or stumps that are blocking where new trees should be planted?</strong>`);
     showButtons([
-        { text: "Yes", action: () => {
-            addMessage("Yes", true);
+        { text: "Yes, need removal", action: () => {
+            addMessage("Yes, need removal", true);
             state.data.stumpRemoval = true;
             askComplexInstall();
         }},
@@ -942,80 +942,48 @@ function askContactPreference() {
 <strong>DATA PRIVACY NOTICE</strong><br><br>
 Your information will be used solely to process your tree grant application and contact you about this program. We will not share your data with third parties except as required for tree planting coordination with the City of Phoenix and Canopy Tree Care.<br><br>
 By continuing, you consent to the collection and use of your contact information for this program.
-</div><br>How would you prefer to be contacted?`);
-    showButtons([
-        { text: "Email", action: () => {
-            addMessage("Email", true);
-            state.data.contactPreference = 'email';
-            askEmail();
-        }},
-        { text: "Phone call", action: () => {
-            addMessage("Phone call", true);
-            state.data.contactPreference = 'phone';
-            askPhone();
-        }},
-        { text: "Both", action: () => {
-            addMessage("Both", true);
-            state.data.contactPreference = 'both';
-            askEmail();
-        }}
-    ]);
+</div><br>Great! Now I need your contact information.<br><br><strong>First, your phone number (required):</strong><br><em>The tree planting contractors need this to coordinate with you.</em>`);
+    showTextInput("(555) 555-5555", (phone) => {
+        state.data.userPhone = phone;
+        addMessage(phone, true);
+        askEmail();
+    });
 }
 
 function askEmail() {
-    addMessage(`Please enter your email address:`);
+    addMessage(`And your email address:`);
     showTextInput("your@email.com", (email) => {
         state.data.userEmail = email;
-        if (state.data.contactPreference === 'both') {
-            askPhone();
-        } else {
-            askName();
-        }
+        addMessage(email, true);
+        askName();
     });
-}
-
-function askPhone() {
-    addMessage(`Please enter your phone number:`);
-    showTextInput("(555) 555-5555", (phone) => {
-        state.data.userPhone = phone;
-        askSMSOptIn();
-    });
-}
-
-function askSMSOptIn() {
-    addMessage(`Would you like to receive text message updates?`);
-    showButtons([
-        { text: "Yes, text me", action: () => {
-            addMessage("Yes, text me", true);
-            state.data.smsOptIn = true;
-            if (state.data.contactPreference === 'phone') {
-                askEmail();
-            } else {
-                askName();
-            }
-        }},
-        { text: "No, calls only", action: () => {
-            addMessage("No, calls only", true);
-            state.data.smsOptIn = false;
-            if (state.data.contactPreference === 'phone') {
-                askEmail();
-            } else {
-                askName();
-            }
-        }}
-    ]);
 }
 
 function askName() {
     addMessage(`What's your first name?`);
     showTextInput("First name", (firstName) => {
         state.data.firstName = firstName;
+        addMessage(firstName, true);
         addMessage(`And your last name?`);
         showTextInput("Last name", (lastName) => {
             state.data.lastName = lastName;
-            showReview();
+            addMessage(lastName, true);
+            askTShirtSize();
         });
     });
+}
+
+function askTShirtSize() {
+    addMessage(`<strong>Great news!</strong> You get a free t-shirt with your application! 🎁<br><br>What size would you like?`);
+    showButtons([
+        { text: "S", action: () => { addMessage("S", true); state.data.tshirtSize = 'S'; showReview(); }},
+        { text: "M", action: () => { addMessage("M", true); state.data.tshirtSize = 'M'; showReview(); }},
+        { text: "L", action: () => { addMessage("L", true); state.data.tshirtSize = 'L'; showReview(); }},
+        { text: "XL", action: () => { addMessage("XL", true); state.data.tshirtSize = 'XL'; showReview(); }},
+        { text: "2XL", action: () => { addMessage("2XL", true); state.data.tshirtSize = '2XL'; showReview(); }},
+        { text: "3XL", action: () => { addMessage("3XL", true); state.data.tshirtSize = '3XL'; showReview(); }},
+        { text: "4XL", action: () => { addMessage("4XL", true); state.data.tshirtSize = '4XL'; showReview(); }}
+    ]);
 }
 
 function showReview() {
@@ -1027,12 +995,12 @@ function showReview() {
 <strong>Status:</strong> ${state.data.homeownerStatus}<br>
 ${state.data.landlordName ? `<strong>Landlord:</strong> ${state.data.landlordName} (${state.data.landlordEmail})<br>` : ''}
 <strong>Trees:</strong> ${state.data.treeChoices || 'To be selected'}<br>
-<strong>Stump removal:</strong> ${state.data.stumpRemoval ? 'Yes' : 'No'}<br>
+<strong>Stump removal:</strong> ${state.data.stumpRemoval ? 'Yes - blocking new tree placement' : 'No'}<br>
 <strong>Complex install:</strong> ${state.data.complexInstallDetails}<br>
 <strong>Name:</strong> ${state.data.firstName} ${state.data.lastName}<br>
-<strong>Email:</strong> ${state.data.userEmail || 'Not provided'}<br>
-<strong>Phone:</strong> ${state.data.userPhone || 'Not provided'}<br>
-<strong>SMS:</strong> ${state.data.smsOptIn ? 'Yes' : 'No'}<br><br>
+<strong>Email:</strong> ${state.data.userEmail}<br>
+<strong>Phone:</strong> ${state.data.userPhone}<br>
+<strong>T-shirt size:</strong> ${state.data.tshirtSize}<br><br>
 
 <strong>Is everything correct?</strong>
 `;
@@ -1050,8 +1018,73 @@ function submitApplication() {
     addMessage("Yes, submit!", true);
     addMessage('Submitting your application... <span class="loading"></span>');
 
-    // Here you would send the data to your backend
-    console.log('Application data:', state.data);
+    // Prepare application data
+    const applicationData = {
+        submittedAt: new Date().toISOString(),
+        address: state.data.confirmedAddress,
+        homeownerStatus: state.data.homeownerStatus,
+        landlordName: state.data.landlordName || 'N/A',
+        landlordEmail: state.data.landlordEmail || 'N/A',
+        landlordPhone: state.data.landlordPhone || 'N/A',
+        trees: state.data.treeChoices,
+        stumpRemoval: state.data.stumpRemoval ? 'Yes - blocking new tree placement' : 'No',
+        complexInstall: state.data.complexInstallDetails,
+        firstName: state.data.firstName,
+        lastName: state.data.lastName,
+        email: state.data.userEmail,
+        phone: state.data.userPhone,
+        tshirtSize: state.data.tshirtSize
+    };
+
+    // Log to console (for debugging)
+    console.log('Application data:', applicationData);
+
+    // Send to Google Sheets (if endpoint is configured)
+    const GOOGLE_SHEETS_URL = ''; // USER: Replace with your Google Apps Script Web App URL
+    if (GOOGLE_SHEETS_URL) {
+        fetch(GOOGLE_SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(applicationData)
+        }).catch(err => console.log('Sheets submission:', err));
+    }
+
+    // Send via Email (mailto link - opens user's email client)
+    const emailSubject = `Tree Grant Application - ${applicationData.firstName} ${applicationData.lastName}`;
+    const emailBody = `
+NEW TREE GRANT APPLICATION
+
+Submitted: ${applicationData.submittedAt}
+
+APPLICANT INFO:
+Name: ${applicationData.firstName} ${applicationData.lastName}
+Phone: ${applicationData.phone}
+Email: ${applicationData.email}
+Address: ${applicationData.address}
+Homeowner Status: ${applicationData.homeownerStatus}
+
+LANDLORD INFO (if applicable):
+Name: ${applicationData.landlordName}
+Email: ${applicationData.landlordEmail}
+Phone: ${applicationData.landlordPhone}
+
+TREE SELECTION:
+Trees: ${applicationData.trees}
+
+PROPERTY INFO:
+Stump Removal Needed: ${applicationData.stumpRemoval}
+Complex Install: ${applicationData.complexInstall}
+
+PERKS:
+T-shirt Size: ${applicationData.tshirtSize}
+    `.trim();
+
+    // Create mailto link (will open in default email client)
+    const mailtoLink = `mailto:cckphx@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Auto-send email (opens in new window)
+    window.open(mailtoLink, '_blank');
 
     setTimeout(() => {
         updateProgress('Complete!', 100);
@@ -1062,8 +1095,11 @@ Thank you, ${state.data.firstName}! Your application has been received.<br><br>
 <div class="important-box">
 <strong>NEXT STEPS:</strong><br>
 • You'll receive a confirmation email shortly<br>
+• <strong>You'll receive yard flags</strong> to mark exactly where you want your trees planted<br>
+• Your <strong>free t-shirt (size ${state.data.tshirtSize})</strong> will be included with your trees<br>
 • Courtney Kingsbury will review your application<br>
-• We'll contact you within 5-7 business days<br><br>
+• We'll contact you within 5-7 business days<br>
+• <strong>Planting week: January 24, 2026</strong><br><br>
 
 <strong>Questions?</strong><br>
 Email: <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a><br><br>
