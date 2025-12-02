@@ -409,8 +409,7 @@ async function startConversation() {
         }},
         { text: "Take tree quiz", action: () => {
             addMessage("Take tree quiz", true);
-            // First need to go through welcome to verify address
-            startWelcome();
+            startTreeQuiz();
         }},
         { text: "View FAQ", action: () => {
             addMessage("View FAQ", true);
@@ -423,8 +422,10 @@ async function startConversation() {
     // Also show text input for questions
     showTextInput('Ask me anything about the tree program...', (question) => {
         addMessage(question, true);
-        addMessage("Thanks for your question! To help you best, let's start with your application. You can ask specific questions as we go through the process.");
-        setTimeout(startWelcome, 500);
+        addMessage("Thanks for your question! Here are some helpful resources:");
+        setTimeout(() => {
+            showFAQ();
+        }, 300);
     });
 
     // After everything is rendered, scroll to top to show first message
@@ -1082,21 +1083,18 @@ function showTreeRecommendations() {
     addMessage(recommendationHTML);
 
     showButtons([
-        { text: "Select my trees", action: () => {
-            addMessage("Select my trees", true);
-            askTreeSelection(recommendations);
+        { text: "Apply with these trees", action: () => {
+            addMessage("Apply with these trees", true);
+            // Save quiz results and start application
+            startWelcome();
         }},
         { text: "← Change my answers", className: 'back-button', action: () => {
             addMessage("← Change my answers", true);
             startTreeQuiz();
         }},
-        { text: "Retake quiz", action: () => {
-            addMessage("Retake quiz", true);
-            startTreeQuiz();
-        }},
-        { text: "Back to menu", action: () => {
-            addMessage("Back to menu", true);
-            showMainMenu();
+        { text: "Start over", action: () => {
+            addMessage("Start over", true);
+            location.reload();
         }}
     ]);
 }
