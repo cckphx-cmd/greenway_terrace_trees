@@ -1813,10 +1813,6 @@
                 widget.classList.remove('open');
                 button.style.display = 'flex';
             } else {
-                // Reload iframe to reset scroll position
-                const src = iframe.src;
-                iframe.src = src;
-
                 widget.classList.add('open');
                 button.style.display = 'none';
             }
@@ -1844,16 +1840,14 @@
             toggleChatbot();
         }
 
-        // Show greeting on page load (after 2 seconds, if not shown before)
+        // Auto-open chatbot on page load
         window.addEventListener('load', function() {
-            const greetingShown = localStorage.getItem('chatbotGreetingShown');
-            if (!greetingShown) {
+            const chatbotOpened = sessionStorage.getItem('chatbotAutoOpened');
+            if (!chatbotOpened) {
                 setTimeout(function() {
-                    const greeting = document.getElementById('chatbotGreeting');
-                    greeting.classList.add('show');
-                    // Auto-hide after 10 seconds
-                    setTimeout(closeGreeting, 10000);
-                }, 2000);
+                    toggleChatbot();
+                    sessionStorage.setItem('chatbotAutoOpened', 'true');
+                }, 1000);
             }
         });
     </script>
