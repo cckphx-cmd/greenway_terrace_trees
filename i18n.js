@@ -1,0 +1,404 @@
+// ============================================
+// INTERNATIONALIZATION SYSTEM
+// Greenway Terrace Trees Site
+// ============================================
+
+const translations = {
+  en: {
+    // Navigation
+    'nav.logo': 'Greenway Terrace Trees',
+    'nav.checkEligibility': 'Check Eligibility',
+    'nav.about': 'About',
+    'nav.browseTrees': 'Browse Trees',
+    'nav.treePlanner': 'Tree Planner',
+    'nav.faq': 'FAQ',
+
+    // Deadline Banner
+    'deadline.text': 'Applications close',
+    'deadline.date': 'December 31, 2025',
+    'deadline.time': 'at midnight',
+    'deadline.planting': 'Planting week:',
+    'deadline.plantingDate': 'January 24, 2026',
+
+    // Hero Section
+    'hero.title': 'Free Trees for Greenway Terrace',
+    'hero.subtitle': '& Surrounding Neighborhoods',
+    'hero.description': "Hi, I'm Courtney Kingsbury, your neighbor in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
+    'hero.cta': 'Click the Roadrunner to Get Started',
+
+    // Stats Section
+    'stats.treesPerHome': 'Free Trees Per Home',
+    'stats.freePlanting': 'Free Planting & Delivery',
+    'stats.species': 'Species to Choose From',
+    'stats.cooler': 'Cooler Under Shade',
+
+    // Eligibility Section
+    'eligibility.title': 'Check Your Eligibility',
+    'eligibility.description': 'This grant covers Greenway Terrace and surrounding neighborhoods.',
+    'eligibility.boundaries': 'Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).',
+    'eligibility.chatbotNote': 'The chatbot will check your address when you apply.',
+    'eligibility.eligible': 'Great news! Your address is eligible for free trees.',
+    'eligibility.applyNow': 'Apply now!',
+    'eligibility.maybeEligible': 'Your address appears to be eligible. Please verify the exact address when you apply.',
+    'eligibility.notEligible': "We couldn't find your address on the eligible list. Please double-check your address or contact us for assistance.",
+
+    // Trees Section
+    'trees.title': 'Browse Trees',
+    'trees.description': 'Browse 16 drought-tolerant species perfect for Phoenix. Click any tree to see the full info sheet from the City of Phoenix. Trees marked "Powerline Safe" are suitable for planting near power lines.',
+    'trees.native': 'Native',
+    'trees.nativeTitle': 'Native Sonoran Desert Trees (Recommended)',
+    'trees.nonNative': 'Non-Native',
+    'trees.nonNativeTitle': 'Desert-Adapted Non-Native Trees',
+    'trees.powerlineSafe': 'Powerline Safe',
+    'trees.tall': 'tall',
+    'trees.growth': 'growth',
+    'trees.water': 'water',
+    'trees.fast': 'Fast',
+    'trees.moderate': 'Moderate',
+    'trees.slow': 'Slow',
+    'trees.low': 'Low',
+    'trees.mod': 'Mod',
+    'trees.lowMod': 'Low-Mod',
+
+    // FAQ Section
+    'faq.title': 'Frequently Asked Questions',
+    'faq.subtitle': 'Everything you need to know about getting your free trees',
+
+    'faq.q1': 'How much does this cost?',
+    'faq.a1': '<strong>Nothing at all!</strong> The trees, professional planting, and supply kit are completely free. This program is funded by the USDA and U.S. Forest Service. Note: Once planted, watering and ongoing maintenance become your responsibility.',
+
+    'faq.q2': 'How many trees can I get?',
+    'faq.a2': 'Each household can receive <strong>up to 2 trees</strong>. You can choose from 16 species—8 native and 8 desert-adapted non-native varieties.',
+
+    'faq.q3': 'What about dead trees or stumps in my yard?',
+    'faq.a3': 'Great news! For qualifying homes that sign up for free trees, <strong>dead trees or stumps that are blocking where new trees should be planted will be removed</strong> as part of the professional planting service.',
+
+    'faq.q4': 'Who plants the trees?',
+    'faq.a4': "Professional arborists and licensed landscape contractors handle all planting. They'll also coordinate with 811 to mark underground utilities before digging. You don't need to lift a finger!",
+
+    'faq.q5': 'Can I plant trees in my backyard?',
+    'faq.a5': 'Unfortunately, no. Trees must be planted in your <strong>front yard, within your property lines</strong> (not in the right of way). This maximizes community benefit by shading sidewalks and helping cool our streets.',
+
+    'faq.q6': 'When will trees be planted?',
+    'faq.a6': 'Planting is scheduled for the <strong>week of January 24, 2026</strong>. You must apply by December 31, 2025 to be included in this planting round.',
+
+    'faq.q7': 'What size trees will be planted?',
+    'faq.a7': 'Typically <strong>15- or 25-gallon trees</strong> depending on nursery availability. The exact height varies by species—click on any tree to see its mature size.',
+
+    'faq.q8': 'Do I need to water the trees?',
+    'faq.a8': 'Yes. Once planted, watering is your responsibility. New trees need about <strong>5 gallons every 5-7 days for two years</strong>. You\'ll receive a maintenance supply bag to help. All selected trees are drought-tolerant and need less water once established.',
+
+    'faq.q9': "I'm a renter. Can I still apply?",
+    'faq.a9': 'Yes! Renters can apply, but you\'ll need <strong>written permission from the property owner</strong> before trees can be planted.',
+
+    'faq.q10': 'Are fruit trees available?',
+    'faq.a10': 'No, fruit trees are not part of this program. All 16 available species are drought-tolerant shade trees selected for Phoenix\'s climate. The Olive Tree variety provided is fruitless.',
+
+    'faq.q11': 'What if I have power lines above my yard?',
+    'faq.a11': 'Choose a tree marked <strong>Powerline Safe</strong>. These shorter species won\'t interfere with overhead lines. Tall trees cannot be planted beneath power lines.',
+
+    // Chatbot
+    'chatbot.header': 'Tree Grant Assistant',
+    'chatbot.subtitle': 'Ask me anything!',
+    'chatbot.greetingTitle': "Hi, I'm Roadrunner!",
+    'chatbot.greetingText': 'Your neighborhood tree grant specialist. You can ask me questions, take a quiz to find the right trees for your front yard, or submit your request for your trees.',
+    'chatbot.greetingButton': "Let's Get Started!",
+
+    // Footer
+    'footer.title': 'Greenway Terrace Tree Grant',
+    'footer.description': 'A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.',
+    'footer.quickLinks': 'Quick Links',
+    'footer.resources': 'Resources',
+    'footer.cityGrants': 'City of Phoenix Grants',
+    'footer.heatOffice': 'Heat Response Office',
+    'footer.treeGuide': 'Arizona Tree Care Guide',
+    'footer.courtneyWork': "Courtney's Work",
+    'footer.copyright': '© 2025 Greenway Terrace Community Canopy Grant'
+  },
+
+  es: {
+    // Navigation
+    'nav.logo': 'Árboles de Greenway Terrace',
+    'nav.checkEligibility': 'Verificar Elegibilidad',
+    'nav.about': 'Acerca de',
+    'nav.browseTrees': 'Ver Árboles',
+    'nav.treePlanner': 'Planificador de Árboles',
+    'nav.faq': 'Preguntas Frecuentes',
+
+    // Deadline Banner
+    'deadline.text': 'Las solicitudes cierran el',
+    'deadline.date': '31 de diciembre de 2025',
+    'deadline.time': 'a medianoche',
+    'deadline.planting': 'Semana de plantación:',
+    'deadline.plantingDate': '24 de enero de 2026',
+
+    // Hero Section
+    'hero.title': 'Árboles Gratis para Greenway Terrace',
+    'hero.subtitle': 'y Vecindarios Cercanos',
+    'hero.description': 'Hola, soy Courtney Kingsbury, su vecina en Greenway Terrace. Solicité y gané una subvención para nuestro vecindario donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
+    'hero.cta': 'Haga Clic en el Correcaminos para Comenzar',
+
+    // Stats Section
+    'stats.treesPerHome': 'Árboles Gratis por Hogar',
+    'stats.freePlanting': 'Plantación y Entrega Gratis',
+    'stats.species': 'Especies para Elegir',
+    'stats.cooler': 'Más Fresco Bajo la Sombra',
+
+    // Eligibility Section
+    'eligibility.title': 'Verifique Su Elegibilidad',
+    'eligibility.description': 'Esta subvención cubre Greenway Terrace y vecindarios circundantes.',
+    'eligibility.boundaries': 'Límites del área elegible: Thomas Rd (Sur), McDowell Rd (Norte), 23rd Ave (Oeste), 19th Ave (Este).',
+    'eligibility.chatbotNote': 'El chatbot verificará su dirección cuando aplique.',
+    'eligibility.eligible': '¡Buenas noticias! Su dirección es elegible para árboles gratis.',
+    'eligibility.applyNow': '¡Solicite ahora!',
+    'eligibility.maybeEligible': 'Su dirección parece ser elegible. Por favor verifique la dirección exacta cuando aplique.',
+    'eligibility.notEligible': 'No pudimos encontrar su dirección en la lista de elegibles. Por favor verifique su dirección o contáctenos para obtener asistencia.',
+
+    // Trees Section
+    'trees.title': 'Ver Árboles',
+    'trees.description': 'Explore 16 especies tolerantes a la sequía perfectas para Phoenix. Haga clic en cualquier árbol para ver la hoja informativa completa de la Ciudad de Phoenix. Los árboles marcados como "Seguros para Líneas Eléctricas" son adecuados para plantar cerca de líneas eléctricas.',
+    'trees.native': 'Nativo',
+    'trees.nativeTitle': 'Árboles Nativos del Desierto de Sonora (Recomendados)',
+    'trees.nonNative': 'No Nativo',
+    'trees.nonNativeTitle': 'Árboles No Nativos Adaptados al Desierto',
+    'trees.powerlineSafe': 'Seguro para Líneas Eléctricas',
+    'trees.tall': 'de altura',
+    'trees.growth': 'crecimiento',
+    'trees.water': 'agua',
+    'trees.fast': 'Rápido',
+    'trees.moderate': 'Moderado',
+    'trees.slow': 'Lento',
+    'trees.low': 'Bajo',
+    'trees.mod': 'Mod',
+    'trees.lowMod': 'Bajo-Mod',
+
+    // FAQ Section
+    'faq.title': 'Preguntas Frecuentes',
+    'faq.subtitle': 'Todo lo que necesita saber sobre cómo obtener sus árboles gratis',
+
+    'faq.q1': '¿Cuánto cuesta esto?',
+    'faq.a1': '<strong>¡Nada en absoluto!</strong> Los árboles, la plantación profesional y el kit de suministros son completamente gratis. Este programa está financiado por el USDA y el Servicio Forestal de EE. UU. Nota: Una vez plantados, el riego y el mantenimiento continuo son su responsabilidad.',
+
+    'faq.q2': '¿Cuántos árboles puedo obtener?',
+    'faq.a2': 'Cada hogar puede recibir <strong>hasta 2 árboles</strong>. Puede elegir entre 16 especies: 8 nativas y 8 variedades no nativas adaptadas al desierto.',
+
+    'faq.q3': '¿Qué pasa con los árboles muertos o tocones en mi jardín?',
+    'faq.a3': '¡Buenas noticias! Para las casas calificadas que se inscriban para árboles gratis, <strong>los árboles muertos o tocones que bloqueen donde se deben plantar los nuevos árboles serán removidos</strong> como parte del servicio de plantación profesional.',
+
+    'faq.q4': '¿Quién planta los árboles?',
+    'faq.a4': 'Los arboristas profesionales y contratistas de paisajismo con licencia manejan toda la plantación. También coordinarán con el 811 para marcar las utilidades subterráneas antes de excavar. ¡Usted no necesita mover un dedo!',
+
+    'faq.q5': '¿Puedo plantar árboles en mi jardín trasero?',
+    'faq.a5': 'Desafortunadamente, no. Los árboles deben plantarse en su <strong>jardín delantero, dentro de los límites de su propiedad</strong> (no en el derecho de paso). Esto maximiza el beneficio comunitario al dar sombra a las aceras y ayudar a enfriar nuestras calles.',
+
+    'faq.q6': '¿Cuándo se plantarán los árboles?',
+    'faq.a6': 'La plantación está programada para la <strong>semana del 24 de enero de 2026</strong>. Debe solicitar antes del 31 de diciembre de 2025 para ser incluido en esta ronda de plantación.',
+
+    'faq.q7': '¿Qué tamaño de árboles se plantarán?',
+    'faq.a7': 'Típicamente <strong>árboles de 15 o 25 galones</strong> dependiendo de la disponibilidad del vivero. La altura exacta varía según la especie: haga clic en cualquier árbol para ver su tamaño maduro.',
+
+    'faq.q8': '¿Necesito regar los árboles?',
+    'faq.a8': 'Sí. Una vez plantados, el riego es su responsabilidad. Los árboles nuevos necesitan aproximadamente <strong>5 galones cada 5-7 días durante dos años</strong>. Recibirá una bolsa de suministros de mantenimiento para ayudar. Todos los árboles seleccionados son tolerantes a la sequía y necesitan menos agua una vez establecidos.',
+
+    'faq.q9': 'Soy inquilino. ¿Aún puedo solicitar?',
+    'faq.a9': '¡Sí! Los inquilinos pueden solicitar, pero necesitará <strong>permiso por escrito del dueño de la propiedad</strong> antes de que se puedan plantar los árboles.',
+
+    'faq.q10': '¿Hay árboles frutales disponibles?',
+    'faq.a10': 'No, los árboles frutales no son parte de este programa. Las 16 especies disponibles son árboles de sombra tolerantes a la sequía seleccionados para el clima de Phoenix. La variedad de olivo proporcionada no produce frutos.',
+
+    'faq.q11': '¿Qué pasa si tengo líneas eléctricas sobre mi jardín?',
+    'faq.a11': 'Elija un árbol marcado como <strong>Seguro para Líneas Eléctricas</strong>. Estas especies más pequeñas no interferirán con las líneas aéreas. Los árboles altos no se pueden plantar debajo de las líneas eléctricas.',
+
+    // Chatbot
+    'chatbot.header': 'Asistente de Subvención de Árboles',
+    'chatbot.subtitle': '¡Pregúntame lo que quieras!',
+    'chatbot.greetingTitle': '¡Hola, soy Correcaminos!',
+    'chatbot.greetingText': 'Su especialista en subvenciones de árboles del vecindario. Puede hacerme preguntas, hacer un cuestionario para encontrar los árboles adecuados para su jardín delantero, o enviar su solicitud para sus árboles.',
+    'chatbot.greetingButton': '¡Comencemos!',
+
+    // Footer
+    'footer.title': 'Subvención de Árboles de Greenway Terrace',
+    'footer.description': 'Una iniciativa de Community Canopy a través de la Oficina de Respuesta y Mitigación del Calor de la Ciudad de Phoenix, financiada por el Servicio Forestal del USDA.',
+    'footer.quickLinks': 'Enlaces Rápidos',
+    'footer.resources': 'Recursos',
+    'footer.cityGrants': 'Subvenciones de la Ciudad de Phoenix',
+    'footer.heatOffice': 'Oficina de Respuesta al Calor',
+    'footer.treeGuide': 'Guía de Cuidado de Árboles de Arizona',
+    'footer.courtneyWork': 'Trabajo de Courtney',
+    'footer.copyright': '© 2025 Subvención Community Canopy de Greenway Terrace'
+  }
+};
+
+// Current language (stored in localStorage)
+let currentLanguage = localStorage.getItem('language') || 'en';
+
+// Translation function
+function t(key) {
+  return translations[currentLanguage][key] || translations['en'][key] || key;
+}
+
+// Set language
+function setLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('language', lang);
+  updatePageText();
+
+  // Update language buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`[data-lang="${lang}"]`)?.classList.add('active');
+}
+
+// Update all text on the page
+function updatePageText() {
+  // Update deadline banner
+  const deadlineBanner = document.querySelector('.deadline-banner');
+  if (deadlineBanner) {
+    deadlineBanner.innerHTML = `${t('deadline.text')} <span>${t('deadline.date')}</span> ${t('deadline.time')} · ${t('deadline.planting')} <span>${t('deadline.plantingDate')}</span>`;
+  }
+
+  // Update navigation
+  const navLinks = document.querySelectorAll('.nav-links a');
+  if (navLinks.length >= 5) {
+    navLinks[0].textContent = t('nav.checkEligibility');
+    navLinks[1].textContent = t('nav.about');
+    navLinks[2].textContent = t('nav.browseTrees');
+    navLinks[3].textContent = t('nav.treePlanner');
+    navLinks[4].textContent = t('nav.faq');
+  }
+
+  // Update hero section
+  const heroTitle = document.querySelector('.hero h1');
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  const heroDescription = document.querySelector('.hero p');
+  const heroCTA = document.querySelector('.hero .btn-primary');
+
+  if (heroTitle) heroTitle.textContent = t('hero.title');
+  if (heroSubtitle) heroSubtitle.textContent = t('hero.subtitle');
+  if (heroDescription) heroDescription.textContent = t('hero.description');
+  if (heroCTA) heroCTA.textContent = t('hero.cta');
+
+  // Update stats
+  const statLabels = document.querySelectorAll('.stat-label');
+  if (statLabels.length >= 4) {
+    statLabels[0].textContent = t('stats.treesPerHome');
+    statLabels[1].textContent = t('stats.freePlanting');
+    statLabels[2].textContent = t('stats.species');
+    statLabels[3].textContent = t('stats.cooler');
+  }
+
+  // Update eligibility section
+  const eligibilityTitle = document.querySelector('#eligibility .section-header h2');
+  const eligibilityDesc = document.querySelector('#eligibility .section-header p');
+  const eligibilityNote = document.querySelector('.map-container p');
+
+  if (eligibilityTitle) eligibilityTitle.textContent = t('eligibility.title');
+  if (eligibilityDesc) {
+    eligibilityDesc.innerHTML = `${t('eligibility.description')} <strong>${t('eligibility.boundaries')}</strong>`;
+  }
+  if (eligibilityNote) eligibilityNote.textContent = t('eligibility.chatbotNote');
+
+  // Update trees section
+  const treesTitle = document.querySelector('#trees .section-header h2');
+  const treesDesc = document.querySelector('#trees .section-header p');
+
+  if (treesTitle) treesTitle.textContent = t('trees.title');
+  if (treesDesc) treesDesc.textContent = t('trees.description');
+
+  // Update tree categories
+  const nativeBadge = document.querySelector('.category-badge:not(.non-native)');
+  const nativeTitle = document.querySelector('.category-header:not(.non-native) h3');
+  if (nativeBadge) nativeBadge.textContent = t('trees.native');
+  if (nativeTitle) nativeTitle.textContent = t('trees.nativeTitle');
+
+  const nonNativeBadge = document.querySelector('.category-badge.non-native');
+  const nonNativeTitle = document.querySelector('.category-header.non-native h3');
+  if (nonNativeBadge) nonNativeBadge.textContent = t('trees.nonNative');
+  if (nonNativeTitle) nonNativeTitle.textContent = t('trees.nonNativeTitle');
+
+  // Update powerline badges
+  document.querySelectorAll('.powerline-badge').forEach(badge => {
+    badge.textContent = t('trees.powerlineSafe');
+  });
+
+  // Update FAQ section
+  const faqTitle = document.querySelector('#faq .section-header h2');
+  const faqSubtitle = document.querySelector('#faq .section-header p');
+
+  if (faqTitle) faqTitle.textContent = t('faq.title');
+  if (faqSubtitle) faqSubtitle.textContent = t('faq.subtitle');
+
+  // Update FAQ items
+  const faqQuestions = document.querySelectorAll('.faq-question span');
+  const faqAnswers = document.querySelectorAll('.faq-answer-content');
+
+  for (let i = 0; i < Math.min(faqQuestions.length, 11); i++) {
+    const qNum = i + 1;
+    if (faqQuestions[i]) faqQuestions[i].textContent = t(`faq.q${qNum}`);
+    if (faqAnswers[i]) faqAnswers[i].innerHTML = t(`faq.a${qNum}`);
+  }
+
+  // Update chatbot
+  const chatbotHeader = document.querySelector('.chatbot-widget-header h3');
+  const chatbotSubtitle = document.querySelector('.chatbot-widget-header p');
+  const greetingTitle = document.querySelector('.chatbot-greeting h4');
+  const greetingText = document.querySelector('.chatbot-greeting p');
+  const greetingButton = document.querySelector('.chatbot-greeting-button');
+
+  if (chatbotHeader) chatbotHeader.textContent = t('chatbot.header');
+  if (chatbotSubtitle) chatbotSubtitle.textContent = t('chatbot.subtitle');
+  if (greetingTitle) greetingTitle.textContent = t('chatbot.greetingTitle');
+  if (greetingText) greetingText.textContent = t('chatbot.greetingText');
+  if (greetingButton) greetingButton.textContent = t('chatbot.greetingButton');
+
+  // Update footer
+  const footerTitle = document.querySelector('.footer-brand h3');
+  const footerDesc = document.querySelector('.footer-brand p');
+
+  if (footerTitle) footerTitle.textContent = t('footer.title');
+  if (footerDesc) footerDesc.textContent = t('footer.description');
+
+  const footerHeaders = document.querySelectorAll('.footer-links h4');
+  if (footerHeaders.length >= 2) {
+    footerHeaders[0].textContent = t('footer.quickLinks');
+    footerHeaders[1].textContent = t('footer.resources');
+  }
+
+  const footerResourceLinks = document.querySelectorAll('.footer-links:last-of-type a');
+  if (footerResourceLinks.length >= 4) {
+    footerResourceLinks[0].textContent = t('footer.cityGrants');
+    footerResourceLinks[1].textContent = t('footer.heatOffice');
+    footerResourceLinks[2].textContent = t('footer.treeGuide');
+    footerResourceLinks[3].textContent = t('footer.courtneyWork');
+  }
+
+  const copyright = document.querySelector('.footer-bottom p');
+  if (copyright) copyright.textContent = t('footer.copyright');
+
+  // Update address checker results if visible
+  updateAddressCheckerIfVisible();
+}
+
+// Update address checker results with current language
+function updateAddressCheckerIfVisible() {
+  const result = document.getElementById('address-result');
+  if (!result || !result.classList.contains('eligible') && !result.classList.contains('ineligible')) {
+    return;
+  }
+
+  if (result.classList.contains('eligible')) {
+    if (result.innerHTML.includes('appears to be eligible')) {
+      result.innerHTML = `${t('eligibility.maybeEligible')} <a href="#roadrunner">${t('eligibility.applyNow')}</a>`;
+    } else {
+      result.innerHTML = `${t('eligibility.eligible')} <a href="#roadrunner">${t('eligibility.applyNow')}</a>`;
+    }
+  } else if (result.classList.contains('ineligible')) {
+    result.innerHTML = t('eligibility.notEligible');
+  }
+}
+
+// Initialize language on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updatePageText();
+});
