@@ -198,6 +198,94 @@
             color: #374151;
         }
 
+        /* Inline button chips in chat */
+        .inline-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .inline-buttons button {
+            padding: 8px 16px;
+            border: 1.5px solid #C75B39;
+            background: white;
+            color: #C75B39;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-height: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            white-space: nowrap;
+        }
+
+        .inline-buttons button:hover {
+            background: linear-gradient(135deg, #C75B39 0%, #A64B2E 100%);
+            color: #FDF8F0;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(199, 91, 57, 0.25);
+        }
+
+        .inline-buttons button:active {
+            transform: translateY(0);
+        }
+
+        .inline-buttons button.selected {
+            background: linear-gradient(135deg, #C75B39 0%, #A64B2E 100%);
+            color: #FDF8F0;
+            border-color: #A64B2E;
+        }
+
+        .inline-buttons button.done-button {
+            background: linear-gradient(135deg, #7A9E7E 0%, #5C7A5F 100%);
+            border-color: #7A9E7E;
+            color: white;
+            font-weight: 600;
+        }
+
+        .inline-buttons button.done-button:hover {
+            background: linear-gradient(135deg, #5C7A5F 0%, #4A6149 100%);
+            border-color: #5C7A5F;
+        }
+
+        .inline-buttons button.section-header {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            cursor: default;
+            pointer-events: none;
+            box-shadow: none;
+            padding: 4px 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        .inline-buttons button.section-header:hover {
+            background: transparent;
+            color: #6b7280;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .inline-buttons button.back-button {
+            background: white;
+            border-color: #9ca3af;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .inline-buttons button.back-button:hover {
+            background: #f3f4f6;
+            border-color: #6b7280;
+            color: #374151;
+        }
+
         input[type="text"],
         input[type="email"],
         input[type="tel"] {

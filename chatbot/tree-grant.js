@@ -87,24 +87,35 @@ function clearInput() {
     document.getElementById('inputArea').innerHTML = '';
 }
 
-// Show buttons
+// Show buttons inline in chat
 function showButtons(buttons) {
     clearInput();
-    const inputArea = document.getElementById('inputArea');
-    const buttonGroup = document.createElement('div');
-    buttonGroup.className = 'button-group';
+    const messagesDiv = document.getElementById('chatMessages');
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'inline-buttons';
 
     buttons.forEach(btn => {
         const button = document.createElement('button');
         button.textContent = btn.text;
-        button.onclick = btn.action;
+        button.onclick = () => {
+            // Remove all inline button containers when a button is clicked
+            const allInlineButtons = document.querySelectorAll('.inline-buttons');
+            allInlineButtons.forEach(el => el.remove());
+            // Execute button action
+            btn.action();
+        };
         if (btn.className) {
             button.className = btn.className;
         }
-        buttonGroup.appendChild(button);
+        buttonContainer.appendChild(button);
     });
 
-    inputArea.appendChild(buttonGroup);
+    messagesDiv.appendChild(buttonContainer);
+
+    // Auto-scroll to show buttons
+    setTimeout(() => {
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }, 100);
 }
 
 // Show text input
