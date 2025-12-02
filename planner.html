@@ -189,6 +189,14 @@
                 padding-top: 100px;
             }
 
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
             .mobile-menu-btn {
                 display: block;
             }
@@ -205,10 +213,23 @@
                 border-radius: 0 0 0 20px;
                 transition: right 0.3s;
                 box-shadow: -5px 5px 15px rgba(0,0,0,0.1);
+                width: 70%;
+                max-width: 300px;
             }
 
             .nav-links.active {
                 right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.05rem;
+                padding: 0.5rem 0;
+            }
+
+            .deadline-banner {
+                padding: 0.6rem 1rem;
+                font-size: 0.75rem;
+                line-height: 1.4;
             }
 
             .planner-container {
@@ -216,16 +237,50 @@
                 margin: 1rem auto;
             }
 
+            .planner-intro {
+                padding: 1.5rem;
+                border-radius: 15px;
+                margin-bottom: 1.5rem;
+            }
+
             .planner-intro h1 {
                 font-size: 1.8rem;
+                margin-bottom: 0.75rem;
             }
 
             .planner-intro p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .planner-embed {
+                padding: 1rem;
+                border-radius: 15px;
             }
 
             .planner-embed iframe {
                 height: 500px;
+                border-radius: 10px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .planner-intro h1 {
+                font-size: 1.6rem;
+            }
+
+            .planner-intro p {
+                font-size: 0.9rem;
+            }
+
+            .planner-embed iframe {
+                height: 400px;
+            }
+
+            .deadline-banner {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.75rem;
             }
         }
     </style>
