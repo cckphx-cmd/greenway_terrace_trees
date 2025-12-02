@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Greenway Terrace Tree Grant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --desert-sand: #E8DCC4;
+            --terracotta: #C75B39;
+            --terracotta-dark: #A64B2E;
+            --sage: #7A9E7E;
+            --sage-dark: #5C7A5F;
+            --teal: #5BBFBA;
+            --teal-light: #7DD3CF;
+            --sunset-orange: #E8A87C;
+            --warm-cream: #FDF8F0;
+            --desert-brown: #8B7355;
+            --text-dark: #2D2A26;
+            --text-light: #5C5650;
+            --gold: #D4A853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            position: relative;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* Desert Background */
+        .desert-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                linear-gradient(180deg,
+                    rgba(253, 248, 240, 0.7) 0%,
+                    rgba(253, 248, 240, 0.6) 40%,
+                    rgba(248, 243, 235, 0.5) 70%,
+                    rgba(232, 220, 196, 0.55) 100%
+                ),
+                url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 248, 240, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(199, 91, 57, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+
+        /* About Section */
+        .about-section {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            padding: 4rem 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            color: var(--terracotta);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text h3 {
+            color: var(--terracotta);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-brand h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="desert-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            Greenway Terrace Trees
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html#eligibility">Check Eligibility</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#trees">Browse Trees</a></li>
+            <li><a href="index.html#roadrunner">Apply</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About This Project</h2>
+
+                <div style="display: flex; align-items: flex-start; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                    <img src="images/courtney-photo.jpg" alt="Courtney Kingsbury" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid var(--terracotta); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <div style="flex: 1; min-width: 300px;">
+                        <p style="font-size: 1.1rem; line-height: 1.7;">Hi, I'm Courtney, your neighbor over in Greenway Terrace. I've been here for 10 years and my family has been in this neighborhood since it was built. I put this project together to help us get as many trees as possible to as many homes as possible.</p>
+                    </div>
+                </div>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision only. We won. The city then expanded eligibility to over 600 homes in the surrounding area, which means more of our neighbors can benefit.</p>
+
+                <h3>Here's why this matters.</h3>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">Have you ever wondered why our neighborhood isn't built in straight lines? Or why the houses all sit at slightly different angles on their lots?</p>
+
+                <p style="font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0; color: var(--terracotta-dark);">They don't build them like they used to.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">Our homes, and more importantly our trees, were strategically placed based on the science of Sun Path Diagrams and Shadow Analysis. These tools map exactly where the sun will be at any time of day, any day of the year, and predict how shadows will move across properties throughout the seasons. Mid-century builders used this science to angle houses and position trees so that a single tree could shade your house in the morning and your neighbor's driveway in the afternoon. It was intentional. It was brilliant.</p>
+
+                <p style="font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0; color: var(--terracotta-dark);">And over time, we've lost it.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">As trees have come down from storms, age, and disease, we've lost the shade that once kept our homes cool. I know that when older homes start showing their age, our first instinct is to slash and burn. Add different windows. Tear things down. But what we should really be doing is reclaiming the heat mitigation strategies that were already here. These gorgeous mid-century ranch homes were designed to stay cool. We just need to restore what made them work.</p>
+
+                <p style="font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0;">I applied for this grant for one simple reason: my trees died and I'm not in a financial place to replace them. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.</p>
+
+                <p style="font-size: 1.2rem; font-weight: 600; margin: 2rem 0; color: var(--terracotta); font-style: italic;">Join me in bringing the shade back.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Greenway Terrace Tree Grant</h3>
+                <p>A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#eligibility">Check Eligibility</a></li>
+                    <li><a href="index.html#trees">Browse Trees</a></li>
+                    <li><a href="index.html#roadrunner">Apply Now</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" target="_blank">City of Phoenix Grants</a></li>
+                    <li><a href="https://www.phoenix.gov/heat" target="_blank">Heat Response Office</a></li>
+                    <li><a href="https://arboretum.arizona.edu/" target="_blank">Arizona Tree Care Guide</a></li>
+                    <li><a href="https://courtneykingsbury.com" target="_blank">Courtney's Work</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Greenway Terrace Community Canopy Grant</p>
+        </div>
+    </footer>
+</body>
+</html>
