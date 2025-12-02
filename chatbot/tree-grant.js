@@ -393,16 +393,23 @@ function getTreeRecommendations() {
 
 // Conversation flows
 async function startConversation() {
-    // Skip AI mode and go straight to application
+    // Start with application mode (no AI)
     state.mode = 'application';
 
     // Add welcome message
-    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you apply for free trees through the Greenway Terrace Community Canopy program.`, false, true);
+    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`, false, true);
 
-    // Show action buttons
+    addMessage(`What would you like to do?`, false, true);
+
+    // Show all menu options as inline buttons
     const buttons = [
-        { text: "Start Application", action: () => {
-            addMessage("Start Application", true);
+        { text: "Apply for trees", action: () => {
+            addMessage("Apply for trees", true);
+            startWelcome();
+        }},
+        { text: "Take tree quiz", action: () => {
+            addMessage("Take tree quiz", true);
+            // First need to go through welcome to verify address
             startWelcome();
         }},
         { text: "View FAQ", action: () => {
@@ -412,6 +419,13 @@ async function startConversation() {
     ];
 
     showButtons(buttons);
+
+    // Also show text input for questions
+    showTextInput('Ask me anything about the tree program...', (question) => {
+        addMessage(question, true);
+        addMessage("Thanks for your question! To help you best, let's start with your application. You can ask specific questions as we go through the process.");
+        setTimeout(startWelcome, 500);
+    });
 
     // After everything is rendered, scroll to top to show first message
     setTimeout(() => {
