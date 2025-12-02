@@ -30,8 +30,15 @@ const NON_NATIVE_TREES = [
 const state = {
     currentStep: 'welcome',
     data: {},
-    progress: 0
+    progress: 0,
+    mode: 'conversational' // 'conversational' or 'application'
 };
+
+// Initialize AI Conversation
+let aiChat = null;
+if (typeof AIConversation !== 'undefined') {
+    aiChat = new AIConversation(); // No API key needed - it's on the server!
+}
 
 // Update progress indicator
 function updateProgress(step, percentage) {
@@ -127,6 +134,56 @@ function showTextInput(placeholder, onSubmit) {
 
     inputArea.appendChild(input);
     inputArea.appendChild(button);
+    input.focus();
+}
+
+// Show text input with validation
+function showTextInputWithValidation(placeholder, validateFn, onSubmit) {
+    clearInput();
+    const inputArea = document.getElementById('inputArea');
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = placeholder;
+    input.id = 'userInput';
+
+    const errorDiv = document.createElement('div');
+    errorDiv.style.color = '#c75b39';
+    errorDiv.style.fontSize = '0.9em';
+    errorDiv.style.marginTop = '5px';
+    errorDiv.style.display = 'none';
+
+    const button = document.createElement('button');
+    button.textContent = 'Submit';
+    button.className = 'submit-btn';
+    button.onclick = () => {
+        const value = input.value.trim();
+        const error = validateFn(value);
+
+        if (error) {
+            errorDiv.textContent = error;
+            errorDiv.style.display = 'block';
+            input.style.borderColor = '#c75b39';
+        } else {
+            errorDiv.style.display = 'none';
+            input.style.borderColor = '';
+            onSubmit(value);
+        }
+    };
+
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') button.click();
+    });
+
+    input.addEventListener('input', () => {
+        // Clear error on input
+        errorDiv.style.display = 'none';
+        input.style.borderColor = '';
+    });
+
+    inputArea.appendChild(input);
+    inputArea.appendChild(button);
+    inputArea.appendChild(errorDiv);
     input.focus();
 }
 
@@ -260,14 +317,9 @@ function calculateDistance(str1, str2) {
 function lookupAddress(address) {
     const normalized = normalizeAddress(address);
 
-    console.log('Looking up address:', address);
-    console.log('Normalized:', normalized);
-    console.log('Total addresses in list:', ELIGIBLE_ADDRESSES.length);
-
     // Try exact match first
     const exactMatch = ELIGIBLE_ADDRESSES.find(addr => addr === normalized);
     if (exactMatch) {
-        console.log('Exact match found:', exactMatch);
         return { success: true, address: exactMatch };
     }
 
@@ -286,42 +338,240 @@ function lookupAddress(address) {
         }
     }
 
-    console.log('Best match:', bestMatch, 'Score:', bestScore);
-
     if (bestScore <= threshold) {
-        console.log('Fuzzy match found:', bestMatch);
         return { success: true, address: bestMatch };
     }
 
-    console.log('No match found for:', normalized, '(best score was', bestScore, ')');
     return { success: false };
 }
 
 // Get tree recommendations based on quiz answers
 function getTreeRecommendations() {
     const { preferredSize, nativePreference, primaryGoal } = state.data;
-    const trees = nativePreference === 'native' ? NATIVE_TREES : NON_NATIVE_TREES;
+
+    // If user doesn't care about native vs non-native, search both lists
+    const trees = nativePreference === 'both'
+        ? [...NATIVE_TREES, ...NON_NATIVE_TREES]
+        : nativePreference === 'native'
+            ? NATIVE_TREES
+            : NON_NATIVE_TREES;
 
     let filtered = trees.filter(tree => {
         // Match size preference
-        if (preferredSize && tree.size !== preferredSize) return false;
+        if (preferredSize && preferredSize !== 'ANY' && tree.size !== preferredSize) {
+            return false;
+        }
 
-        // Match goal
-        if (primaryGoal === 'BEAUTY' && !tree.beauty) return false;
-        if (primaryGoal === 'WILDLIFE' && !tree.wildlife) return false;
-        if (primaryGoal === 'SHADE' && !tree.shade) return false;
+        // Match goal (only filter if a specific goal is selected, not 'ALL')
+        if (primaryGoal && primaryGoal !== 'ALL') {
+            if (primaryGoal === 'BEAUTY' && !tree.beauty) return false;
+            if (primaryGoal === 'WILDLIFE' && !tree.wildlife) return false;
+            if (primaryGoal === 'SHADE' && !tree.shade) return false;
+        }
 
         return true;
     });
 
     // If no exact matches, return all trees of that type
-    if (filtered.length === 0) filtered = trees;
+    if (filtered.length === 0) {
+        filtered = trees;
+    }
 
     return filtered.slice(0, 3);
 }
 
 // Conversation flows
+async function startConversation() {
+    // Start with AI conversational mode
+    state.mode = 'conversational';
+
+    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`, false, true);
+
+    addMessage(`You can ask me questions about the program, learn about different tree options, or start your application. What would you like to know?`);
+
+    // Show quick action buttons + free text input
+    const buttons = [
+        { text: "Tell me about the program", action: () => handleQuickQuestion("Tell me about the program") },
+        { text: "What trees are available?", action: () => handleQuickQuestion("What trees are available?") },
+        { text: "Apply now", action: () => {
+            addMessage("Apply now", true);
+            startWelcome();
+        }}
+    ];
+
+    showConversationalInput(buttons);
+}
+
+async function handleQuickQuestion(question) {
+    addMessage(question, true);
+    await handleAIConversation(question);
+}
+
+async function handleAIConversation(userMessage) {
+    if (!aiChat) {
+        // Fallback if AI not available
+        addMessage("I'm having trouble with my AI connection. Let me connect you with the application form instead.");
+        setTimeout(startWelcome, 1000);
+        return;
+    }
+
+    // Show typing indicator
+    addMessage(`<span class="loading"></span> Roadrunner is typing...`);
+
+    try {
+        const response = await aiChat.sendMessage(userMessage);
+
+        // Remove typing indicator
+        const messages = document.getElementById('chatMessages');
+        if (messages.lastChild && messages.lastChild.textContent.includes('typing')) {
+            messages.removeChild(messages.lastChild);
+        }
+
+        // Show AI response
+        addMessage(response.message);
+
+        // Check if AI wants to start application
+        if (response.action === 'START_APPLICATION') {
+            setTimeout(startWelcome, 500);
+        } else {
+            // Continue conversation
+            const buttons = [
+                { text: "Apply now", action: () => {
+                    addMessage("Apply now", true);
+                    startWelcome();
+                }}
+            ];
+            showConversationalInput(buttons);
+        }
+    } catch (error) {
+        const messages = document.getElementById('chatMessages');
+        if (messages.lastChild && messages.lastChild.textContent.includes('typing')) {
+            messages.removeChild(messages.lastChild);
+        }
+        addMessage("I'm having a connection issue. Would you like to start your application instead?");
+        showButtons([
+            { text: "Yes, start application", action: startWelcome },
+            { text: "Try again", action: () => handleAIConversation(userMessage) }
+        ]);
+    }
+}
+
+function showConversationalInput(quickButtons = []) {
+    clearInput();
+    const inputArea = document.getElementById('inputArea');
+
+    // Create text input
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Ask me anything about the tree program...';
+    input.id = 'userInput';
+
+    const button = document.createElement('button');
+    button.textContent = 'Send';
+    button.className = 'submit-btn';
+    button.onclick = () => {
+        const value = input.value.trim();
+        if (value) {
+            addMessage(value, true);
+            input.value = '';
+            handleAIConversation(value);
+        }
+    };
+
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') button.click();
+    });
+
+    // Add quick action buttons if provided
+    if (quickButtons.length > 0) {
+        const buttonGroup = document.createElement('div');
+        buttonGroup.className = 'button-group';
+        buttonGroup.style.marginBottom = '12px';
+
+        quickButtons.forEach(btn => {
+            const quickBtn = document.createElement('button');
+            quickBtn.textContent = btn.text;
+            quickBtn.onclick = btn.action;
+            buttonGroup.appendChild(quickBtn);
+        });
+
+        inputArea.appendChild(buttonGroup);
+    }
+
+    inputArea.appendChild(input);
+    inputArea.appendChild(button);
+    input.focus();
+}
+
 async function startWelcome() {
+    // Switch to application mode
+    state.mode = 'application';
+    updateProgress('Welcome', 5);
+    addMessage(`<strong>Welcome to the Greenway Terrace Tree Grant Application!</strong><br><br>
+
+Before we begin, please review our data privacy policy.
+
+<div class="important-box">
+<strong>DATA PRIVACY NOTICE</strong><br><br>
+
+<strong>What We Collect:</strong><br>
+• Your name, address, email, and phone number<br>
+• Tree preferences and property information<br><br>
+
+<strong>How We Use It:</strong><br>
+• To process your tree grant application<br>
+• To coordinate tree planting with the City of Phoenix and Canopy Tree Care<br>
+• To contact you about this program<br><br>
+
+<strong>Your Rights (GDPR & California Privacy Law):</strong><br>
+• You have the right to access, correct, or delete your data<br>
+• You can withdraw consent at any time<br>
+• We will not sell or share your data with third parties except as required for program administration<br><br>
+
+<strong>Data Retention:</strong><br>
+Your information will be stored for the duration of the program and up to one year after for record-keeping purposes.<br><br>
+
+<strong>Contact:</strong><br>
+For privacy questions, email <a href="mailto:cckphx@gmail.com">cckphx@gmail.com</a>
+</div><br>
+
+Do you agree to these terms and wish to continue with the online application?`, false, true); // Skip scroll on first message
+
+    showButtons([
+        { text: "I agree, continue", action: () => {
+            addMessage("I agree, continue", true);
+            state.data.consentGiven = true;
+            startAddressVerification();
+        }},
+        { text: "I decline", action: () => {
+            addMessage("I decline", true);
+            showPaperApplicationOption();
+        }}
+    ]);
+}
+
+function showPaperApplicationOption() {
+    addMessage(`No problem! You can still apply using our paper application.<br><br>
+
+<div class="important-box">
+<strong>Paper Application Option:</strong><br><br>
+📄 <a href="../paper-application.pdf" download class="link">Download Paper Application (PDF)</a><br><br>
+
+<strong>Drop-off Location:</strong><br>
+2133 W Edgemont Ave<br>
+(Look for the marked mail slot)<br><br>
+
+<strong>Deadline:</strong> December 31, 2025<br><br>
+
+The paper application includes all the same questions and tree options. Simply fill it out and drop it off at the address above.
+</div><br>
+
+Thank you for your interest in making Phoenix greener!`);
+
+    clearInput();
+}
+
+function startAddressVerification() {
     updateProgress('Step 1: Address Verification', 10);
     addMessage(`Great! Let's check if your address qualifies.
 
@@ -336,7 +586,7 @@ Please enter your street address:
 <strong>IMPORTANT:</strong><br>
 • Single-family homes or duplexes/triplexes only<br>
 • No apartments or condos with 4+ units
-</div>`, false, true); // Skip scroll on first message
+</div>`);
 
     showTextInput('Enter your address...', (address) => {
         state.data.userAddress = address;
@@ -416,11 +666,11 @@ function askLandlordInfo() {
     addMessage(`Great! I'll need your landlord's contact information to verify.<br><br>Please provide their name:`);
     showTextInput("Landlord name", (name) => {
         state.data.landlordName = name;
-        addMessage(`And their email address:`);
-        showTextInput("landlord@email.com", (email) => {
+        addMessage(`And their email address (required):`);
+        showTextInputWithValidation("landlord@email.com", validateEmail, (email) => {
             state.data.landlordEmail = email;
-            addMessage(`Finally, their phone number:`);
-            showTextInput("(555) 555-5555", (phone) => {
+            addMessage(`Finally, their phone number (required):`);
+            showTextInputWithValidation("(555) 555-5555", validatePhone, (phone) => {
                 state.data.landlordPhone = phone;
                 addMessage(`Perfect! We'll verify with ${name} before proceeding.`);
                 showMainMenu();
@@ -478,13 +728,16 @@ Would you like me to email this to you?`);
 }
 
 function showNotEligible() {
-    addMessage(`Your address isn't in our grant zone, but you're not out of luck!
+    addMessage(`We're sorry, but your address isn't in our current grant area.
 
 <div class="important-box">
-<strong>WHY NOT ELIGIBLE?</strong><br>
-This grant covers a specific neighborhood boundary.<br><br>
+<strong>WHY ISN'T MY ADDRESS ELIGIBLE?</strong><br>
+This specific grant covers the Greenway Terrace neighborhood boundary. However, the city may expand this program to other areas in the future!<br><br>
 
-<strong>WHAT TO DO:</strong><br><br>
+<strong>KEEP AN EYE OUT:</strong><br>
+Check back with <a href="https://www.phoenix.gov/administration/departments/heat/heat-response-programs.html" class="link" target="_blank">Phoenix Heat Response</a> for updates on program expansion to your area.<br><br>
+
+<strong>OTHER TREE PROGRAMS:</strong><br><br>
 
 <strong>Apply with the City:</strong><br>
 <a href="https://www.phoenix.gov/parks/trees" class="link" target="_blank">phoenix.gov/parks/trees</a><br><br>
@@ -492,14 +745,11 @@ This grant covers a specific neighborhood boundary.<br><br>
 <strong>Trees Matter:</strong><br>
 <a href="https://treesmatter.org" class="link" target="_blank">treesmatter.org</a><br><br>
 
-<strong>SRP Program:</strong><br>
-<a href="https://www.srpnet.com/trees" class="link" target="_blank">srpnet.com/trees</a><br><br>
-
-<strong>QUESTIONS?</strong><br>
-Visit: <a href="https://www.phoenix.gov/administration/departments/heat/heat-response-programs.html" class="link" target="_blank">Phoenix Heat Response Programs</a>
+<strong>SRP Shade Tree Program:</strong><br>
+<a href="https://www.srpnet.com/trees" class="link" target="_blank">srpnet.com/trees</a>
 </div>
 
-Thanks for wanting to grow green in Phoenix!`);
+Thank you for your interest in growing green in Phoenix! We hope you can take advantage of one of the alternative programs listed above.`);
     clearInput();
 }
 
@@ -584,10 +834,30 @@ function askTreeSelectionDirect() {
         });
     });
 
+    // Add remove buttons for selected trees (if any)
+    const selectedTrees = Object.entries(state.data.treeQuantities).filter(([_, qty]) => qty > 0);
+    if (selectedTrees.length > 0) {
+        buttons.push({
+            text: '── REMOVE SELECTION ──',
+            className: 'section-header',
+            action: () => {}
+        });
+
+        selectedTrees.forEach(([treeName, qty]) => {
+            buttons.push({
+                text: `✕ Remove ${treeName} (${qty})`,
+                className: 'remove-button',
+                action: () => {
+                    handleRemoveTree(treeName);
+                }
+            });
+        });
+    }
+
     // Add a "Done selecting" button
     buttons.push({
         text: totalTrees > 0
-            ? `Done selecting trees (${totalTrees}/2 trees)`
+            ? `✓ Done selecting trees (${totalTrees}/2 trees)`
             : "Done selecting trees",
         className: 'done-button',
         action: () => {
@@ -611,6 +881,30 @@ function askTreeSelectionDirect() {
     showButtons(buttons);
 }
 
+function handleRemoveTree(treeName) {
+    if (state.data.treeQuantities && state.data.treeQuantities[treeName]) {
+        const qty = state.data.treeQuantities[treeName];
+        delete state.data.treeQuantities[treeName];
+        addMessage(`Removed ${treeName} (${qty})`, true);
+
+        // Show updated selection
+        const newTotal = Object.values(state.data.treeQuantities).reduce((sum, q) => sum + q, 0);
+        if (newTotal > 0) {
+            const selectionList = Object.entries(state.data.treeQuantities)
+                .filter(([_, q]) => q > 0)
+                .map(([name, q]) => q > 1 ? `${name} (${q})` : name)
+                .join(', ');
+            addMessage(`Current selection: <strong>${selectionList}</strong> (${newTotal}/2 trees)`);
+        } else {
+            addMessage('No trees selected');
+        }
+
+        // Re-show the selection buttons
+        clearInput();
+        askTreeSelectionDirect();
+    }
+}
+
 function handleTreeSelectionDirect(treeName) {
     if (!state.data.treeQuantities) {
         state.data.treeQuantities = {};
@@ -619,22 +913,19 @@ function handleTreeSelectionDirect(treeName) {
     const currentQty = state.data.treeQuantities[treeName] || 0;
     const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
 
-    // If clicking an already selected tree, remove one (or all if only 1)
-    if (currentQty > 0) {
-        state.data.treeQuantities[treeName] = currentQty - 1;
-        if (state.data.treeQuantities[treeName] === 0) {
-            delete state.data.treeQuantities[treeName];
-        }
-        addMessage(`Removed 1 ${treeName}`, true);
-    } else {
-        // Check if limit reached
-        if (totalTrees >= 2) {
-            addMessage("You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.");
-            return;
-        }
-        // Add the tree
-        state.data.treeQuantities[treeName] = 1;
+    // Check if we can add more trees
+    if (totalTrees >= 2) {
+        addMessage("You've already selected 2 trees. Please remove one first if you want to change your selection.");
+        return;
+    }
+
+    // Add one more of this tree (increment quantity)
+    state.data.treeQuantities[treeName] = currentQty + 1;
+
+    if (currentQty === 0) {
         addMessage(`Selected: ${treeName}`, true);
+    } else {
+        addMessage(`Selected 2nd ${treeName}`, true);
     }
 
     // Show current selection
@@ -668,6 +959,11 @@ function startTreeQuiz() {
             state.data.nativePreference = 'non-native';
             askTreeSize();
         }},
+        { text: "Doesn't matter", action: () => {
+            addMessage("Doesn't matter", true);
+            state.data.nativePreference = 'both';
+            askTreeSize();
+        }},
         { text: "← Go back", className: 'back-button', action: () => {
             addMessage("← Go back", true);
             showMainMenu();
@@ -691,6 +987,11 @@ function askTreeSize() {
         { text: "Large (30+ ft at maturity)", action: () => {
             addMessage("Large (30+ ft at maturity)", true);
             state.data.preferredSize = 'LARGE';
+            askPrimaryGoal();
+        }},
+        { text: "Any size is fine", action: () => {
+            addMessage("Any size is fine", true);
+            state.data.preferredSize = 'ANY';
             askPrimaryGoal();
         }},
         { text: "← Go back", className: 'back-button', action: () => {
@@ -751,6 +1052,10 @@ function showTreeRecommendations() {
         { text: "Select my trees", action: () => {
             addMessage("Select my trees", true);
             askTreeSelection(recommendations);
+        }},
+        { text: "← Change my answers", className: 'back-button', action: () => {
+            addMessage("← Change my answers", true);
+            startTreeQuiz();
         }},
         { text: "Retake quiz", action: () => {
             addMessage("Retake quiz", true);
@@ -897,7 +1202,7 @@ function handleTreeSelection(treeName, recommendations) {
 
 function collectPropertyInfo() {
     updateProgress('Step 4: Property Information', 70);
-    addMessage(`Now, a few questions about your property:<br><br><strong>Do you have any dead trees or stumps that are blocking where new trees should be planted?</strong>`);
+    addMessage(`Now, a few questions about your property:<br><br><strong>Do you have any fully dead trees or stumps that are blocking where new trees should be planted?</strong><br><br><em>If that's the only available spot for new trees, they can be removed at no cost as part of this program.</em>`);
     showButtons([
         { text: "Yes, need removal", action: () => {
             addMessage("Yes, need removal", true);
@@ -938,21 +1243,37 @@ function askComplexInstall() {
 }
 
 function askContactPreference() {
-    addMessage(`<div class="important-box">
-<strong>DATA PRIVACY NOTICE</strong><br><br>
-Your information will be used solely to process your tree grant application and contact you about this program. We will not share your data with third parties except as required for tree planting coordination with the City of Phoenix and Canopy Tree Care.<br><br>
-By continuing, you consent to the collection and use of your contact information for this program.
-</div><br>Great! Now I need your contact information.<br><br><strong>First, your phone number (required):</strong><br><em>The tree planting contractors need this to coordinate with you.</em>`);
-    showTextInput("(555) 555-5555", (phone) => {
+    addMessage(`Great! Now I need your contact information.<br><br><strong>First, your phone number (required):</strong><br><em>The tree planting contractors need this to coordinate with you.</em>`);
+    showTextInputWithValidation("(555) 555-5555", validatePhone, (phone) => {
         state.data.userPhone = phone;
         addMessage(phone, true);
         askEmail();
     });
 }
 
+function validatePhone(phone) {
+    // Remove all non-digit characters for validation
+    const digitsOnly = phone.replace(/\D/g, '');
+    if (digitsOnly.length < 10) {
+        return "Please enter a valid 10-digit phone number.";
+    }
+    return null; // Valid
+}
+
+function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+        return "Email address is required.";
+    }
+    if (!emailPattern.test(email)) {
+        return "Please enter a valid email address.";
+    }
+    return null; // Valid
+}
+
 function askEmail() {
-    addMessage(`And your email address:`);
-    showTextInput("your@email.com", (email) => {
+    addMessage(`And your email address (required):`);
+    showTextInputWithValidation("your@email.com", validateEmail, (email) => {
         state.data.userEmail = email;
         addMessage(email, true);
         askName();
@@ -1036,18 +1357,18 @@ function submitApplication() {
         tshirtSize: state.data.tshirtSize
     };
 
-    // Log to console (for debugging)
-    console.log('Application data:', applicationData);
-
-    // Send to Google Sheets (if endpoint is configured)
-    const GOOGLE_SHEETS_URL = ''; // USER: Replace with your Google Apps Script Web App URL
+    // Send to Google Sheets
+    // SETUP INSTRUCTIONS IN GOOGLE_SHEETS_SETUP.md
+    const GOOGLE_SHEETS_URL = ''; // Paste your Google Apps Script Web App URL here
     if (GOOGLE_SHEETS_URL) {
         fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(applicationData)
-        }).catch(err => console.log('Sheets submission:', err));
+        }).catch(err => {
+            // Silently handle errors - no-cors mode prevents error detection
+        });
     }
 
     // Send via Email (mailto link - opens user's email client)
@@ -1156,5 +1477,11 @@ window.onload = () => {
     }
     window.scrollTo(0, 0);
 
-    startWelcome();
+    // Start with conversational AI mode
+    if (aiChat) {
+        startConversation();
+    } else {
+        // Fallback to traditional form if AI not available
+        startWelcome();
+    }
 };
