@@ -397,9 +397,9 @@ async function startConversation() {
     state.mode = 'application';
 
     // Add welcome message
-    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`, false, true);
+    addMessage(`Hi there! I'm Roadrunner 🌳, your friendly neighborhood tree grant assistant. I'm so excited to help you get free trees for your front yard through the Greenway Terrace Community Canopy program!`, false, true);
 
-    addMessage(`What would you like to do?`, false, true);
+    addMessage(`So, what brings you here today? Would you like to apply for your trees, explore your options, or learn more about the program?`, false, true);
 
     // Show all menu options as inline buttons
     const buttons = [
@@ -606,9 +606,9 @@ Thank you for your interest in making Phoenix greener!`);
 
 function startAddressVerification() {
     updateProgress('Step 1: Address Verification', 10);
-    addMessage(`Great! Let's check if your address qualifies.
+    addMessage(`Perfect! Let's see if your home is in the eligible area. This will just take a second.
 
-Please enter your street address:
+Go ahead and enter your street address below:
 
 <div class="important-box">
 <strong>GOOD EXAMPLES:</strong><br>
@@ -638,14 +638,16 @@ Please enter your street address:
 }
 
 function askAddressConfirmation(matchedAddress) {
-    addMessage(`I found this address:<br><br><strong>${matchedAddress}</strong><br><br>Is this correct?`);
+    addMessage(`Great news! I found your address in our system:<br><br><strong>${matchedAddress}</strong><br><br>Does this look right?`);
     showButtons([
         { text: "Yes, that's correct", action: () => {
             addMessage("Yes, that's correct", true);
+            addMessage(`Perfect! ✓`);
             askHomeowner();
         }},
         { text: "No, try again", action: () => {
             addMessage("No, try again", true);
+            addMessage(`No problem! Let's try that again.`);
             startWelcome();
         }}
     ]);
@@ -671,7 +673,7 @@ Would you like to explore other programs that might help?`);
 
 function askHomeowner() {
     updateProgress('Step 2: Homeowner Verification', 30);
-    addMessage(`Real quick, are you the homeowner, or do you rent this property?`);
+    addMessage(`Awesome! Just one quick question - do you own this home, or are you renting?`);
     showButtons([
         { text: "I'm the homeowner", action: () => {
             addMessage("I'm the homeowner", true);
@@ -696,14 +698,17 @@ function askHomeowner() {
 }
 
 function askTreeSelectionChoice() {
-    addMessage(`Great! Now let's select your trees. Would you like to take a quick quiz to get personalized recommendations, or browse all available trees?`);
+    addMessage(`Excellent! Now for the fun part - picking your trees! 🌳`);
+    addMessage(`I can help you in two ways: I can ask you a few quick questions to recommend the perfect trees for your yard, or you can browse through all our beautiful options yourself. Which sounds better to you?`);
     showButtons([
         { text: "Take tree quiz", action: () => {
             addMessage("Take tree quiz", true);
+            addMessage(`Great choice! This will only take a minute, and I'll find the perfect trees for your space.`);
             startTreeQuiz();
         }},
         { text: "Browse all trees", action: () => {
             addMessage("Browse all trees", true);
+            addMessage(`Perfect! Let me show you all the amazing options we have available.`);
             askTreeSelectionDirect();
         }}
     ]);
@@ -1297,7 +1302,8 @@ function askComplexInstall() {
 }
 
 function askContactPreference() {
-    addMessage(`Great! Now I need your contact information.<br><br><strong>First, your phone number (required):</strong><br><em>The tree planting contractors need this to coordinate with you.</em>`);
+    addMessage(`Almost done! I just need a way to reach you so we can coordinate your tree planting. This is exciting! 🎉`);
+    addMessage(`<strong>What's the best phone number to reach you?</strong><br><em>(The planting crew will use this to schedule with you)</em>`);
     showTextInputWithValidation("(555) 555-5555", validatePhone, (phone) => {
         state.data.userPhone = phone;
         addMessage(phone, true);
@@ -1326,20 +1332,21 @@ function validateEmail(email) {
 }
 
 function askEmail() {
-    addMessage(`And your email address (required):`);
+    addMessage(`Perfect! And what email should we use?`);
     showTextInputWithValidation("your@email.com", validateEmail, (email) => {
         state.data.userEmail = email;
         addMessage(email, true);
+        addMessage(`Got it! ✓`);
         askName();
     });
 }
 
 function askName() {
-    addMessage(`What's your first name?`);
+    addMessage(`Nice! And what name should we put on your submission?`);
     showTextInput("First name", (firstName) => {
         state.data.firstName = firstName;
         addMessage(firstName, true);
-        addMessage(`And your last name?`);
+        addMessage(`Great! And your last name?`);
         showTextInput("Last name", (lastName) => {
             state.data.lastName = lastName;
             addMessage(lastName, true);
@@ -1349,7 +1356,8 @@ function askName() {
 }
 
 function askTShirtSize() {
-    addMessage(`<strong>Great news!</strong> You get a free t-shirt with your application! 🎁<br><br>What size would you like?`);
+    addMessage(`Oh, and here's a fun bonus - you're getting a FREE t-shirt! 🎁`);
+    addMessage(`What size works best for you?`);
     showButtons([
         { text: "S", action: () => { addMessage("S", true); state.data.tshirtSize = 'S'; showReview(); }},
         { text: "M", action: () => { addMessage("M", true); state.data.tshirtSize = 'M'; showReview(); }},
@@ -1463,9 +1471,9 @@ T-shirt Size: ${submissionData.tshirtSize}
 
     setTimeout(() => {
         updateProgress('Complete!', 100);
-        addMessage(`<strong>Submission complete!</strong><br><br>
+        addMessage(`<strong>🎉 Woohoo! You're all set!</strong><br><br>
 
-Thank you, ${state.data.firstName}! Your information has been received.<br><br>
+${state.data.firstName}, thank you so much for submitting! We're thrilled to be bringing new trees to your neighborhood.<br><br>
 
 <div class="important-box">
 <strong>NEXT STEPS:</strong><br>
