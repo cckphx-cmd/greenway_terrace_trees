@@ -565,7 +565,7 @@ Before we begin, please review our data privacy policy.
 Your information will be stored for the duration of the program and up to one year after for record-keeping purposes.<br><br>
 
 <strong>Contact:</strong><br>
-For privacy questions, email <a href="mailto:cckphx@gmail.com">cckphx@gmail.com</a>
+For privacy questions, email <a href="mailto:kayla.killoren@phoenix.gov">kayla.killoren@phoenix.gov</a>
 </div><br>
 
 Do you agree to these terms and wish to continue with the online submission?`, false, true); // Skip scroll on first message
@@ -749,7 +749,7 @@ Deadline: December 31, 2025<br><br>
 
 Learn more: <a href="https://www.phoenix.gov/administration/departments/heat/heat-response-programs.html" target="_blank">Phoenix Heat Response Programs</a><br><br>
 
-If you approve, please reply to <strong>cckphx@gmail.com</strong> with your confirmation.<br><br>
+If you approve, please reply to <strong>kayla.killoren@phoenix.gov</strong> with your confirmation.<br><br>
 
 Thank you,<br>
 [Your Name]<br>
@@ -1456,7 +1456,7 @@ T-shirt Size: ${submissionData.tshirtSize}
     `.trim();
 
     // Create mailto link (will open in default email client)
-    const mailtoLink = `mailto:cckphx@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    const mailtoLink = `mailto:kayla.killoren@phoenix.gov?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
     // Auto-send email (opens in new window)
     window.open(mailtoLink, '_blank');
@@ -1480,7 +1480,7 @@ Thank you, ${state.data.firstName}! Your information has been received.<br><br>
 Visit our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to see where your trees will create the most shade for you and your neighbors! Test different locations and tree heights before you place your yard flags.<br><br>
 
 <strong>Questions?</strong><br>
-Email: <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a><br><br>
+Contact: Kayla Killoren at <a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a><br><br>
 
 Learn more: <a href="https://www.phoenix.gov/administration/departments/heat/heat-response-programs.html" class="link" target="_blank">Phoenix Heat Response Programs</a>
 </div>
@@ -1515,7 +1515,7 @@ A: You can select up to 2 trees from our approved list based on your property.<b
 A: You need landlord approval. We provide a template letter.<br><br>
 
 <strong>Q: What if I have questions?</strong><br>
-A: Contact Courtney Kingsbury at <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a>`);
+A: Contact Kayla Killoren at <a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a>`);
 
     showButtons([
         { text: "Apply for trees", action: () => {
