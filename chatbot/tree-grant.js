@@ -74,10 +74,12 @@ function addMessage(text, isUser = false, skipScroll = false) {
     messageDiv.appendChild(bubble);
     messagesDiv.appendChild(messageDiv);
 
-    // Always auto-scroll to show latest messages
-    setTimeout(() => {
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }, 50);
+    // Auto-scroll to show latest messages (unless explicitly skipped)
+    if (!skipScroll) {
+        setTimeout(() => {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }, 100);
+    }
 }
 
 // Clear input area
@@ -383,9 +385,10 @@ async function startConversation() {
     // Start with AI conversational mode
     state.mode = 'conversational';
 
-    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`);
+    // Add initial messages without auto-scrolling
+    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`, false, true);
 
-    addMessage(`You can ask me questions about the program, learn about different tree options, or start your application. What would you like to know?`);
+    addMessage(`You can ask me questions about the program, learn about different tree options, or start your application. What would you like to know?`, false, true);
 
     // Show quick action buttons + free text input
     const buttons = [
@@ -398,6 +401,12 @@ async function startConversation() {
     ];
 
     showConversationalInput(buttons);
+
+    // After everything is rendered, scroll to top to show first message
+    setTimeout(() => {
+        const messagesDiv = document.getElementById('chatMessages');
+        messagesDiv.scrollTop = 0;
+    }, 200);
 }
 
 async function handleQuickQuestion(question) {
