@@ -104,6 +104,47 @@ const translations = {
     'chatbot.greetingText': 'Your neighborhood tree grant specialist. You can ask me questions, take a quiz to find the right trees for your front yard, or submit your request for your trees.',
     'chatbot.greetingButton': "Let's Get Started!",
 
+    // Chatbot Messages
+    'chatbot.welcome': "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.",
+    'chatbot.apply': "Apply now",
+    'chatbot.askQuestion': "Ask a question",
+    'chatbot.browseSpecies': "Browse species",
+    'chatbot.takeQuiz': "Take quiz",
+    'chatbot.privacyTitle': 'Privacy Notice',
+    'chatbot.privacyText': "To apply, I'll need to collect your name, address, and contact information. This data goes directly to the City of Phoenix grant administrators. By continuing, you consent to this data collection.",
+    'chatbot.agree': "I understand and agree",
+    'chatbot.disagree': "No thanks",
+    'chatbot.enterAddress': "Enter your Phoenix address (e.g., 1234 N Main St)",
+    'chatbot.checkingAddress': "Checking address...",
+    'chatbot.addressEligible': "✓ Great news! Your address is eligible.",
+    'chatbot.addressNotEligible': "I couldn't find your address on the eligible list.",
+    'chatbot.whyNotEligible': "Why isn't my address eligible?",
+    'chatbot.alternative Resources': "See alternative resources",
+    'chatbot.ownershipQuestion': "Are you the homeowner or renter?",
+    'chatbot.homeowner': "Homeowner",
+    'chatbot.renter': "Renter",
+    'chatbot.landlordPermission': "Do you have your landlord's permission to plant trees?",
+    'chatbot.yes': "Yes",
+    'chatbot.no': "No",
+    'chatbot.needPermission': "You'll need landlord permission to participate. Please get written approval before applying.",
+    'chatbot.enterName': "What's your full name?",
+    'chatbot.enterEmail': "What's your email address?",
+    'chatbot.enterPhone': "What's your phone number?",
+    'chatbot.selectTrees': "Great! Now let's select your two free trees. Would you like to:",
+    'chatbot.chooseMyself': "Choose them myself",
+    'chatbot.needHelp': "Need help choosing?",
+    'chatbot.treeSelection': "Browse our 16 species and click two that you'd like:",
+    'chatbot.selected': "Selected",
+    'chatbot.confirmSelection': "Confirm selection",
+    'chatbot.reviewApplication': "Perfect! Let's review your application:",
+    'chatbot.submitApp': "Submit Application",
+    'chatbot.editInfo': "Edit info",
+    'chatbot.submitting': "Submitting your application...",
+    'chatbot.success': "🎉 Success! Your application has been submitted.",
+    'chatbot.successDetails': "The City of Phoenix will contact you at {email} with next steps. Keep an eye on your inbox!",
+    'chatbot.error': "Oops! There was an error submitting your application. Please try again or contact support.",
+    'chatbot.startOver': "Start over",
+
     // Footer
     'footer.title': 'Greenway Terrace Tree Grant',
     'footer.description': 'A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.',
@@ -215,6 +256,47 @@ const translations = {
     'chatbot.greetingTitle': '¡Hola, soy Correcaminos!',
     'chatbot.greetingText': 'Su especialista en subvenciones de árboles del vecindario. Puede hacerme preguntas, hacer un cuestionario para encontrar los árboles adecuados para su jardín delantero, o enviar su solicitud para sus árboles.',
     'chatbot.greetingButton': '¡Comencemos!',
+
+    // Chatbot Messages
+    'chatbot.welcome': "¡Hola, soy Correcaminos! 🌳 Su especialista en subvenciones de árboles del vecindario. Estoy aquí para ayudarle a obtener árboles gratis para su jardín delantero a través del programa Community Canopy de Greenway Terrace.",
+    'chatbot.apply': "Solicitar ahora",
+    'chatbot.askQuestion': "Hacer una pregunta",
+    'chatbot.browseSpecies': "Explorar especies",
+    'chatbot.takeQuiz': "Hacer cuestionario",
+    'chatbot.privacyTitle': 'Aviso de Privacidad',
+    'chatbot.privacyText': "Para solicitar, necesitaré recopilar su nombre, dirección e información de contacto. Estos datos van directamente a los administradores de subvenciones de la Ciudad de Phoenix. Al continuar, usted acepta esta recopilación de datos.",
+    'chatbot.agree': "Entiendo y acepto",
+    'chatbot.disagree': "No, gracias",
+    'chatbot.enterAddress': "Ingrese su dirección en Phoenix (ej., 1234 N Main St)",
+    'chatbot.checkingAddress': "Verificando dirección...",
+    'chatbot.addressEligible': "✓ ¡Buenas noticias! Su dirección es elegible.",
+    'chatbot.addressNotEligible': "No pude encontrar su dirección en la lista de elegibles.",
+    'chatbot.whyNotEligible': "¿Por qué mi dirección no es elegible?",
+    'chatbot.alternativeResources': "Ver recursos alternativos",
+    'chatbot.ownershipQuestion': "¿Es usted propietario o inquilino?",
+    'chatbot.homeowner': "Propietario",
+    'chatbot.renter': "Inquilino",
+    'chatbot.landlordPermission': "¿Tiene permiso de su propietario para plantar árboles?",
+    'chatbot.yes': "Sí",
+    'chatbot.no': "No",
+    'chatbot.needPermission': "Necesitará permiso del propietario para participar. Por favor obtenga aprobación por escrito antes de solicitar.",
+    'chatbot.enterName': "¿Cuál es su nombre completo?",
+    'chatbot.enterEmail': "¿Cuál es su dirección de correo electrónico?",
+    'chatbot.enterPhone': "¿Cuál es su número de teléfono?",
+    'chatbot.selectTrees': "¡Excelente! Ahora seleccionemos sus dos árboles gratis. ¿Le gustaría:",
+    'chatbot.chooseMyself': "Elegirlos yo mismo",
+    'chatbot.needHelp': "¿Necesita ayuda para elegir?",
+    'chatbot.treeSelection': "Explore nuestras 16 especies y haga clic en dos que le gustarían:",
+    'chatbot.selected': "Seleccionado",
+    'chatbot.confirmSelection': "Confirmar selección",
+    'chatbot.reviewApplication': "¡Perfecto! Revisemos su solicitud:",
+    'chatbot.submitApp': "Enviar Solicitud",
+    'chatbot.editInfo': "Editar información",
+    'chatbot.submitting': "Enviando su solicitud...",
+    'chatbot.success': "🎉 ¡Éxito! Su solicitud ha sido enviada.",
+    'chatbot.successDetails': "La Ciudad de Phoenix se comunicará con usted en {email} con los próximos pasos. ¡Esté atento a su bandeja de entrada!",
+    'chatbot.error': "¡Ups! Hubo un error al enviar su solicitud. Por favor intente de nuevo o contacte al soporte.",
+    'chatbot.startOver': "Empezar de nuevo",
 
     // Footer
     'footer.title': 'Subvención de Árboles de Greenway Terrace',
@@ -397,6 +479,11 @@ function updateAddressCheckerIfVisible() {
     result.innerHTML = t('eligibility.notEligible');
   }
 }
+
+// Make translation function globally available for chatbot
+window.t = t;
+window.currentLanguage = currentLanguage;
+window.getChatbotLanguage = () => currentLanguage;
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', () => {
