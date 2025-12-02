@@ -63,15 +63,22 @@ function translateText(text, lang = null) {
   // If language is English, return as-is
   if (lang === 'en') return text;
 
-  // Look for exact match first
-  if (translationMap[lang] && translationMap[lang][text]) {
-    return translationMap[lang][text];
+  // Trim the text for comparison
+  const trimmedText = text.trim();
+
+  // Look for exact match first (for short phrases and buttons)
+  if (translationMap[lang] && translationMap[lang][trimmedText]) {
+    return translationMap[lang][trimmedText];
   }
 
-  // Look for partial match (for messages with dynamic content)
-  for (const key in translationMap[lang]) {
-    if (text.includes(key)) {
-      return text.replace(key, translationMap[lang][key]);
+  // For longer phrases, look for partial matches
+  // But skip very short words (3 chars or less) to avoid false matches
+  if (trimmedText.length > 10) {
+    for (const key in translationMap[lang]) {
+      // Only do substring replacement for longer keys (more than 10 chars)
+      if (key.length > 10 && text.includes(key)) {
+        return text.replace(key, translationMap[lang][key]);
+      }
     }
   }
 
