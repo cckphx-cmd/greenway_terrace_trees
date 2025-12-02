@@ -787,8 +787,12 @@ Thank you for your interest in growing green in Phoenix! We hope you can take ad
 }
 
 function showMainMenu() {
-    addMessage(`Wonderful! Let's go!<br><br>What would you like to do?`);
+    addMessage(`What would you like to do?`);
     showButtons([
+        { text: "Apply for trees", action: () => {
+            addMessage("Apply for trees", true);
+            startWelcome();
+        }},
         { text: "Take tree quiz", action: () => {
             addMessage("Take tree quiz", true);
             startTreeQuiz();
@@ -796,14 +800,6 @@ function showMainMenu() {
         { text: "View FAQ", action: () => {
             addMessage("View FAQ", true);
             showFAQ();
-        }},
-        { text: "Submit application", action: () => {
-            addMessage("Submit application", true);
-            askTreeSelectionDirect();
-        }},
-        { text: "← Go back", className: 'back-button', action: () => {
-            addMessage("← Go back", true);
-            askHomeowner();
         }},
         { text: "Start over", action: () => {
             addMessage("Start over", true);
@@ -1083,18 +1079,26 @@ function showTreeRecommendations() {
     addMessage(recommendationHTML);
 
     showButtons([
-        { text: "Apply with these trees", action: () => {
-            addMessage("Apply with these trees", true);
-            // Save quiz results and start application
+        { text: "Select my trees & apply", action: () => {
+            addMessage("Select my trees & apply", true);
+            // Start application with quiz results
             startWelcome();
         }},
-        { text: "← Change my answers", className: 'back-button', action: () => {
-            addMessage("← Change my answers", true);
+        { text: "Browse all tree options", action: () => {
+            addMessage("Browse all tree options", true);
+            askTreeSelection(recommendations);
+        }},
+        { text: "View FAQ", action: () => {
+            addMessage("View FAQ", true);
+            showFAQ();
+        }},
+        { text: "Retake quiz", action: () => {
+            addMessage("Retake quiz", true);
             startTreeQuiz();
         }},
-        { text: "Start over", action: () => {
-            addMessage("Start over", true);
-            location.reload();
+        { text: "Main menu", action: () => {
+            addMessage("Main menu", true);
+            startConversation();
         }}
     ]);
 }
@@ -1497,9 +1501,17 @@ A: You need landlord approval. We provide a template letter.<br><br>
 A: Contact Courtney Kingsbury at <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a>`);
 
     showButtons([
-        { text: "Back to menu", action: () => {
-            addMessage("Back to menu", true);
-            showMainMenu();
+        { text: "Apply for trees", action: () => {
+            addMessage("Apply for trees", true);
+            startWelcome();
+        }},
+        { text: "Take tree quiz", action: () => {
+            addMessage("Take tree quiz", true);
+            startTreeQuiz();
+        }},
+        { text: "Main menu", action: () => {
+            addMessage("Main menu", true);
+            startConversation();
         }}
     ]);
 }
