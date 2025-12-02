@@ -537,10 +537,10 @@ function showConversationalInput(quickButtons = []) {
 }
 
 async function startWelcome() {
-    // Switch to application mode
-    state.mode = 'application';
+    // Switch to submission mode
+    state.mode = 'submission';
     updateProgress('Welcome', 5);
-    addMessage(`<strong>Welcome to the Greenway Terrace Tree Grant Application!</strong><br><br>
+    addMessage(`<strong>Welcome to the Greenway Terrace Tree Grant Submission!</strong><br><br>
 
 Before we begin, please review our data privacy policy.
 
@@ -552,7 +552,7 @@ Before we begin, please review our data privacy policy.
 • Tree preferences and property information<br><br>
 
 <strong>How We Use It:</strong><br>
-• To process your tree grant application<br>
+• To process your tree grant submission<br>
 • To coordinate tree planting with the City of Phoenix and Canopy Tree Care<br>
 • To contact you about this program<br><br>
 
@@ -568,7 +568,7 @@ Your information will be stored for the duration of the program and up to one ye
 For privacy questions, email <a href="mailto:cckphx@gmail.com">cckphx@gmail.com</a>
 </div><br>
 
-Do you agree to these terms and wish to continue with the online application?`, false, true); // Skip scroll on first message
+Do you agree to these terms and wish to continue with the online submission?`, false, true); // Skip scroll on first message
 
     showButtons([
         { text: "I agree, continue", action: () => {
@@ -578,17 +578,17 @@ Do you agree to these terms and wish to continue with the online application?`, 
         }},
         { text: "I decline", action: () => {
             addMessage("I decline", true);
-            showPaperApplicationOption();
+            showPaperSubmissionOption();
         }}
     ]);
 }
 
-function showPaperApplicationOption() {
-    addMessage(`No problem! You can still apply using our paper application.<br><br>
+function showPaperSubmissionOption() {
+    addMessage(`No problem! You can still apply using our paper submission form.<br><br>
 
 <div class="important-box">
-<strong>Paper Application Option:</strong><br><br>
-📄 <a href="../paper-application.pdf" download class="link">Download Paper Application (PDF)</a><br><br>
+<strong>Paper Submission Option:</strong><br><br>
+📄 <a href="../paper-application.pdf" download class="link">Download Paper Submission Form (PDF)</a><br><br>
 
 <strong>Drop-off Location:</strong><br>
 2133 W Edgemont Ave<br>
@@ -596,7 +596,7 @@ function showPaperApplicationOption() {
 
 <strong>Deadline:</strong> December 31, 2025<br><br>
 
-The paper application includes all the same questions and tree options. Simply fill it out and drop it off at the address above.
+The paper submission form includes all the same questions and tree options. Simply fill it out and drop it off at the address above.
 </div><br>
 
 Thank you for your interest in making Phoenix greener!`);
@@ -676,7 +676,7 @@ function askHomeowner() {
         { text: "I'm the homeowner", action: () => {
             addMessage("I'm the homeowner", true);
             state.data.homeownerStatus = 'homeowner';
-            showMainMenu();
+            askTreeSelectionChoice();
         }},
         { text: "I rent and have landlord permission", action: () => {
             addMessage("I rent and have landlord permission", true);
@@ -695,18 +695,35 @@ function askHomeowner() {
     ]);
 }
 
+function askTreeSelectionChoice() {
+    addMessage(`Great! Now let's select your trees. Would you like to take a quick quiz to get personalized recommendations, or browse all available trees?`);
+    showButtons([
+        { text: "Take tree quiz", action: () => {
+            addMessage("Take tree quiz", true);
+            startTreeQuiz();
+        }},
+        { text: "Browse all trees", action: () => {
+            addMessage("Browse all trees", true);
+            askTreeSelectionDirect();
+        }}
+    ]);
+}
+
 function askLandlordInfo() {
     addMessage(`Great! I'll need your landlord's contact information to verify.<br><br>Please provide their name:`);
     showTextInput("Landlord name", (name) => {
         state.data.landlordName = name;
+        addMessage(name, true);
         addMessage(`And their email address (required):`);
         showTextInputWithValidation("landlord@email.com", validateEmail, (email) => {
             state.data.landlordEmail = email;
+            addMessage(email, true);
             addMessage(`Finally, their phone number (required):`);
             showTextInputWithValidation("(555) 555-5555", validatePhone, (phone) => {
                 state.data.landlordPhone = phone;
+                addMessage(phone, true);
                 addMessage(`Perfect! We'll verify with ${name} before proceeding.`);
-                showMainMenu();
+                askTreeSelectionChoice();
             });
         });
     });
@@ -1364,7 +1381,7 @@ ${state.data.landlordName ? `<strong>Landlord:</strong> ${state.data.landlordNam
 `;
     addMessage(review);
     showButtons([
-        { text: "Yes, submit!", action: submitApplication },
+        { text: "Yes, submit!", action: submitSubmission },
         { text: "Edit", action: () => {
             addMessage("Edit", true);
             collectPropertyInfo();
@@ -1372,12 +1389,12 @@ ${state.data.landlordName ? `<strong>Landlord:</strong> ${state.data.landlordNam
     ]);
 }
 
-function submitApplication() {
+function submitSubmission() {
     addMessage("Yes, submit!", true);
-    addMessage('Submitting your application... <span class="loading"></span>');
+    addMessage('Submitting your information... <span class="loading"></span>');
 
-    // Prepare application data
-    const applicationData = {
+    // Prepare submission data
+    const submissionData = {
         submittedAt: new Date().toISOString(),
         address: state.data.confirmedAddress,
         homeownerStatus: state.data.homeownerStatus,
@@ -1402,40 +1419,40 @@ function submitApplication() {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(applicationData)
+            body: JSON.stringify(submissionData)
         }).catch(err => {
             // Silently handle errors - no-cors mode prevents error detection
         });
     }
 
     // Send via Email (mailto link - opens user's email client)
-    const emailSubject = `Tree Grant Application - ${applicationData.firstName} ${applicationData.lastName}`;
+    const emailSubject = `Tree Grant Submission - ${submissionData.firstName} ${submissionData.lastName}`;
     const emailBody = `
-NEW TREE GRANT APPLICATION
+NEW TREE GRANT SUBMISSION
 
-Submitted: ${applicationData.submittedAt}
+Submitted: ${submissionData.submittedAt}
 
 APPLICANT INFO:
-Name: ${applicationData.firstName} ${applicationData.lastName}
-Phone: ${applicationData.phone}
-Email: ${applicationData.email}
-Address: ${applicationData.address}
-Homeowner Status: ${applicationData.homeownerStatus}
+Name: ${submissionData.firstName} ${submissionData.lastName}
+Phone: ${submissionData.phone}
+Email: ${submissionData.email}
+Address: ${submissionData.address}
+Homeowner Status: ${submissionData.homeownerStatus}
 
 LANDLORD INFO (if applicable):
-Name: ${applicationData.landlordName}
-Email: ${applicationData.landlordEmail}
-Phone: ${applicationData.landlordPhone}
+Name: ${submissionData.landlordName}
+Email: ${submissionData.landlordEmail}
+Phone: ${submissionData.landlordPhone}
 
 TREE SELECTION:
-Trees: ${applicationData.trees}
+Trees: ${submissionData.trees}
 
 PROPERTY INFO:
-Stump Removal Needed: ${applicationData.stumpRemoval}
-Complex Install: ${applicationData.complexInstall}
+Stump Removal Needed: ${submissionData.stumpRemoval}
+Complex Install: ${submissionData.complexInstall}
 
 PERKS:
-T-shirt Size: ${applicationData.tshirtSize}
+T-shirt Size: ${submissionData.tshirtSize}
     `.trim();
 
     // Create mailto link (will open in default email client)
@@ -1446,9 +1463,9 @@ T-shirt Size: ${applicationData.tshirtSize}
 
     setTimeout(() => {
         updateProgress('Complete!', 100);
-        addMessage(`<strong>Application submitted!</strong><br><br>
+        addMessage(`<strong>Submission complete!</strong><br><br>
 
-Thank you, ${state.data.firstName}! Your application has been received.<br><br>
+Thank you, ${state.data.firstName}! Your information has been received.<br><br>
 
 <div class="important-box">
 <strong>NEXT STEPS:</strong><br>
