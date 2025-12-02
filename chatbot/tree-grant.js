@@ -793,6 +793,7 @@ function askTreeSelectionDirect() {
     if (!state.data.treeQuantities) {
         state.data.treeQuantities = {};
         addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees total. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
+        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> Not sure about tree heights or placement? Use our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to see how different tree sizes and locations will create shade for you and your neighbors!</div>`);
     }
 
     // Calculate total trees selected
@@ -1085,6 +1086,8 @@ function askTreeSelection(recommendations) {
         addMessage(`Based on your quiz answers, we recommend these 3 trees: <strong>${recNames}</strong>`);
 
         addMessage(`<br>But you can browse all native and non-native options. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
+
+        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> Use our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to test different tree sizes and locations to see how they'll create shade for you and your neighbors!</div>`);
     }
 
     // Calculate total trees selected
@@ -1428,6 +1431,9 @@ Thank you, ${state.data.firstName}! Your application has been received.<br><br>
 • Courtney Kingsbury will review your application<br>
 • We'll contact you within 5-7 business days<br>
 • <strong>Planting week: January 24, 2026</strong><br><br>
+
+<strong>🌳 Plan Your Tree Placement:</strong><br>
+Visit our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to see where your trees will create the most shade for you and your neighbors! Test different locations and tree heights before you place your yard flags.<br><br>
 
 <strong>Questions?</strong><br>
 Email: <a href="mailto:cckphx@gmail.com" class="link">cckphx@gmail.com</a><br><br>
