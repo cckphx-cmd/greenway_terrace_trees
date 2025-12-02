@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Placement Planner | Greenway Terrace Trees</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --desert-sand: #E8DCC4;
+            --terracotta: #C75B39;
+            --terracotta-dark: #A64B2E;
+            --sage: #7A9E7E;
+            --sage-dark: #5C7A5F;
+            --teal: #5BBFBA;
+            --teal-light: #7DD3CF;
+            --sunset-orange: #E8A87C;
+            --warm-cream: #FDF8F0;
+            --desert-brown: #8B7355;
+            --text-dark: #2D2A26;
+            --text-light: #5C5650;
+            --gold: #D4A853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            position: relative;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+
+        /* Desert Background */
+        .desert-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                linear-gradient(180deg,
+                    rgba(253, 248, 240, 0.7) 0%,
+                    rgba(253, 248, 240, 0.6) 40%,
+                    rgba(248, 243, 235, 0.5) 70%,
+                    rgba(232, 220, 196, 0.55) 100%
+                ),
+                url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 42px;
+            width: 100%;
+            background: rgba(253, 248, 240, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(199, 91, 57, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--terracotta);
+            cursor: pointer;
+        }
+
+        /* Deadline Banner */
+        .deadline-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #E07A4F 0%, #F08C64 100%);
+            color: white;
+            padding: 0.6rem 2rem;
+            text-align: center;
+            z-index: 1001;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content */
+        .planner-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 3rem 2rem;
+        }
+
+        .planner-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(199, 91, 57, 0.1);
+        }
+
+        .planner-intro h1 {
+            font-size: 2.5rem;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+        }
+
+        .planner-intro p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .planner-embed {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(199, 91, 57, 0.15);
+        }
+
+        .planner-embed iframe {
+            width: 100%;
+            height: 650px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(199, 91, 57, 0.15);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 98px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(253, 248, 240, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 2rem;
+                gap: 1.5rem;
+                border-radius: 0 0 0 20px;
+                transition: right 0.3s;
+                box-shadow: -5px 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .planner-container {
+                padding: 0 1rem 2rem 1rem;
+                margin: 1rem auto;
+            }
+
+            .planner-intro h1 {
+                font-size: 1.8rem;
+            }
+
+            .planner-intro p {
+                font-size: 1rem;
+            }
+
+            .planner-embed iframe {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desert-bg"></div>
+
+    <!-- Deadline Banner -->
+    <div class="deadline-banner">
+        📅 Application Deadline: December 20, 2024 | Limited to first 60 households
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            Greenway Terrace Trees
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#eligibility">Check Eligibility</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#trees">Browse Trees</a></li>
+            <li><a href="planner.html">Tree Planner</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="planner-container">
+        <div class="planner-intro">
+            <h1>Tree Placement Planner</h1>
+            <p>
+                Use our interactive tool to plan where to place your trees for maximum shade benefit.
+                Draw your house and neighbors' houses, place trees, and see realistic shadow simulations
+                throughout the day. Get AI-powered recommendations for optimal placement!
+            </p>
+        </div>
+
+        <div class="planner-embed">
+            <iframe
+                src="tools/shade-planner/index.html"
+                title="Tree Placement Planner"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

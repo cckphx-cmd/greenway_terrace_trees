@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neighborhood Shade Planner - Greenway Terrace Trees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #FDF8F0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #C75B39 0%, #A64B2E 100%);
+      color: white;
+      box-shadow: 0 2px 6px rgba(199, 91, 57, 0.2);
+      text-align: center;
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .disclaimer-banner {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #F8E6C8 0%, #EDD9B4 100%);
+      border-bottom: 2px solid #D4A853;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(212, 168, 83, 0.15);
+    }
+
+    .disclaimer-banner strong {
+      color: #8B7355;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .address-bar {
+      padding: 10px 20px;
+      background: #FDF8F0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-bottom: 1px solid #E8DCC4;
+    }
+
+    .address-bar input {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      border: 2px solid #E8DCC4;
+      border-radius: 6px;
+      outline: none;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .address-bar input:focus {
+      border-color: #C75B39;
+      box-shadow: 0 0 0 2px rgba(199, 91, 57, 0.1);
+    }
+
+    .address-bar button {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #C75B39 0%, #A64B2E 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(199, 91, 57, 0.2);
+    }
+
+    .address-bar button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(199, 91, 57, 0.3);
+    }
+
+    .address-bar button:active {
+      transform: translateY(0);
+    }
+
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .map-container {
+      width: 60%;
+      height: 500px;
+      position: relative;
+      background: #e8e8e8;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 40%;
+      background: #FDF8F0;
+      padding: 16px;
+      overflow-y: auto;
+      border-left: 2px solid #E8DCC4;
+    }
+
+    .tool-section {
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #E8DCC4;
+    }
+
+    .tool-section:last-child {
+      border-bottom: none;
+    }
+
+    .tool-section h3 {
+      margin: 0 0 10px 0;
+      color: #C75B39;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      margin: 4px 4px 4px 0;
+      background: linear-gradient(135deg, #C75B39 0%, #A64B2E 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(199, 91, 57, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(199, 91, 57, 0.35);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn.active {
+      background: linear-gradient(135deg, #A64B2E 0%, #8A3D24 100%);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+
+    select {
+      width: 100%;
+      padding: 6px 10px;
+      margin-top: 6px;
+      border: 1px solid #E8DCC4;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: 'Montserrat', sans-serif;
+      background: white;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: #C75B39;
+      box-shadow: 0 0 0 2px rgba(199, 91, 57, 0.1);
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      color: #5C5650;
+      margin-bottom: 4px;
+    }
+
+    .time-slider {
+      width: 100%;
+      margin: 8px 0;
+      height: 6px;
+      border-radius: 8px;
+      outline: none;
+      -webkit-appearance: none;
+      background: linear-gradient(to right, #E8DCC4, #5BBFBA);
+    }
+
+    .time-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #C75B39;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(199, 91, 57, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .time-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+
+    .time-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #C75B39;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 1px 4px rgba(199, 91, 57, 0.4);
+    }
+
+    #time-display {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Cormorant Garamond', serif;
+      color: #C75B39;
+      margin: 6px 0;
+      letter-spacing: 0.3px;
+    }
+
+    .results-box {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 8px;
+      box-shadow: 0 2px 6px rgba(199, 91, 57, 0.08);
+      border: 1px solid #E8DCC4;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .shade-good {
+      color: #7A9E7E;
+      font-weight: 600;
+    }
+
+    .shade-none {
+      color: #8B7355;
+    }
+
+    .instructions {
+      background: linear-gradient(135deg, #FDF8F0 0%, #F5EFE0 100%);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 14px;
+      border-left: 3px solid #5BBFBA;
+      line-height: 1.5;
+      box-shadow: 0 1px 4px rgba(91, 191, 186, 0.15);
+    }
+
+    .tree-size-buttons {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tree-size-buttons .btn {
+      flex: 1;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .info-text {
+      font-size: 11px;
+      color: #8B7355;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .animate-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #5BBFBA 0%, #5C7A5F 100%);
+      color: white;
+      box-shadow: 0 2px 6px rgba(91, 191, 186, 0.3);
+    }
+
+    .animate-btn:hover {
+      background: linear-gradient(135deg, #4AA9A4 0%, #4A6A4F 100%);
+      box-shadow: 0 3px 8px rgba(91, 191, 186, 0.4);
+    }
+
+    .recommendation-box {
+      margin-top: 8px;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .disclaimer-banner strong {
+        font-size: 12px;
+      }
+
+      .main-content {
+        flex-direction: column;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 350px;
+      }
+
+      .sidebar {
+        width: 100%;
+        max-height: none;
+        border-left: none;
+        border-top: 2px solid #E8DCC4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Tree Placement Planner</h1>
+      <p>Plan strategic tree placement for maximum shade</p>
+    </div>
+
+    <div class="disclaimer-banner">
+      <strong>⚠️ IMPORTANT: Trees must be placed in your front yard (toward the street) to qualify for the grant program.</strong>
+    </div>
+
+    <div class="address-bar">
+      <input
+        type="text"
+        id="address-input"
+        placeholder="Enter your Phoenix address (e.g., 1234 E Main St, Phoenix, AZ)"
+      >
+      <button onclick="loadAddress()">Load Map</button>
+    </div>
+
+    <div class="main-content">
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+
+      <div class="sidebar">
+        <div class="instructions" id="instructions">
+          Enter your address above to get started. We'll show you the best places to plant trees that shade both your house and your neighbors'.
+        </div>
+
+        <div class="tool-section">
+          <h3>Step 1: Draw Buildings</h3>
+          <button class="btn" id="btn-draw-house" onclick="startDrawHouse()">
+            Draw My House
+          </button>
+          <button class="btn" id="btn-draw-neighbor" onclick="startDrawNeighbor()">
+            Draw Neighbor
+          </button>
+          <div style="margin-top: 12px;">
+            <label>Building Height:</label>
+            <select id="house-height">
+              <option value="12">Single Story (12 ft)</option>
+              <option value="24" selected>Two Story (24 ft)</option>
+              <option value="18">1.5 Story (18 ft)</option>
+            </select>
+          </div>
+          <p class="info-text">Click corners of buildings to trace them. Double-click to finish.</p>
+        </div>
+
+        <div class="tool-section">
+          <h3>Step 2: Place Trees</h3>
+          <button class="btn" id="btn-add-tree" onclick="startAddTree()">
+            Add Tree
+          </button>
+          <div style="margin-top: 12px;">
+            <label>Tree Size:</label>
+            <div class="tree-size-buttons">
+              <button class="btn btn-small" onclick="setTreeSize('small')">Small<br>15ft</button>
+              <button class="btn btn-small active" onclick="setTreeSize('medium')" id="btn-size-medium">Medium<br>25ft</button>
+              <button class="btn btn-small" onclick="setTreeSize('large')">Large<br>40ft</button>
+            </div>
+          </div>
+          <p class="info-text">Click on the map to place a tree. Trees are draggable after placement.</p>
+        </div>
+
+        <div class="tool-section">
+          <h3>Step 3: See Shadows</h3>
+          <label>Time of Day:</label>
+          <input
+            type="range"
+            class="time-slider"
+            id="time-slider"
+            min="6"
+            max="20"
+            value="14"
+            step="0.5"
+            oninput="updateTime(this.value)"
+          >
+          <div id="time-display">2:00 PM</div>
+
+          <div style="margin-top: 16px;">
+            <label>Date:</label>
+            <select id="date-select" onchange="updateShadows()">
+              <option value="2024-06-21">June 21 (Summer Solstice)</option>
+              <option value="2024-08-01" selected>August 1 (Peak Heat)</option>
+              <option value="2024-07-15">July 15 (Mid-Summer)</option>
+              <option value="2024-09-15">September 15 (Late Summer)</option>
+            </select>
+          </div>
+
+          <button class="btn animate-btn" onclick="animateShadows()">
+            ▶ Animate Shadows Through Day
+          </button>
+        </div>
+
+        <div class="tool-section">
+          <h3>Shade Coverage</h3>
+          <div class="results-box" id="results">
+            <p>Place trees and buildings to see shade analysis.</p>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3>Recommendation</h3>
+          <button class="btn" onclick="showRecommendation()" style="width: 100%;">
+            Find Best Tree Placement
+          </button>
+          <div id="recommendation" class="recommendation-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwMxMvl8isZShPqkKJ6O0RGbzcQDF31E4&libraries=drawing,geometry"></script>
+  <script src="app.js"></script>
+</body>
+</html>
