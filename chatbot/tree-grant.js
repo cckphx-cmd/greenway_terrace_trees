@@ -393,25 +393,25 @@ function getTreeRecommendations() {
 
 // Conversation flows
 async function startConversation() {
-    // Start with AI conversational mode
-    state.mode = 'conversational';
+    // Skip AI mode and go straight to application
+    state.mode = 'application';
 
-    // Add initial messages without auto-scrolling
-    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.`, false, true);
+    // Add welcome message
+    addMessage(`Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you apply for free trees through the Greenway Terrace Community Canopy program.`, false, true);
 
-    addMessage(`You can ask me questions about the program, learn about different tree options, or start your application. What would you like to know?`, false, true);
-
-    // Show quick action buttons + free text input
+    // Show action buttons
     const buttons = [
-        { text: "Tell me about the program", action: () => handleQuickQuestion("Tell me about the program") },
-        { text: "What trees are available?", action: () => handleQuickQuestion("What trees are available?") },
-        { text: "Apply now", action: () => {
-            addMessage("Apply now", true);
+        { text: "Start Application", action: () => {
+            addMessage("Start Application", true);
             startWelcome();
+        }},
+        { text: "View FAQ", action: () => {
+            addMessage("View FAQ", true);
+            showFAQ();
         }}
     ];
 
-    showConversationalInput(buttons);
+    showButtons(buttons);
 
     // After everything is rendered, scroll to top to show first message
     setTimeout(() => {
@@ -1501,11 +1501,6 @@ window.onload = () => {
     }
     window.scrollTo(0, 0);
 
-    // Start with conversational AI mode
-    if (aiChat) {
-        startConversation();
-    } else {
-        // Fallback to traditional form if AI not available
-        startWelcome();
-    }
+    // Start the application flow (AI disabled)
+    startConversation();
 };
