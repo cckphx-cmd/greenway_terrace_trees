@@ -2064,14 +2064,32 @@
             }
         }
 
-        // Modal functions - show full PDF screenshot
+        // Modal functions - show full PDF screenshot with language support
         function openModal(treeId) {
-            const imageSrc = treeImages[treeId];
+            let imageSrc = treeImages[treeId];
             if (!imageSrc) return;
+
+            // Check if Spanish language is active
+            const lang = currentLanguage || 'en';
+            if (lang === 'es') {
+                // Try to use Spanish version of tree flyer
+                const spanishSrc = imageSrc.replace('.png', '-es.png');
+                // Use Spanish version if it exists, otherwise fall back to English
+                // Note: Upload Spanish tree flyers as: blue-palo-verde-es.png, etc.
+                imageSrc = spanishSrc;
+            }
 
             document.getElementById('modalImage').src = imageSrc;
             document.getElementById('modalImage').alt = treeId.replace(/-/g, ' ');
-            
+
+            // Add error handler to fall back to English version if Spanish doesn't exist
+            document.getElementById('modalImage').onerror = function() {
+                if (lang === 'es') {
+                    this.onerror = null; // Prevent infinite loop
+                    this.src = treeImages[treeId]; // Fall back to English version
+                }
+            };
+
             document.getElementById('treeModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
