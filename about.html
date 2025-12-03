@@ -122,6 +122,46 @@
             color: var(--terracotta);
         }
 
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: rgba(232, 220, 196, 0.3);
+            padding: 0.4rem 0.6rem;
+            border-radius: 50px;
+            border: 1px solid rgba(199, 91, 57, 0.2);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-btn:hover {
+            background: rgba(199, 91, 57, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--terracotta);
+            color: white;
+            box-shadow: 0 2px 8px rgba(199, 91, 57, 0.3);
+        }
+
         /* About Section */
         .about-section {
             background: rgba(255,255,255,0.85);
@@ -187,8 +227,7 @@
                 display: block;
             }
 
-            .nav-links {
-                display: none;
+            .nav-content {
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -198,11 +237,29 @@
                 flex-direction: column;
                 padding: 1.5rem;
                 gap: 1rem;
+                display: none;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
 
-            .nav-links.active {
+            .nav-content.active {
                 display: flex;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                padding: 0.5rem;
+            }
+
+            .lang-btn {
+                flex: 1;
+                text-align: center;
             }
 
             .nav-links a {
@@ -345,25 +402,30 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">
+        <a href="index.html" class="logo" data-i18n="nav.logo">
             Greenway Terrace Trees
         </a>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html#eligibility">Check Eligibility</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="index.html#trees">Browse Trees</a></li>
-            <li><a href="planner.html">Tree Planner</a></li>
-            <li><a href="index.html#roadrunner">Apply</a></li>
-            <li><a href="index.html#faq">FAQ</a></li>
-        </ul>
+        <div class="nav-content">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#eligibility" data-i18n="nav.checkEligibility">Check Eligibility</a></li>
+                <li><a href="about.html" data-i18n="nav.about">About</a></li>
+                <li><a href="index.html#trees" data-i18n="nav.browseTrees">Browse Trees</a></li>
+                <li><a href="planner.html" data-i18n="nav.treePlanner">See Your Shade</a></li>
+                <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">Español</button>
+            </div>
+        </div>
     </nav>
 
     <!-- About Section -->
     <section class="about-section">
         <div class="about-content">
             <div class="about-text">
-                <h2>About This Project</h2>
+                <h2 data-i18n="about.title">About This Project</h2>
 
                 <div style="display: flex; align-items: flex-start; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
                     <img src="images/courtney-photo.jpg" alt="Courtney Kingsbury" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid var(--terracotta); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -397,46 +459,49 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h3>Greenway Terrace Tree Grant</h3>
-                <p>A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
+                <h3 data-i18n="footer.title">Greenway Terrace Tree Grant</h3>
+                <p data-i18n="footer.description">A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4 data-i18n="footer.quickLinks">Quick Links</h4>
                 <ul>
-                    <li><a href="index.html#eligibility">Check Eligibility</a></li>
-                    <li><a href="index.html#trees">Browse Trees</a></li>
+                    <li><a href="index.html#eligibility" data-i18n="nav.checkEligibility">Check Eligibility</a></li>
+                    <li><a href="index.html#trees" data-i18n="nav.browseTrees">Browse Trees</a></li>
                     <li><a href="index.html#roadrunner">Apply Now</a></li>
-                    <li><a href="index.html#faq">FAQ</a></li>
+                    <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Resources</h4>
+                <h4 data-i18n="footer.resources">Resources</h4>
                 <ul>
-                    <li><a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" target="_blank">City of Phoenix Grants</a></li>
-                    <li><a href="https://www.phoenix.gov/heat" target="_blank">Heat Response Office</a></li>
-                    <li><a href="https://arboretum.arizona.edu/" target="_blank">Arizona Tree Care Guide</a></li>
-                    <li><a href="https://courtneykingsbury.com" target="_blank">Courtney's Work</a></li>
+                    <li><a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" target="_blank" data-i18n="footer.cityGrants">City of Phoenix Grants</a></li>
+                    <li><a href="https://www.phoenix.gov/heat" target="_blank" data-i18n="footer.heatOffice">Heat Response Office</a></li>
+                    <li><a href="https://arboretum.arizona.edu/" target="_blank" data-i18n="footer.treeGuide">Arizona Tree Care Guide</a></li>
+                    <li><a href="https://courtneykingsbury.com" target="_blank" data-i18n="footer.courtneyWork">Courtney's Work</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Greenway Terrace Community Canopy Grant</p>
+            <p data-i18n="footer.copyright">© 2025 Greenway Terrace Community Canopy Grant</p>
         </div>
     </footer>
 
+    <!-- i18n Support -->
+    <script src="i18n.js"></script>
+
     <script>
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            const navContent = document.querySelector('.nav-content');
+            navContent.classList.toggle('active');
         }
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const navLinks = document.getElementById('navLinks');
+            const navContent = document.querySelector('.nav-content');
             const menuBtn = document.querySelector('.mobile-menu-btn');
 
-            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
-                navLinks.classList.remove('active');
+            if (!navContent.contains(event.target) && !menuBtn.contains(event.target)) {
+                navContent.classList.remove('active');
             }
         });
     </script>

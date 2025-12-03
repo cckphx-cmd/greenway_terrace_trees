@@ -121,6 +121,46 @@
             cursor: pointer;
         }
 
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: rgba(232, 220, 196, 0.3);
+            padding: 0.4rem 0.6rem;
+            border-radius: 50px;
+            border: 1px solid rgba(199, 91, 57, 0.2);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-btn:hover {
+            background: rgba(199, 91, 57, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--terracotta);
+            color: white;
+            box-shadow: 0 2px 8px rgba(199, 91, 57, 0.3);
+        }
+
         /* Deadline Banner */
         .deadline-banner {
             position: fixed;
@@ -201,7 +241,7 @@
                 display: block;
             }
 
-            .nav-links {
+            .nav-content {
                 position: fixed;
                 top: 98px;
                 right: -100%;
@@ -217,8 +257,25 @@
                 max-width: 300px;
             }
 
-            .nav-links.active {
+            .nav-content.active {
                 right: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                padding: 0.5rem;
+            }
+
+            .lang-btn {
+                flex: 1;
+                text-align: center;
             }
 
             .nav-links a {
@@ -295,24 +352,30 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo">
+        <a href="index.html" class="logo" data-i18n="nav.logo">
             Greenway Terrace Trees
         </a>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html#eligibility">Check Eligibility</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="index.html#trees">Browse Trees</a></li>
-            <li><a href="planner.html">Tree Planner</a></li>
-            <li><a href="index.html#faq">FAQ</a></li>
-        </ul>
+        <div class="nav-content">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#eligibility" data-i18n="nav.checkEligibility">Check Eligibility</a></li>
+                <li><a href="about.html" data-i18n="nav.about">About</a></li>
+                <li><a href="index.html#trees" data-i18n="nav.browseTrees">Browse Trees</a></li>
+                <li><a href="planner.html" data-i18n="nav.treePlanner">See Your Shade</a></li>
+                <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">Español</button>
+            </div>
+        </div>
     </nav>
 
     <!-- Main Content -->
     <div class="planner-container">
         <div class="planner-intro">
-            <h1>Tree Placement Planner</h1>
-            <p>
+            <h1 data-i18n="planner.title">Tree Placement Planner</h1>
+            <p data-i18n="planner.description">
                 Use our interactive tool to plan where to place your trees for maximum shade benefit.
                 Draw your house and neighbors' houses, place trees, and see realistic shadow simulations
                 throughout the day. Get AI-powered recommendations for optimal placement!
@@ -328,19 +391,22 @@
         </div>
     </div>
 
+    <!-- i18n Support -->
+    <script src="i18n.js"></script>
+
     <script>
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            const navContent = document.querySelector('.nav-content');
+            navContent.classList.toggle('active');
         }
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const navLinks = document.getElementById('navLinks');
+            const navContent = document.querySelector('.nav-content');
             const menuBtn = document.querySelector('.mobile-menu-btn');
 
-            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
-                navLinks.classList.remove('active');
+            if (!navContent.contains(event.target) && !menuBtn.contains(event.target)) {
+                navContent.classList.remove('active');
             }
         });
     </script>

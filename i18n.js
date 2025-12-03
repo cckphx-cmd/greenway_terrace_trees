@@ -145,6 +145,13 @@ const translations = {
     'chatbot.error': "Oops! There was an error submitting your application. Please try again or contact support.",
     'chatbot.startOver': "Start over",
 
+    // About Page
+    'about.title': 'About This Project',
+
+    // Planner Page
+    'planner.title': 'Tree Placement Planner',
+    'planner.description': 'Use our interactive tool to plan where to place your trees for maximum shade benefit. Draw your house and neighbors\' houses, place trees, and see realistic shadow simulations throughout the day. Get AI-powered recommendations for optimal placement!',
+
     // Footer
     'footer.title': 'Greenway Terrace Tree Grant',
     'footer.description': 'A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.',
@@ -297,6 +304,13 @@ const translations = {
     'chatbot.successDetails': "La Ciudad de Phoenix se comunicará con usted en {email} con los próximos pasos. ¡Esté atento a su bandeja de entrada!",
     'chatbot.error': "¡Ups! Hubo un error al enviar su solicitud. Por favor intente de nuevo o contacte al soporte.",
     'chatbot.startOver': "Empezar de nuevo",
+
+    // About Page
+    'about.title': 'Acerca de Este Proyecto',
+
+    // Planner Page
+    'planner.title': 'Planificador de Colocación de Árboles',
+    'planner.description': 'Use nuestra herramienta interactiva para planificar dónde colocar sus árboles para obtener el máximo beneficio de sombra. Dibuje su casa y las casas de sus vecinos, coloque árboles y vea simulaciones realistas de sombras durante el día. ¡Obtenga recomendaciones impulsadas por IA para una colocación óptima!',
 
     // Footer
     'footer.title': 'Subvención de Árboles de Greenway Terrace',
