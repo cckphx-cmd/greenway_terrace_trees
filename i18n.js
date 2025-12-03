@@ -10,7 +10,7 @@ const translations = {
     'nav.checkEligibility': 'Check Eligibility',
     'nav.about': 'About',
     'nav.browseTrees': 'Browse Trees',
-    'nav.treePlanner': 'Tree Planner',
+    'nav.treePlanner': 'See Your Shade',
     'nav.faq': 'FAQ',
 
     // Deadline Banner
@@ -23,7 +23,7 @@ const translations = {
     // Hero Section
     'hero.title': 'Free Trees for Greenway Terrace',
     'hero.subtitle': '& Surrounding Neighborhoods',
-    'hero.description': "Hi, I'm Courtney Kingsbury, your neighbor in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
+    'hero.description': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
     'hero.cta': 'Click the Roadrunner to Get Started',
 
     // Stats Section
@@ -36,7 +36,7 @@ const translations = {
     'eligibility.title': 'Check Your Eligibility',
     'eligibility.description': 'This grant covers Greenway Terrace and surrounding neighborhoods.',
     'eligibility.boundaries': 'Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).',
-    'eligibility.chatbotNote': 'The chatbot will check your address when you apply.',
+    'eligibility.chatbotNote': 'If your house is within this outlined area click the roadrunner icon to confirm your address is included.',
     'eligibility.eligible': 'Great news! Your address is eligible for free trees.',
     'eligibility.applyNow': 'Apply now!',
     'eligibility.maybeEligible': 'Your address appears to be eligible. Please verify the exact address when you apply.',
@@ -163,7 +163,7 @@ const translations = {
     'nav.checkEligibility': 'Verificar Elegibilidad',
     'nav.about': 'Acerca de',
     'nav.browseTrees': 'Ver Árboles',
-    'nav.treePlanner': 'Planificador de Árboles',
+    'nav.treePlanner': 'Ver Tu Sombra',
     'nav.faq': 'Preguntas Frecuentes',
 
     // Deadline Banner
@@ -176,7 +176,7 @@ const translations = {
     // Hero Section
     'hero.title': 'Árboles Gratis para Greenway Terrace',
     'hero.subtitle': 'y Vecindarios Cercanos',
-    'hero.description': 'Hola, soy Courtney Kingsbury, su vecina en Greenway Terrace. Solicité y gané una subvención para nuestro vecindario donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
+    'hero.description': 'Hola, soy Courtney, su vecina de Greenway Terrace. Solicité y gané una subvención para nuestro vecindario donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
     'hero.cta': 'Haga Clic en el Correcaminos para Comenzar',
 
     // Stats Section
@@ -189,7 +189,7 @@ const translations = {
     'eligibility.title': 'Verifique Su Elegibilidad',
     'eligibility.description': 'Esta subvención cubre Greenway Terrace y vecindarios circundantes.',
     'eligibility.boundaries': 'Límites del área elegible: Thomas Rd (Sur), McDowell Rd (Norte), 23rd Ave (Oeste), 19th Ave (Este).',
-    'eligibility.chatbotNote': 'El chatbot verificará su dirección cuando aplique.',
+    'eligibility.chatbotNote': 'Si su casa está dentro de esta área delineada, haga clic en el ícono del correcaminos para confirmar que su dirección está incluida.',
     'eligibility.eligible': '¡Buenas noticias! Su dirección es elegible para árboles gratis.',
     'eligibility.applyNow': '¡Solicite ahora!',
     'eligibility.maybeEligible': 'Su dirección parece ser elegible. Por favor verifique la dirección exacta cuando aplique.',
