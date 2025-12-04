@@ -390,10 +390,18 @@ function setLanguage(lang) {
   });
   document.querySelector(`[data-lang="${lang}"]`)?.classList.add('active');
 
-  // Notify chatbot iframe of language change
+  // Notify all iframes (chatbot and planner) of language change
   const chatbotIframe = document.querySelector('.chatbot-widget-iframe');
   if (chatbotIframe && chatbotIframe.contentWindow) {
     chatbotIframe.contentWindow.postMessage({
+      type: 'languageChange',
+      language: lang
+    }, '*');
+  }
+
+  const plannerIframe = document.querySelector('.planner-embed iframe');
+  if (plannerIframe && plannerIframe.contentWindow) {
+    plannerIframe.contentWindow.postMessage({
       type: 'languageChange',
       language: lang
     }, '*');
@@ -592,12 +600,22 @@ window.t = t;
 window.currentLanguage = currentLanguage;
 window.getChatbotLanguage = () => currentLanguage;
 
-// Listen for language requests from chatbot iframe
+// Listen for language requests from iframes (chatbot and planner)
 window.addEventListener('message', function(event) {
   if (event.data && event.data.type === 'requestLanguage') {
+    // Send to chatbot iframe
     const chatbotIframe = document.querySelector('.chatbot-widget-iframe');
     if (chatbotIframe && chatbotIframe.contentWindow) {
       chatbotIframe.contentWindow.postMessage({
+        type: 'languageChange',
+        language: currentLanguage
+      }, '*');
+    }
+
+    // Send to planner iframe
+    const plannerIframe = document.querySelector('.planner-embed iframe');
+    if (plannerIframe && plannerIframe.contentWindow) {
+      plannerIframe.contentWindow.postMessage({
         type: 'languageChange',
         language: currentLanguage
       }, '*');
