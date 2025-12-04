@@ -1550,6 +1550,13 @@ window.onload = () => {
     }
     window.scrollTo(0, 0);
 
-    // Start the application flow (AI disabled)
-    startConversation();
+    // Check if language is ready (from chatbot-i18n.js)
+    if (typeof window.languageReady !== 'undefined' && !window.languageReady) {
+        // Language not ready yet, set flag to start later
+        console.log('Waiting for language before starting chatbot...');
+        window.chatbotStartPending = true;
+    } else {
+        // Language is ready or not needed, start immediately
+        startConversation();
+    }
 };

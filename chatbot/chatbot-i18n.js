@@ -7,54 +7,120 @@
 // Translation mapping for common phrases to replace
 const translationMap = {
   en: {
-    "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist": "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist",
-    "Apply now": "Apply now",
-    "Ask a question": "Ask a question",
-    "Browse species": "Browse species",
-    "Take quiz": "Take quiz",
-    "Privacy Notice": "Privacy Notice",
-    "I understand and agree": "I understand and agree",
-    "No thanks": "No thanks",
-    "Are you the homeowner or renter?": "Are you the homeowner or renter?",
-    "Homeowner": "Homeowner",
-    "Renter": "Renter",
-    "Yes": "Yes",
-    "No": "No",
-    "Great news! Your address is eligible": "Great news! Your address is eligible",
-    "What's your full name?": "What's your full name?",
-    "What's your email address?": "What's your email address?",
-    "What's your phone number?": "What's your phone number?",
-    "Submit Application": "Submit Application",
-    "Start over": "Start over"
+    // English is the default - no translation needed
   },
   es: {
-    "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist": "¡Hola, soy Correcaminos! 🌳 Su especialista en subvenciones de árboles del vecindario",
-    "Apply now": "Solicitar ahora",
+    // Full welcome messages
+    "Hi there! I'm Roadrunner 🌳, your friendly neighborhood tree grant assistant. I'm so excited to help you get free trees for your front yard through the Greenway Terrace Community Canopy program!": "¡Hola! Soy Correcaminos 🌳, su amigable asistente de subvenciones de árboles del vecindario. ¡Estoy muy emocionado de ayudarle a obtener árboles gratis para su jardín delantero a través del programa Community Canopy de Greenway Terrace!",
+    "So, what brings you here today? Would you like to apply for your trees, explore your options, or learn more about the program?": "Entonces, ¿qué le trae aquí hoy? ¿Le gustaría solicitar sus árboles, explorar sus opciones o aprender más sobre el programa?",
+
+    // Navigation buttons
+    "Apply for trees": "Solicitar árboles",
+    "Take tree quiz": "Hacer cuestionario de árboles",
+    "View FAQ": "Ver preguntas frecuentes",
     "Ask a question": "Hacer una pregunta",
-    "Browse species": "Explorar especies",
-    "Take quiz": "Hacer cuestionario",
+
+    // Common actions
     "Privacy Notice": "Aviso de Privacidad",
     "I understand and agree": "Entiendo y acepto",
     "No thanks": "No, gracias",
-    "Are you the homeowner or renter?": "¿Es usted propietario o inquilino?",
-    "Homeowner": "Propietario",
-    "Renter": "Inquilino",
     "Yes": "Sí",
     "No": "No",
+    "Back": "Atrás",
+    "Done": "Listo",
+    "Yes, submit!": "¡Sí, enviar!",
+
+    // Ownership
+    "Homeowner": "Propietario",
+    "I'm the homeowner": "Soy el propietario",
+    "Renter": "Inquilino",
+    "I'm renting": "Estoy alquilando",
+    "Are you the homeowner or renter?": "¿Es usted propietario o inquilino?",
+
+    // Responses
+    "Perfect!": "¡Perfecto!",
+    "Awesome!": "¡Excelente!",
+    "Excellent!": "¡Excelente!",
+    "Great choice!": "¡Buena elección!",
+    "Got it!": "¡Entendido!",
     "Great news! Your address is eligible": "¡Buenas noticias! Su dirección es elegible",
+
+    // Personal info
     "What's your full name?": "¿Cuál es su nombre completo?",
     "What's your email address?": "¿Cuál es su dirección de correo electrónico?",
     "What's your phone number?": "¿Cuál es su número de teléfono?",
+
+    // Submission
     "Submit Application": "Enviar Solicitud",
-    "Start over": "Empezar de nuevo"
+    "Start over": "Empezar de nuevo",
+
+    // Tree sizes
+    "Small trees": "Árboles pequeños",
+    "Medium trees": "Árboles medianos",
+    "Large trees": "Árboles grandes",
+
+    // Additional common phrases for partial matching
+    "Hi there! I'm Roadrunner": "¡Hola! Soy Correcaminos",
+    "your friendly neighborhood tree grant assistant": "su amigable asistente de subvenciones de árboles del vecindario",
+    "I'm so excited to help you": "Estoy muy emocionado de ayudarle",
+    "get free trees for your front yard": "obtener árboles gratis para su jardín delantero",
+    "through the Greenway Terrace Community Canopy program": "a través del programa Community Canopy de Greenway Terrace"
   }
 };
 
-// Get current language from parent page's i18n system
+// Get current language - default to English, will be updated by parent
+let chatbotCurrentLanguage = 'en';
+let languageReady = false;
+let chatbotStartPending = false;
+
+// Expose to window for tree-grant.js to access
+window.languageReady = languageReady;
+window.chatbotStartPending = chatbotStartPending;
+
 function getCurrentLanguage() {
-  return (window.parent && window.parent.currentLanguage) ||
-         (typeof currentLanguage !== 'undefined' ? currentLanguage : 'en');
+  return chatbotCurrentLanguage;
 }
+
+// Listen for language changes from parent page
+window.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'languageChange') {
+    chatbotCurrentLanguage = event.data.language;
+    languageReady = true;
+    window.languageReady = true;
+    console.log('Chatbot language updated to:', chatbotCurrentLanguage);
+
+    // If chatbot was waiting to start, start it now
+    if (window.chatbotStartPending && typeof window.startConversation === 'function') {
+      console.log('Starting chatbot with language:', chatbotCurrentLanguage);
+      window.chatbotStartPending = false;
+      window.startConversation();
+    }
+  }
+});
+
+// Request current language from parent on load
+window.addEventListener('load', function() {
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'requestLanguage' }, '*');
+
+    // Set a timeout in case parent doesn't respond
+    setTimeout(function() {
+      if (!languageReady) {
+        console.log('Language not received from parent, defaulting to English');
+        languageReady = true;
+        window.languageReady = true;
+        if (window.chatbotStartPending && typeof window.startConversation === 'function') {
+          window.chatbotStartPending = false;
+          window.startConversation();
+        }
+      }
+    }, 500);
+  } else {
+    // Not in iframe, language is already set
+    languageReady = true;
+    window.languageReady = true;
+  }
+});
 
 // Translate text using translation map
 function translateText(text, lang = null) {
@@ -72,7 +138,6 @@ function translateText(text, lang = null) {
   }
 
   // For longer phrases, look for partial matches
-  // But skip very short words (3 chars or less) to avoid false matches
   if (trimmedText.length > 10) {
     for (const key in translationMap[lang]) {
       // Only do substring replacement for longer keys (more than 10 chars)

@@ -147,10 +147,32 @@ const translations = {
 
     // About Page
     'about.title': 'About This Project',
+    'about.intro': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I've been here for 10 years and my family has been in this neighborhood since it was built. I put this project together to help us get as many trees as possible to as many homes as possible.",
+    'about.backstory': 'I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision only. We won. The city then expanded eligibility to over 600 homes in the surrounding area, which means more of our neighbors can benefit.',
+    'about.heading1': "Here's why this matters.",
+    'about.question1': "Have you ever wondered why our neighborhood isn't built in straight lines? Or why the houses all sit at slightly different angles on their lots?",
+    'about.usedToBe': "They don't build them like they used to.",
+    'about.sunPath': "Our homes, and more importantly our trees, were strategically placed based on the science of Sun Path Diagrams and Shadow Analysis. These tools map exactly where the sun will be at any time of day, any day of the year, and predict how shadows will move across properties throughout the seasons. Mid-century builders used this science to angle houses and position trees so that a single tree could shade your house in the morning and your neighbor's driveway in the afternoon. It was intentional. It was brilliant.",
+    'about.lostIt': "And over time, we've lost it.",
+    'about.restoration': "As trees have come down from storms, age, and disease, we've lost the shade that once kept our homes cool. I know that when older homes start showing their age, our first instinct is to slash and burn. Add different windows. Tear things down. But what we should really be doing is reclaiming the heat mitigation strategies that were already here. These gorgeous mid-century ranch homes were designed to stay cool. We just need to restore what made them work.",
+    'about.personalReason': "I applied for this grant for one simple reason: my trees died and I'm not in a financial place to replace them. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.",
+    'about.callToAction': 'Join me in bringing the shade back.',
 
     // Planner Page
     'planner.title': 'Tree Placement Planner',
     'planner.description': 'Use our interactive tool to plan where to place your trees for maximum shade benefit. Draw your house and neighbors\' houses, place trees, and see realistic shadow simulations throughout the day. Get AI-powered recommendations for optimal placement!',
+
+    // Shade Visualization Section
+    'shade.title': 'See Where Your Shade Will Fall',
+    'shade.subtitle': 'Pick the perfect spot before you plant',
+    'shade.intro': 'Where you plant matters. A few feet in the wrong direction could mean a hot living room instead of a cool one. Our tool lets you see exactly where your tree\'s shadow will land—before you commit.',
+    'shade.howItWorks': 'How it works:',
+    'shade.step1': 'Find your house on the map',
+    'shade.step2': 'Choose a tree height (small, medium, or large)',
+    'shade.step3': 'See where the shadow falls throughout a summer day',
+    'shade.aiHelp': 'Want help deciding? Let our AI recommend the best placement for maximum shade.',
+    'shade.bonus': 'Bonus: While this grant covers front yard trees only, use the tool to explore what backyard trees could do for you down the road—or see how your neighbor\'s trees might help too.',
+    'shade.button': 'See Your Shade',
 
     // Footer
     'footer.title': 'Greenway Terrace Tree Grant',
@@ -307,10 +329,32 @@ const translations = {
 
     // About Page
     'about.title': 'Acerca de Este Proyecto',
+    'about.intro': 'Hola, soy Courtney, su vecina de Greenway Terrace. He estado aquí durante 10 años y mi familia ha estado en este vecindario desde que se construyó. Armé este proyecto para ayudarnos a obtener tantos árboles como sea posible para la mayor cantidad de hogares posible.',
+    'about.backstory': 'Solicité la subvención Community Canopy de la Ciudad de Phoenix solo para las casas de la subdivisión Greenway Terrace. Ganamos. Luego, la ciudad expandió la elegibilidad a más de 600 hogares en el área circundante, lo que significa que más de nuestros vecinos pueden beneficiarse.',
+    'about.heading1': 'Por qué esto importa.',
+    'about.question1': '¿Alguna vez se ha preguntado por qué nuestro vecindario no está construido en líneas rectas? ¿O por qué todas las casas están en ángulos ligeramente diferentes en sus lotes?',
+    'about.usedToBe': 'Ya no los construyen como antes.',
+    'about.sunPath': 'Nuestras casas, y más importante aún, nuestros árboles, fueron colocados estratégicamente basándose en la ciencia de los Diagramas de Trayectoria Solar y Análisis de Sombras. Estas herramientas mapean exactamente dónde estará el sol en cualquier momento del día, cualquier día del año, y predicen cómo se moverán las sombras a través de las propiedades durante las estaciones. Los constructores de mediados de siglo usaron esta ciencia para angular las casas y posicionar los árboles para que un solo árbol pudiera dar sombra a su casa por la mañana y al camino de entrada de su vecino por la tarde. Fue intencional. Fue brillante.',
+    'about.lostIt': 'Y con el tiempo, lo hemos perdido.',
+    'about.restoration': 'A medida que los árboles han caído por tormentas, edad y enfermedades, hemos perdido la sombra que una vez mantuvo frescas nuestras casas. Sé que cuando las casas más viejas comienzan a mostrar su edad, nuestro primer instinto es arrasar y quemar. Agregar ventanas diferentes. Derribar cosas. Pero lo que realmente deberíamos estar haciendo es reclamar las estrategias de mitigación del calor que ya estaban aquí. Estas hermosas casas estilo ranch de mediados de siglo fueron diseñadas para mantenerse frescas. Solo necesitamos restaurar lo que las hacía funcionar.',
+    'about.personalReason': 'Solicité esta subvención por una razón simple: mis árboles murieron y no estoy en una situación financiera para reemplazarlos. ¿Este sitio web, el bot de elegibilidad y la herramienta de colocación de árboles? Los construí para hacer este proceso más fácil para todos nosotros.',
+    'about.callToAction': 'Únase a mí para traer de vuelta la sombra.',
 
     // Planner Page
     'planner.title': 'Planificador de Colocación de Árboles',
     'planner.description': 'Use nuestra herramienta interactiva para planificar dónde colocar sus árboles para obtener el máximo beneficio de sombra. Dibuje su casa y las casas de sus vecinos, coloque árboles y vea simulaciones realistas de sombras durante el día. ¡Obtenga recomendaciones impulsadas por IA para una colocación óptima!',
+
+    // Shade Visualization Section
+    'shade.title': 'Vea Dónde Caerá Su Sombra',
+    'shade.subtitle': 'Elija el lugar perfecto antes de plantar',
+    'shade.intro': 'Dónde plante importa. Unos pocos pies en la dirección equivocada podrían significar una sala caliente en lugar de una fresca. Nuestra herramienta le permite ver exactamente dónde caerá la sombra de su árbol, antes de comprometerse.',
+    'shade.howItWorks': 'Cómo funciona:',
+    'shade.step1': 'Encuentre su casa en el mapa',
+    'shade.step2': 'Elija una altura de árbol (pequeño, mediano o grande)',
+    'shade.step3': 'Vea dónde cae la sombra durante un día de verano',
+    'shade.aiHelp': '¿Quiere ayuda para decidir? Deje que nuestra IA recomiende la mejor ubicación para máxima sombra.',
+    'shade.bonus': 'Bono: Si bien esta subvención cubre solo árboles del jardín delantero, use la herramienta para explorar qué podrían hacer los árboles del patio trasero para usted en el futuro, o vea cómo los árboles de su vecino también podrían ayudar.',
+    'shade.button': 'Ver Tu Sombra',
 
     // Footer
     'footer.title': 'Subvención de Árboles de Greenway Terrace',
@@ -344,6 +388,15 @@ function setLanguage(lang) {
     btn.classList.remove('active');
   });
   document.querySelector(`[data-lang="${lang}"]`)?.classList.add('active');
+
+  // Notify chatbot iframe of language change
+  const chatbotIframe = document.querySelector('.chatbot-widget-iframe');
+  if (chatbotIframe && chatbotIframe.contentWindow) {
+    chatbotIframe.contentWindow.postMessage({
+      type: 'languageChange',
+      language: lang
+    }, '*');
+  }
 }
 
 // Update all text on the page
@@ -472,6 +525,45 @@ function updatePageText() {
   const copyright = document.querySelector('.footer-bottom p');
   if (copyright) copyright.textContent = t('footer.copyright');
 
+  // Update shade section (on index.html)
+  const shadeAiHelp = document.getElementById('shade-ai-help');
+  if (shadeAiHelp) {
+    const aiHelpText = t('shade.aiHelp');
+    const parts = aiHelpText.split('?');
+    if (parts.length === 2) {
+      shadeAiHelp.innerHTML = `<strong>${parts[0]}?</strong> ${parts[1]}`;
+    } else {
+      shadeAiHelp.innerHTML = aiHelpText;
+    }
+  }
+
+  const shadeBonus = document.getElementById('shade-bonus');
+  if (shadeBonus) {
+    const bonusText = t('shade.bonus');
+    // Extract the text to bold from the translation
+    const boldMatch = bonusText.match(/Bonus:(.+?)(this grant covers front yard trees only|esta subvención cubre solo árboles del jardín delantero)(.+)/i);
+    if (boldMatch) {
+      shadeBonus.innerHTML = `<strong>Bonus:</strong>${boldMatch[1]}<strong>${boldMatch[2]}</strong>${boldMatch[3]}`;
+    } else {
+      shadeBonus.innerHTML = bonusText;
+    }
+  }
+
+  // Update about page content (on about.html)
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (key && key.startsWith('about.')) {
+      element.textContent = t(key);
+    } else if (key && key.startsWith('shade.')) {
+      // Skip shade-ai-help and shade-bonus as they're handled above
+      if (element.id !== 'shade-ai-help' && element.id !== 'shade-bonus') {
+        element.textContent = t(key);
+      }
+    } else if (key && key.startsWith('planner.')) {
+      element.textContent = t(key);
+    }
+  });
+
   // Update address checker results if visible
   updateAddressCheckerIfVisible();
 }
@@ -498,6 +590,19 @@ function updateAddressCheckerIfVisible() {
 window.t = t;
 window.currentLanguage = currentLanguage;
 window.getChatbotLanguage = () => currentLanguage;
+
+// Listen for language requests from chatbot iframe
+window.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'requestLanguage') {
+    const chatbotIframe = document.querySelector('.chatbot-widget-iframe');
+    if (chatbotIframe && chatbotIframe.contentWindow) {
+      chatbotIframe.contentWindow.postMessage({
+        type: 'languageChange',
+        language: currentLanguage
+      }, '*');
+    }
+  }
+});
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', () => {
