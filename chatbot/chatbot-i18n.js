@@ -20,6 +20,10 @@ const translationMap = {
     "View FAQ": "Ver preguntas frecuentes",
     "Ask a question": "Hacer una pregunta",
 
+    // Privacy notice buttons
+    "I agree, continue": "Acepto, continuar",
+    "I decline": "Rechazo",
+
     // Common actions
     "Privacy Notice": "Aviso de Privacidad",
     "I understand and agree": "Entiendo y acepto",
@@ -58,6 +62,27 @@ const translationMap = {
     "Small trees": "Árboles pequeños",
     "Medium trees": "Árboles medianos",
     "Large trees": "Árboles grandes",
+
+    // Privacy notice content
+    "Welcome to the Greenway Terrace Tree Grant Submission!": "¡Bienvenido a la Solicitud de Subvención de Árboles de Greenway Terrace!",
+    "Before we begin, please review our data privacy policy.": "Antes de comenzar, revise nuestra política de privacidad de datos.",
+    "DATA PRIVACY NOTICE": "AVISO DE PRIVACIDAD DE DATOS",
+    "What We Collect:": "Lo Que Recopilamos:",
+    "Your name, address, email, and phone number": "Su nombre, dirección, correo electrónico y número de teléfono",
+    "Tree preferences and property information": "Preferencias de árboles e información de la propiedad",
+    "How We Use It:": "Cómo Lo Usamos:",
+    "To process your tree grant submission": "Para procesar su solicitud de subvención de árboles",
+    "To coordinate tree planting with the City of Phoenix and Canopy Tree Care": "Para coordinar la plantación de árboles con la Ciudad de Phoenix y Canopy Tree Care",
+    "To contact you about this program": "Para contactarle sobre este programa",
+    "Your Rights (GDPR & California Privacy Law):": "Sus Derechos (GDPR y Ley de Privacidad de California):",
+    "You have the right to access, correct, or delete your data": "Tiene derecho a acceder, corregir o eliminar sus datos",
+    "You can withdraw consent at any time": "Puede retirar su consentimiento en cualquier momento",
+    "We will not sell or share your data with third parties except as required for program administration": "No venderemos ni compartiremos sus datos con terceros excepto según sea necesario para la administración del programa",
+    "Data Retention:": "Retención de Datos:",
+    "Your information will be stored for the duration of the program and up to one year after for record-keeping purposes.": "Su información se almacenará durante la duración del programa y hasta un año después con fines de mantenimiento de registros.",
+    "Contact:": "Contacto:",
+    "For privacy questions, email": "Para preguntas de privacidad, envíe un correo electrónico a",
+    "Do you agree to these terms and wish to continue with the online submission?": "¿Está de acuerdo con estos términos y desea continuar con la solicitud en línea?",
 
     // Additional common phrases for partial matching
     "Hi there! I'm Roadrunner": "¡Hola! Soy Correcaminos",
