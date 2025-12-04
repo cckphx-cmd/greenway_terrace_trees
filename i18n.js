@@ -380,6 +380,7 @@ function t(key) {
 // Set language
 function setLanguage(lang) {
   currentLanguage = lang;
+  window.currentLanguage = lang;
   localStorage.setItem('language', lang);
   updatePageText();
 
@@ -606,5 +607,19 @@ window.addEventListener('message', function(event) {
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Page loaded with language:', currentLanguage);
+
+  // Update the language button states to reflect current language
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`[data-lang="${currentLanguage}"]`)?.classList.add('active');
+
+  // Update the page text
   updatePageText();
+
+  // Update global reference
+  window.currentLanguage = currentLanguage;
+
+  console.log('Language initialization complete. Current language:', currentLanguage);
 });
