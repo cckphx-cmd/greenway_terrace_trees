@@ -34,6 +34,17 @@ const translationMap = {
     "Done": "Listo",
     "Yes, submit!": "¡Sí, enviar!",
 
+    // Address verification
+    "Perfect! Let's see if your home is in the eligible area. This will just take a second.": "¡Perfecto! Veamos si su casa está en el área elegible. Esto solo tomará un segundo.",
+    "Go ahead and enter your street address below:": "Adelante e ingrese su dirección de la calle a continuación:",
+    "and enter your street address below:": "e ingrese su dirección de la calle a continuación:",
+    "GOOD EXAMPLES:": "BUENOS EJEMPLOS:",
+    "IMPORTANT:": "IMPORTANTE:",
+    "Single-family homes or duplexes/triplexes only": "Solo casas unifamiliares o dúplex/tríplex",
+    "No apartments or condos with 4+ units": "No apartamentos o condominios con 4+ unidades",
+    "Enter your address...": "Ingrese su dirección...",
+    "Submit": "Enviar",
+
     // Ownership
     "Homeowner": "Propietario",
     "I'm the homeowner": "Soy el propietario",
