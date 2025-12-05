@@ -179,6 +179,7 @@ const translationMap = {
     "Thanks for your question! Here are some helpful resources:": "¡Gracias por su pregunta! Aquí hay algunos recursos útiles:",
     "I'm having trouble with my AI connection. Let me connect you with the application form instead.": "Tengo problemas con mi conexión de IA. Déjeme conectarlo con el formulario de solicitud en su lugar.",
     "I'm having a connection issue. Would you like to start your application instead?": "Tengo un problema de conexión. ¿Le gustaría comenzar su solicitud en su lugar?",
+    "I'm having trouble connecting right now. You can still apply using the menu options, or contact cckphx@gmail.com for help!": "Tengo problemas para conectarme en este momento. ¡Aún puede solicitar usando las opciones del menú, o contactar a cckphx@gmail.com para obtener ayuda!",
     "Yes, start application": "Sí, comenzar solicitud",
 
     // Submission
