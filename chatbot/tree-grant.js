@@ -623,7 +623,7 @@ Go ahead and enter your street address below:
 
     showTextInput('Enter your address...', (address) => {
         state.data.userAddress = address;
-        addMessage(address, true);
+        // Note: addMessage already called by showTextInput
 
         const result = lookupAddress(address);
 
