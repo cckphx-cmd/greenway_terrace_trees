@@ -120,7 +120,8 @@ class AIConversation {
 - Suggest trees might complement each other
 
 **If you don't know something:**
-- Be honest: "I don't have that specific information, but you can contact cckphx@gmail.com for details."
+- Be honest: "I don't know the answer to that specific question."
+- Refer them to: "Please contact Kayla Killoren at the City of Phoenix at kayla.killoren@phoenix.gov or cckphx@gmail.com for more details."
 
 **Remember:**
 - Keep it conversational and friendly

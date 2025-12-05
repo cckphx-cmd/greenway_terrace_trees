@@ -116,6 +116,8 @@ const translationMap = {
     "Retake quiz": "Volver a hacer el cuestionario",
     "Main menu": "Menú principal",
     "Submit another address": "Enviar otra dirección",
+    "Ask me anything about the tree program...": "Pregúntame cualquier cosa sobre el programa de árboles...",
+    "Ask": "Preguntar",
 
     // Tree selection page
     "Based on your quiz answers, we recommend these 3 trees:": "Según sus respuestas del cuestionario, recomendamos estos 3 árboles:",

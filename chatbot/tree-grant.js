@@ -121,6 +121,51 @@ function showButtons(buttons) {
     }, 100);
 }
 
+// Show buttons with question input
+function showButtonsWithQuestions(buttons) {
+    showButtons(buttons);
+
+    // Add question input below buttons
+    const inputArea = document.getElementById('inputArea');
+    const input = document.createElement('input');
+    input.type = 'text';
+
+    // Use translated placeholder
+    const placeholderText = window.translateText ?
+        window.translateText('Ask me anything about the tree program...') :
+        'Ask me anything about the tree program...';
+    input.placeholder = placeholderText;
+
+    input.id = 'userInput';
+    input.style.marginTop = '8px';
+
+    const button = document.createElement('button');
+
+    // Use translated button text
+    const buttonText = window.translateText ?
+        window.translateText('Ask') :
+        'Ask';
+    button.textContent = buttonText;
+
+    button.className = 'submit-btn';
+    button.onclick = () => {
+        const value = input.value.trim();
+        if (value) {
+            addMessage(value, true);
+            input.value = '';
+            handleAIConversation(value);
+        }
+    };
+
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') button.click();
+    });
+
+    inputArea.appendChild(input);
+    inputArea.appendChild(button);
+    input.focus();
+}
+
 // Show text input
 function showTextInput(placeholder, onSubmit) {
     clearInput();
@@ -723,7 +768,7 @@ Would you like to explore other programs that might help?`);
 function askHomeowner() {
     updateProgress('Step 2: Homeowner Verification', 30);
     addMessage(`Awesome! Just one quick question - do you own this home, or are you renting?`);
-    showButtons([
+    showButtonsWithQuestions([
         { text: "I'm the homeowner", action: () => {
             addMessage("I'm the homeowner", true);
             state.data.homeownerStatus = 'homeowner';
@@ -749,7 +794,7 @@ function askHomeowner() {
 function askTreeSelectionChoice() {
     addMessage(`Excellent! Now for the fun part - picking your trees! 🌳`);
     addMessage(`I can help you in two ways: I can ask you a few quick questions to recommend the perfect trees for your yard, or you can browse through all our beautiful options yourself. Which sounds better to you?`);
-    showButtons([
+    showButtonsWithQuestions([
         { text: "Take tree quiz", action: () => {
             addMessage("Take tree quiz", true);
             addMessage(`Great choice! This will only take a minute, and I'll find the perfect trees for your space.`);
@@ -1132,7 +1177,7 @@ function showTreeRecommendations() {
 
     addMessage(recommendationHTML);
 
-    showButtons([
+    showButtonsWithQuestions([
         { text: "Select my trees & apply", action: () => {
             addMessage("Select my trees & apply", true);
             // Go directly to tree selection with recommendations
@@ -1583,7 +1628,7 @@ A: You need landlord approval. We provide a template letter.<br><br>
 <strong>Q: What if I have questions?</strong><br>
 A: Contact Kayla Killoren at <a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a>`);
 
-    showButtons([
+    showButtonsWithQuestions([
         { text: "Apply for trees", action: () => {
             addMessage("Apply for trees", true);
             startWelcome();
