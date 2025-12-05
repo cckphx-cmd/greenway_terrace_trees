@@ -115,6 +115,7 @@ const translationMap = {
     "Browse all tree options": "Explorar todas las opciones de árboles",
     "Retake quiz": "Volver a hacer el cuestionario",
     "Main menu": "Menú principal",
+    "Submit another address": "Enviar otra dirección",
 
     // Tree selection page
     "Based on your quiz answers, we recommend these 3 trees:": "Según sus respuestas del cuestionario, recomendamos estos 3 árboles:",
@@ -157,6 +158,17 @@ const translationMap = {
 
     // Not eligible
     "We're sorry, but your address isn't in our current grant area.": "Lo sentimos, pero su dirección no está en nuestra área de subvención actual.",
+    "WHY ISN'T MY ADDRESS ELIGIBLE?": "¿POR QUÉ MI DIRECCIÓN NO ES ELEGIBLE?",
+    "This specific grant covers the Greenway Terrace neighborhood boundary. However, the city may expand this program to other areas in the future!": "Esta subvención específica cubre el límite del vecindario Greenway Terrace. ¡Sin embargo, la ciudad puede expandir este programa a otras áreas en el futuro!",
+    "KEEP AN EYE OUT:": "ESTÉ ATENTO:",
+    "Check back with": "Consulte con",
+    "Phoenix Heat Response": "Respuesta al Calor de Phoenix",
+    "for updates on program expansion to your area.": "para actualizaciones sobre la expansión del programa a su área.",
+    "OTHER TREE PROGRAMS:": "OTROS PROGRAMAS DE ÁRBOLES:",
+    "Apply with the City:": "Solicitar con la Ciudad:",
+    "Trees Matter:": "Trees Matter:",
+    "SRP Shade Tree Program:": "Programa de Árboles de Sombra SRP:",
+    "Thank you for your interest in growing green in Phoenix! We hope you can take advantage of one of the alternative programs listed above.": "¡Gracias por su interés en hacer Phoenix más verde! Esperamos que pueda aprovechar uno de los programas alternativos enumerados anteriormente.",
     "What would you like to do?": "¿Qué le gustaría hacer?",
     "Apply now": "Solicitar ahora",
     "Try again": "Intentar de nuevo",
