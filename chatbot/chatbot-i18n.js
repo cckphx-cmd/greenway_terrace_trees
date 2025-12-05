@@ -78,6 +78,10 @@ const translationMap = {
     "Browse all trees": "Explorar todos los árboles",
 
     // Landlord section
+    "Great! Please have your landlord complete and sign the": "¡Genial! Por favor pídale a su propietario que complete y firme el",
+    "landlord permission form": "formulario de permiso del propietario",
+    "formulario de permiso del propietario": "formulario de permiso del propietario",
+    "before proceeding.<br><br>Once signed, I'll need your landlord's contact information to verify.<br><br>Please provide their name:": "antes de continuar.<br><br>Una vez firmado, necesitaré la información de contacto de su propietario para verificar.<br><br>Proporcione su nombre:",
     "Great! I'll need your landlord's contact information to verify.<br><br>Please provide their name:": "¡Genial! Necesitaré la información de contacto de su propietario para verificar.<br><br>Proporcione su nombre:",
     "And their email address (required):": "Y su dirección de correo electrónico (requerido):",
     "Finally, their phone number (required):": "Finalmente, su número de teléfono (requerido):",
@@ -91,6 +95,23 @@ const translationMap = {
     "Sounds good! Come back once you have landlord approval. Thanks for your interest!": "¡Suena bien! Regrese una vez que tenga la aprobación del propietario. ¡Gracias por su interés!",
     "Yes, email it to me": "Sí, envíemelo por correo electrónico",
     "I'll handle it myself": "Lo manejaré yo mismo",
+
+    // Landlord letter content
+    "Subject: Permission Request - Phoenix Free Tree Grant": "Asunto: Solicitud de Permiso - Beca de Árboles Gratis de Phoenix",
+    "Dear [Landlord Name],": "Estimado/a [Nombre del Propietario],",
+    "I'm writing to request permission to participate in the Phoenix Free Tree Grant - Canopy Tree Care Program.": "Le escribo para solicitar permiso para participar en el Programa de Beca de Árboles Gratis de Phoenix - Community Canopy.",
+    "This is a FREE program that plants trees at no cost. Benefits:": "Este es un programa GRATUITO que planta árboles sin costo. Beneficios:",
+    "Free planting (January 24, 2026)": "Plantación gratuita (24 de enero, 2026)",
+    "Increased property value": "Aumento del valor de la propiedad",
+    "Reduced cooling costs": "Reducción de costos de enfriamiento",
+    "Deadline: December 31, 2025": "Fecha límite: 31 de diciembre, 2025",
+    "Learn more:": "Aprenda más:",
+    "Phoenix Heat Response Programs": "Programas de Respuesta al Calor de Phoenix",
+    "If you approve, please reply to": "Si aprueba, por favor responda a",
+    "with your confirmation.": "con su confirmación.",
+    "Thank you,": "Gracias,",
+    "[Your Name]": "[Su Nombre]",
+    "Would you like me to email this to you?": "¿Le gustaría que le enviara esto por correo electrónico?",
 
     // Personal info
     "What's your full name?": "¿Cuál es su nombre completo?",

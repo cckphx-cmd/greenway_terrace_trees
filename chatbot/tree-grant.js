@@ -715,7 +715,16 @@ function askTreeSelectionChoice() {
 }
 
 function askLandlordInfo() {
-    addMessage(`Great! I'll need your landlord's contact information to verify.<br><br>Please provide their name:`);
+    // Get current language for form link
+    const currentLang = window.getChatbotLanguage ? window.getChatbotLanguage() : 'en';
+    const formLink = currentLang === 'es'
+        ? 'forms/landlord-permission-form-spanish.pdf'
+        : 'forms/landlord-permission-form.pdf';
+    const formText = currentLang === 'es'
+        ? 'formulario de permiso del propietario'
+        : 'landlord permission form';
+
+    addMessage(`Great! Please have your landlord complete and sign the <a href="${formLink}" target="_blank" class="link">${formText}</a> before proceeding.<br><br>Once signed, I'll need your landlord's contact information to verify.<br><br>Please provide their name:`);
     showTextInput("Landlord name", (name) => {
         state.data.landlordName = name;
         addMessage(name, true);
