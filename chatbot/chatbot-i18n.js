@@ -97,6 +97,18 @@ const translationMap = {
     "Growth:": "Crecimiento:",
     "Water:": "Agua:",
     "Powerline Friendly": "Seguro para Líneas Eléctricas",
+
+    // Tree property values
+    "SMALL": "Pequeño",
+    "MEDIUM": "Mediano",
+    "LARGE": "Grande",
+    "Fast": "Rápido",
+    "Moderate": "Moderado",
+    "Slow": "Lento",
+    "Low": "Bajo",
+    "tall": "de altura",
+    "growth": "crecimiento",
+    "water": "agua",
     "You can select up to 2 trees for your property.": "Puede seleccionar hasta 2 árboles para su propiedad.",
     "Learn more about tree options and the program": "Aprenda más sobre las opciones de árboles y el programa",
     "Select my trees & apply": "Seleccionar mis árboles y solicitar",

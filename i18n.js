@@ -57,8 +57,6 @@ const translations = {
     'trees.moderate': 'Moderate',
     'trees.slow': 'Slow',
     'trees.low': 'Low',
-    'trees.mod': 'Mod',
-    'trees.lowMod': 'Low-Mod',
 
     // FAQ Section
     'faq.title': 'Frequently Asked Questions',
@@ -239,8 +237,6 @@ const translations = {
     'trees.moderate': 'Moderado',
     'trees.slow': 'Lento',
     'trees.low': 'Bajo',
-    'trees.mod': 'Mod',
-    'trees.lowMod': 'Bajo-Mod',
 
     // FAQ Section
     'faq.title': 'Preguntas Frecuentes',
@@ -478,6 +474,36 @@ function updatePageText() {
   // Update powerline badges
   document.querySelectorAll('.powerline-badge').forEach(badge => {
     badge.textContent = t('trees.powerlineSafe');
+  });
+
+  // Update tree quick stats (tall, growth, water)
+  document.querySelectorAll('.tree-quick-stat').forEach(stat => {
+    const text = stat.textContent.trim();
+
+    // Translate "tall", "growth", "water"
+    if (text.includes(' tall')) {
+      stat.innerHTML = stat.innerHTML.replace(' tall', ' ' + t('trees.tall'));
+    }
+    if (text.includes(' growth')) {
+      stat.innerHTML = stat.innerHTML.replace(' growth', ' ' + t('trees.growth'));
+    }
+    if (text.includes(' water')) {
+      stat.innerHTML = stat.innerHTML.replace(' water', ' ' + t('trees.water'));
+    }
+
+    // Translate values: Fast, Moderate, Slow, Low
+    if (text.includes('Fast')) {
+      stat.innerHTML = stat.innerHTML.replace('Fast', t('trees.fast'));
+    }
+    if (text.includes('Moderate')) {
+      stat.innerHTML = stat.innerHTML.replace('Moderate', t('trees.moderate'));
+    }
+    if (text.includes('Slow')) {
+      stat.innerHTML = stat.innerHTML.replace('Slow', t('trees.slow'));
+    }
+    if (text.includes('Low')) {
+      stat.innerHTML = stat.innerHTML.replace('Low', t('trees.low'));
+    }
   });
 
   // Update FAQ section
