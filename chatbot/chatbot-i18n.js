@@ -116,6 +116,21 @@ const translationMap = {
     "Retake quiz": "Volver a hacer el cuestionario",
     "Main menu": "Menú principal",
 
+    // Tree selection page
+    "Based on your quiz answers, we recommend these 3 trees:": "Según sus respuestas del cuestionario, recomendamos estos 3 árboles:",
+    "<br>But you can browse all native and non-native options. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:": "<br>Pero puede explorar todas las opciones nativas y no nativas. Haga clic en un árbol varias veces para seleccionar 2 del mismo árbol. Desplácese para ver todas las opciones:",
+    "Tip:": "Consejo:",
+    "Use our": "Use nuestro",
+    "Tree Placement Planner": "Planificador de Colocación de Árboles",
+    "to test different tree sizes and locations to see how they'll create shade for you and your neighbors!": "para probar diferentes tamaños y ubicaciones de árboles para ver cómo crearán sombra para usted y sus vecinos!",
+    "── NATIVE TREES ──": "── ÁRBOLES NATIVOS ──",
+    "── NON-NATIVE TREES ──": "── ÁRBOLES NO NATIVOS ──",
+    "Done selecting trees": "Terminé de seleccionar árboles",
+    "Done selecting trees (": "Terminé de seleccionar árboles (",
+    "/2 trees)": "/2 árboles)",
+    "trees)": "árboles)",
+    "Please select at least one tree before continuing.": "Por favor seleccione al menos un árbol antes de continuar.",
+
     // Landlord section - with permission
     "Perfect! Please have your landlord complete and sign the": "¡Perfecto! Por favor pídale a su propietario que complete y firme el",
     "landlord permission form": "formulario de permiso del propietario",
