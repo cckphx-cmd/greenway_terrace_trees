@@ -70,10 +70,50 @@ const translationMap = {
     "No problem! Let's try that again.": "¡No hay problema! Intentémoslo de nuevo.",
     "Perfect! ✓": "¡Perfecto! ✓",
 
+    // Tree selection
+    "Excellent! Now for the fun part - picking your trees! 🌳": "¡Excelente! Ahora viene la parte divertida: ¡elegir sus árboles! 🌳",
+    "I can help you in two ways: I can ask you a few quick questions to recommend the perfect trees for your yard, or you can browse through all our beautiful options yourself. Which sounds better to you?": "Puedo ayudarle de dos maneras: puedo hacerle algunas preguntas rápidas para recomendar los árboles perfectos para su jardín, o puede explorar todas nuestras hermosas opciones usted mismo. ¿Qué le parece mejor?",
+    "Great choice! This will only take a minute, and I'll find the perfect trees for your space.": "¡Buena elección! Esto solo tomará un minuto y encontraré los árboles perfectos para su espacio.",
+    "Perfect! Let me show you all the amazing options we have available.": "¡Perfecto! Déjeme mostrarle todas las opciones increíbles que tenemos disponibles.",
+    "Browse all trees": "Explorar todos los árboles",
+
+    // Landlord section
+    "Great! I'll need your landlord's contact information to verify.<br><br>Please provide their name:": "¡Genial! Necesitaré la información de contacto de su propietario para verificar.<br><br>Proporcione su nombre:",
+    "And their email address (required):": "Y su dirección de correo electrónico (requerido):",
+    "Finally, their phone number (required):": "Finalmente, su número de teléfono (requerido):",
+    "Perfect! We'll verify with": "¡Perfecto! Verificaremos con",
+    "before proceeding.": "antes de continuar.",
+    "No problem! Here's a letter template you can send to your landlord:": "¡No hay problema! Aquí hay una plantilla de carta que puede enviar a su propietario:",
+    "Please enter your email address:": "Por favor ingrese su dirección de correo electrónico:",
+    "Great! I'll send the letter template to": "¡Genial! Enviaré la plantilla de carta a",
+    ". Once you have landlord approval, come back and start over!": ". Una vez que tenga la aprobación del propietario, ¡regrese y comience de nuevo!",
+    "Thank you for your interest in making Phoenix greener.": "Gracias por su interés en hacer Phoenix más verde.",
+    "Sounds good! Come back once you have landlord approval. Thanks for your interest!": "¡Suena bien! Regrese una vez que tenga la aprobación del propietario. ¡Gracias por su interés!",
+    "Yes, email it to me": "Sí, envíemelo por correo electrónico",
+    "I'll handle it myself": "Lo manejaré yo mismo",
+
     // Personal info
     "What's your full name?": "¿Cuál es su nombre completo?",
     "What's your email address?": "¿Cuál es su dirección de correo electrónico?",
     "What's your phone number?": "¿Cuál es su número de teléfono?",
+
+    // Front yard confirmation
+    "Perfect! Just to confirm:<br><br><strong>The tree(s) will be planted in your FRONT YARD, correct?</strong><br><br>This is a requirement of the program.": "¡Perfecto! Solo para confirmar:<br><br><strong>¿Los árboles se plantarán en su JARDÍN DELANTERO, correcto?</strong><br><br>Este es un requisito del programa.",
+    "Yes, front yard": "Sí, jardín delantero",
+    "No, I need backyard": "No, necesito jardín trasero",
+    "I'm sorry, but this program only covers trees planted in the <strong>front yard</strong>. This helps with neighborhood beautification and heat reduction.": "Lo siento, pero este programa solo cubre árboles plantados en el <strong>jardín delantero</strong>. Esto ayuda con el embellecimiento del vecindario y la reducción del calor.",
+
+    // Not eligible
+    "We're sorry, but your address isn't in our current grant area.": "Lo sentimos, pero su dirección no está en nuestra área de subvención actual.",
+    "What would you like to do?": "¿Qué le gustaría hacer?",
+    "Apply now": "Solicitar ahora",
+    "Try again": "Intentar de nuevo",
+
+    // Common phrases
+    "Thanks for your question! Here are some helpful resources:": "¡Gracias por su pregunta! Aquí hay algunos recursos útiles:",
+    "I'm having trouble with my AI connection. Let me connect you with the application form instead.": "Tengo problemas con mi conexión de IA. Déjeme conectarlo con el formulario de solicitud en su lugar.",
+    "I'm having a connection issue. Would you like to start your application instead?": "Tengo un problema de conexión. ¿Le gustaría comenzar su solicitud en su lugar?",
+    "Yes, start application": "Sí, comenzar solicitud",
 
     // Submission
     "Submit Application": "Enviar Solicitud",
@@ -130,6 +170,7 @@ function getCurrentLanguage() {
 // Listen for language changes from parent page
 window.addEventListener('message', function(event) {
   if (event.data && event.data.type === 'languageChange') {
+    const previousLanguage = chatbotCurrentLanguage;
     chatbotCurrentLanguage = event.data.language;
     languageReady = true;
     window.languageReady = true;
@@ -156,6 +197,19 @@ window.addEventListener('message', function(event) {
           window.startConversation();
         }, 100);
       }
+    } else if (previousLanguage !== chatbotCurrentLanguage && typeof window.startConversation === 'function') {
+      // Language changed while chatbot is already running - restart it
+      console.log('Language switched from', previousLanguage, 'to', chatbotCurrentLanguage, '- restarting chatbot');
+
+      // Clear the chat
+      const messagesDiv = document.getElementById('chatMessages');
+      if (messagesDiv) {
+        messagesDiv.innerHTML = '';
+      }
+
+      // Restart conversation
+      installOverrides();
+      window.startConversation();
     }
   }
 });
