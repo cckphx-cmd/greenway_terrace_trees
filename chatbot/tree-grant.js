@@ -1072,8 +1072,8 @@ function showTreeRecommendations() {
     showButtons([
         { text: "Select my trees & apply", action: () => {
             addMessage("Select my trees & apply", true);
-            // Start application with quiz results
-            startWelcome();
+            // Go directly to tree selection with recommendations
+            askTreeSelection(recommendations);
         }},
         { text: "Browse all tree options", action: () => {
             addMessage("Browse all tree options", true);
