@@ -724,71 +724,31 @@ function askLandlordInfo() {
         ? 'formulario de permiso del propietario'
         : 'landlord permission form';
 
-    addMessage(`Great! Please have your landlord complete and sign the <a href="${formLink}" target="_blank" class="link">${formText}</a> before proceeding.<br><br>Once signed, I'll need your landlord's contact information to verify.<br><br>Please provide their name:`);
-    showTextInput("Landlord name", (name) => {
-        state.data.landlordName = name;
-        addMessage(name, true);
-        addMessage(`And their email address (required):`);
-        showTextInputWithValidation("landlord@email.com", validateEmail, (email) => {
-            state.data.landlordEmail = email;
-            addMessage(email, true);
-            addMessage(`Finally, their phone number (required):`);
-            showTextInputWithValidation("(555) 555-5555", validatePhone, (phone) => {
-                state.data.landlordPhone = phone;
-                addMessage(phone, true);
-                addMessage(`Perfect! We'll verify with ${name} before proceeding.`);
-                askTreeSelectionChoice();
-            });
-        });
-    });
+    addMessage(`Perfect! Please have your landlord complete and sign the <a href="${formLink}" target="_blank" class="link" download>${formText}</a>.<br><br>Once completed, have your landlord email the signed form to: <strong><a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a></strong><br><br>Let's continue with your application!`);
+
+    // Store that they have landlord permission
+    state.data.homeownerStatus = 'renter_approved';
+
+    // Continue to tree selection
+    askTreeSelectionChoice();
 }
 
 function showLandlordLetter() {
-    addMessage(`No problem! Here's a letter template you can send to your landlord:
+    // Get current language for form link
+    const currentLang = window.getChatbotLanguage ? window.getChatbotLanguage() : 'en';
+    const formLink = currentLang === 'es'
+        ? 'forms/landlord-permission-form-spanish.pdf'
+        : 'forms/landlord-permission-form.pdf';
+    const formText = currentLang === 'es'
+        ? 'formulario de permiso del propietario'
+        : 'landlord permission form';
 
-<div class="important-box">
-<strong>Subject: Permission Request - Phoenix Free Tree Grant</strong><br><br>
+    addMessage(`No problem! Please download the <a href="${formLink}" target="_blank" class="link" download>${formText}</a> and have your landlord complete and sign it.<br><br>Once completed, have your landlord email the signed form to: <strong><a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a></strong><br><br>Thank you for your interest in making Phoenix greener! 🌳`);
 
-Dear [Landlord Name],<br><br>
+    addMessage(`Feel free to browse our website to learn more about the program, the grant, and the trees available. Once you have landlord approval, come back and start your application!`);
 
-I'm writing to request permission to participate in the Phoenix Free Tree Grant - Canopy Tree Care Program.<br><br>
-
-This is a FREE program that plants trees at no cost. Benefits:<br><br>
-
-• Free planting (January 24, 2026)<br>
-• Increased property value<br>
-• Reduced cooling costs<br><br>
-
-Deadline: December 31, 2025<br><br>
-
-Learn more: <a href="https://www.phoenix.gov/administration/departments/heat/heat-response-programs.html" target="_blank">Phoenix Heat Response Programs</a><br><br>
-
-If you approve, please reply to <strong>kayla.killoren@phoenix.gov</strong> with your confirmation.<br><br>
-
-Thank you,<br>
-[Your Name]<br>
-[${state.data.confirmedAddress}]
-</div>
-
-Would you like me to email this to you?`);
-
-    showButtons([
-        { text: "Yes, email it to me", action: () => {
-            addMessage("Yes, email it to me", true);
-            addMessage(`Please enter your email address:`);
-            showTextInput("your@email.com", (email) => {
-                state.data.userEmail = email;
-                addMessage(`Great! I'll send the letter template to ${email}. Once you have landlord approval, come back and start over!`);
-                addMessage(`Thank you for your interest in making Phoenix greener.`);
-                clearInput();
-            });
-        }},
-        { text: "I'll handle it myself", action: () => {
-            addMessage("I'll handle it myself", true);
-            addMessage(`Sounds good! Come back once you have landlord approval. Thanks for your interest!`);
-            clearInput();
-        }}
-    ]);
+    // Clear input and end conversation
+    clearInput();
 }
 
 function showNotEligible() {
