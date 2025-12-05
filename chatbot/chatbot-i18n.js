@@ -125,11 +125,27 @@ window.addEventListener('message', function(event) {
     window.languageReady = true;
     console.log('Chatbot language updated to:', chatbotCurrentLanguage);
 
-    // If chatbot was waiting to start, start it now
+    // If chatbot was waiting to start, INSTALL OVERRIDES FIRST, then start
     if (window.chatbotStartPending && typeof window.startConversation === 'function') {
-      console.log('Starting chatbot with language:', chatbotCurrentLanguage);
-      window.chatbotStartPending = false;
-      window.startConversation();
+      console.log('Installing overrides before starting chatbot...');
+
+      // Force override installation NOW before starting
+      installOverrides();
+
+      // Verify both overrides are installed
+      if (originalAddMessage && originalShowButtons) {
+        console.log('Overrides confirmed installed, starting chatbot with language:', chatbotCurrentLanguage);
+        window.chatbotStartPending = false;
+        window.startConversation();
+      } else {
+        console.error('ERROR: Could not install overrides! Functions not available.');
+        // Try anyway after a brief delay
+        setTimeout(() => {
+          installOverrides();
+          window.chatbotStartPending = false;
+          window.startConversation();
+        }, 100);
+      }
     }
   }
 });
@@ -146,6 +162,8 @@ window.addEventListener('load', function() {
         languageReady = true;
         window.languageReady = true;
         if (window.chatbotStartPending && typeof window.startConversation === 'function') {
+          // Install overrides before starting
+          installOverrides();
           window.chatbotStartPending = false;
           window.startConversation();
         }
@@ -215,43 +233,57 @@ function translateText(text, lang = null) {
 let originalAddMessage = null;
 let originalShowButtons = null;
 
-// Wait for chatbot to load
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    // Override addMessage to translate content
-    if (typeof window.addMessage === 'function') {
-      originalAddMessage = window.addMessage;
+// Install overrides immediately when functions become available
+function installOverrides() {
+  // Override addMessage to translate content
+  if (typeof window.addMessage === 'function' && !originalAddMessage) {
+    originalAddMessage = window.addMessage;
 
-      window.addMessage = function(text, isUser = false, skipScroll = false) {
-        // Only translate bot messages, not user messages
-        if (!isUser) {
-          const originalText = text;
-          text = translateText(text);
-          if (originalText !== text) {
-            console.log('Translated message from', getCurrentLanguage());
-          }
+    window.addMessage = function(text, isUser = false, skipScroll = false) {
+      // Only translate bot messages, not user messages
+      if (!isUser) {
+        const originalText = text;
+        text = translateText(text);
+        if (originalText !== text) {
+          console.log('Translated message from', getCurrentLanguage());
         }
-        return originalAddMessage(text, isUser, skipScroll);
-      };
-      console.log('Chatbot addMessage override installed');
-    }
+      }
+      return originalAddMessage(text, isUser, skipScroll);
+    };
+    console.log('Chatbot addMessage override installed');
+  }
 
-    // Override showButtons to translate button text
-    if (typeof window.showButtons === 'function') {
-      originalShowButtons = window.showButtons;
+  // Override showButtons to translate button text
+  if (typeof window.showButtons === 'function' && !originalShowButtons) {
+    originalShowButtons = window.showButtons;
 
-      window.showButtons = function(buttons) {
-        // Translate button text
-        const translatedButtons = buttons.map(btn => ({
-          ...btn,
-          text: translateText(btn.text)
-        }));
-        return originalShowButtons(translatedButtons);
-      };
-      console.log('Chatbot showButtons override installed');
-    }
-  }, 200);
-});
+    window.showButtons = function(buttons) {
+      // Translate button text
+      const translatedButtons = buttons.map(btn => ({
+        ...btn,
+        text: translateText(btn.text)
+      }));
+      return originalShowButtons(translatedButtons);
+    };
+    console.log('Chatbot showButtons override installed');
+  }
+}
+
+// Try to install overrides immediately
+installOverrides();
+
+// Also try after DOM loads
+document.addEventListener('DOMContentLoaded', installOverrides);
+
+// And keep trying every 50ms until both are installed (max 10 attempts)
+let attempts = 0;
+const installInterval = setInterval(() => {
+  installOverrides();
+  attempts++;
+  if ((originalAddMessage && originalShowButtons) || attempts >= 10) {
+    clearInterval(installInterval);
+  }
+}, 50);
 
 // Helper functions for direct translation access
 window.tc = function(key) {
