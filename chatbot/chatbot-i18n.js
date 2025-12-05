@@ -162,14 +162,26 @@ window.addEventListener('load', function() {
 function translateText(text, lang = null) {
   if (!lang) lang = getCurrentLanguage();
 
+  console.log('[Translation] Attempting to translate, language:', lang, 'text length:', text?.length);
+
   // If language is English, return as-is
-  if (lang === 'en') return text;
+  if (lang === 'en') {
+    console.log('[Translation] Language is English, no translation needed');
+    return text;
+  }
+
+  // Check if translationMap exists for this language
+  if (!translationMap[lang]) {
+    console.error('[Translation] No translation map found for language:', lang);
+    return text;
+  }
 
   // Trim the text for comparison
   const trimmedText = text.trim();
 
   // Look for exact match first (for short phrases and buttons)
-  if (translationMap[lang] && translationMap[lang][trimmedText]) {
+  if (translationMap[lang][trimmedText]) {
+    console.log('[Translation] Found exact match!');
     return translationMap[lang][trimmedText];
   }
 
@@ -178,13 +190,22 @@ function translateText(text, lang = null) {
   let madeChanges = false;
 
   // Sort keys by length (longest first) to avoid partial replacements
-  const sortedKeys = Object.keys(translationMap[lang] || {}).sort((a, b) => b.length - a.length);
+  const sortedKeys = Object.keys(translationMap[lang]).sort((a, b) => b.length - a.length);
+
+  console.log('[Translation] Trying substring replacements with', sortedKeys.length, 'keys');
 
   for (const key of sortedKeys) {
     if (translatedText.includes(key)) {
       translatedText = translatedText.split(key).join(translationMap[lang][key]);
       madeChanges = true;
+      console.log('[Translation] Replaced:', key.substring(0, 50) + '...');
     }
+  }
+
+  if (madeChanges) {
+    console.log('[Translation] Translation successful!');
+  } else {
+    console.log('[Translation] No matches found for text:', text.substring(0, 100) + '...');
   }
 
   return madeChanges ? translatedText : text;
