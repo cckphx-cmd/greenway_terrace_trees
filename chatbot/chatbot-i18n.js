@@ -173,17 +173,21 @@ function translateText(text, lang = null) {
     return translationMap[lang][trimmedText];
   }
 
-  // For longer phrases, look for partial matches
-  if (trimmedText.length > 10) {
-    for (const key in translationMap[lang]) {
-      // Only do substring replacement for longer keys (more than 10 chars)
-      if (key.length > 10 && text.includes(key)) {
-        return text.replace(key, translationMap[lang][key]);
-      }
+  // For longer text, do multiple substring replacements
+  let translatedText = text;
+  let madeChanges = false;
+
+  // Sort keys by length (longest first) to avoid partial replacements
+  const sortedKeys = Object.keys(translationMap[lang] || {}).sort((a, b) => b.length - a.length);
+
+  for (const key of sortedKeys) {
+    if (translatedText.includes(key)) {
+      translatedText = translatedText.split(key).join(translationMap[lang][key]);
+      madeChanges = true;
     }
   }
 
-  return text;
+  return madeChanges ? translatedText : text;
 }
 
 // Store original functions
@@ -200,10 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addMessage = function(text, isUser = false, skipScroll = false) {
         // Only translate bot messages, not user messages
         if (!isUser) {
+          const originalText = text;
           text = translateText(text);
+          if (originalText !== text) {
+            console.log('Translated message from', getCurrentLanguage());
+          }
         }
         return originalAddMessage(text, isUser, skipScroll);
       };
+      console.log('Chatbot addMessage override installed');
     }
 
     // Override showButtons to translate button text
@@ -218,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
         return originalShowButtons(translatedButtons);
       };
+      console.log('Chatbot showButtons override installed');
     }
   }, 200);
 });
