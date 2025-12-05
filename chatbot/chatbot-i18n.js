@@ -59,6 +59,8 @@ const translationMap = {
     "Great choice!": "¡Buena elección!",
     "Got it!": "¡Entendido!",
     "Great news! Your address is eligible": "¡Buenas noticias! Su dirección es elegible",
+    "Great news! I found your address in our system:": "¡Buenas noticias! Encontré su dirección en nuestro sistema:",
+    "Does this look right?": "¿Se ve correcto esto?",
 
     // Personal info
     "What's your full name?": "¿Cuál es su nombre completo?",
