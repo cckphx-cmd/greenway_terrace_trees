@@ -350,11 +350,36 @@ function installOverrides() {
     originalShowButtons = showButtonsFunc;
 
     const translatedShowButtons = function(buttons) {
-      // Translate button text
-      const translatedButtons = buttons.map(btn => ({
-        ...btn,
-        text: translateText(btn.text)
-      }));
+      // Translate button text AND wrap action to use translated text
+      const translatedButtons = buttons.map(btn => {
+        const originalText = btn.text;
+        const translatedText = translateText(btn.text);
+        const originalAction = btn.action;
+
+        return {
+          ...btn,
+          text: translatedText,
+          action: function() {
+            // Temporarily override addMessage to replace English text with translated
+            const tempOriginalAddMessage = window.addMessage;
+            window.addMessage = function(text, isUser, skipScroll) {
+              // If this is a user message and matches the original button text, use translated
+              if (isUser && text === originalText) {
+                text = translatedText;
+              }
+              return tempOriginalAddMessage(text, isUser, skipScroll);
+            };
+
+            // Call original action
+            const result = originalAction();
+
+            // Restore addMessage
+            window.addMessage = tempOriginalAddMessage;
+
+            return result;
+          }
+        };
+      });
       return originalShowButtons(translatedButtons);
     };
 
