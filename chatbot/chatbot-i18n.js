@@ -51,6 +51,10 @@ const translationMap = {
     "Renter": "Inquilino",
     "I'm renting": "Estoy alquilando",
     "Are you the homeowner or renter?": "¿Es usted propietario o inquilino?",
+    "Awesome! Just one quick question - do you own this home, or are you renting?": "¡Excelente! Solo una pregunta rápida: ¿es usted propietario de esta casa o está alquilando?",
+    "I rent and have landlord permission": "Alquilo y tengo permiso del propietario",
+    "I rent but don't have permission yet": "Alquilo pero aún no tengo permiso",
+    "← Go back": "← Regresar",
 
     // Responses
     "Perfect!": "¡Perfecto!",
@@ -61,6 +65,10 @@ const translationMap = {
     "Great news! Your address is eligible": "¡Buenas noticias! Su dirección es elegible",
     "Great news! I found your address in our system:": "¡Buenas noticias! Encontré su dirección en nuestro sistema:",
     "Does this look right?": "¿Se ve correcto esto?",
+    "Yes, that's correct": "Sí, es correcto",
+    "No, try again": "No, intentar de nuevo",
+    "No problem! Let's try that again.": "¡No hay problema! Intentémoslo de nuevo.",
+    "Perfect! ✓": "¡Perfecto! ✓",
 
     // Personal info
     "What's your full name?": "¿Cuál es su nombre completo?",
