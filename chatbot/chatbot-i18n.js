@@ -255,15 +255,8 @@ function installOverrides() {
       return originalAddMessage(text, isUser, skipScroll);
     };
 
-    // Set on both window and global scope
+    // Override on window (which is the global scope in browser)
     window.addMessage = translatedAddMessage;
-    if (typeof addMessage !== 'undefined') {
-      try {
-        eval('addMessage = translatedAddMessage');
-      } catch (e) {
-        console.log('Could not override global addMessage, using window only');
-      }
-    }
     console.log('Chatbot addMessage override installed');
   }
 
@@ -280,15 +273,8 @@ function installOverrides() {
       return originalShowButtons(translatedButtons);
     };
 
-    // Set on both window and global scope
+    // Override on window (which is the global scope in browser)
     window.showButtons = translatedShowButtons;
-    if (typeof showButtons !== 'undefined') {
-      try {
-        eval('showButtons = translatedShowButtons');
-      } catch (e) {
-        console.log('Could not override global showButtons, using window only');
-      }
-    }
     console.log('Chatbot showButtons override installed');
   }
 }
