@@ -503,16 +503,8 @@ async function startConversation() {
         }}
     ];
 
-    showButtons(buttons);
-
-    // Also show text input for questions
-    showTextInput('Ask me anything about the tree program...', (question) => {
-        addMessage(question, true);
-        addMessage("Thanks for your question! Here are some helpful resources:");
-        setTimeout(() => {
-            showFAQ();
-        }, 300);
-    });
+    // Use the new function that includes question input with AI
+    showButtonsWithQuestions(buttons);
 
     // After everything is rendered, scroll to top to show first message
     setTimeout(() => {
