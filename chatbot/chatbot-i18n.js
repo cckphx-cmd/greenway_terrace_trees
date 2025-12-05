@@ -235,11 +235,15 @@ let originalShowButtons = null;
 
 // Install overrides immediately when functions become available
 function installOverrides() {
-  // Override addMessage to translate content
-  if (typeof window.addMessage === 'function' && !originalAddMessage) {
-    originalAddMessage = window.addMessage;
+  // Check for addMessage in both window scope and global scope
+  const addMessageFunc = window.addMessage || (typeof addMessage !== 'undefined' ? addMessage : null);
+  const showButtonsFunc = window.showButtons || (typeof showButtons !== 'undefined' ? showButtons : null);
 
-    window.addMessage = function(text, isUser = false, skipScroll = false) {
+  // Override addMessage to translate content
+  if (addMessageFunc && typeof addMessageFunc === 'function' && !originalAddMessage) {
+    originalAddMessage = addMessageFunc;
+
+    const translatedAddMessage = function(text, isUser = false, skipScroll = false) {
       // Only translate bot messages, not user messages
       if (!isUser) {
         const originalText = text;
@@ -250,14 +254,24 @@ function installOverrides() {
       }
       return originalAddMessage(text, isUser, skipScroll);
     };
+
+    // Set on both window and global scope
+    window.addMessage = translatedAddMessage;
+    if (typeof addMessage !== 'undefined') {
+      try {
+        eval('addMessage = translatedAddMessage');
+      } catch (e) {
+        console.log('Could not override global addMessage, using window only');
+      }
+    }
     console.log('Chatbot addMessage override installed');
   }
 
   // Override showButtons to translate button text
-  if (typeof window.showButtons === 'function' && !originalShowButtons) {
-    originalShowButtons = window.showButtons;
+  if (showButtonsFunc && typeof showButtonsFunc === 'function' && !originalShowButtons) {
+    originalShowButtons = showButtonsFunc;
 
-    window.showButtons = function(buttons) {
+    const translatedShowButtons = function(buttons) {
       // Translate button text
       const translatedButtons = buttons.map(btn => ({
         ...btn,
@@ -265,6 +279,16 @@ function installOverrides() {
       }));
       return originalShowButtons(translatedButtons);
     };
+
+    // Set on both window and global scope
+    window.showButtons = translatedShowButtons;
+    if (typeof showButtons !== 'undefined') {
+      try {
+        eval('showButtons = translatedShowButtons');
+      } catch (e) {
+        console.log('Could not override global showButtons, using window only');
+      }
+    }
     console.log('Chatbot showButtons override installed');
   }
 }
