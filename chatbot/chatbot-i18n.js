@@ -436,20 +436,30 @@ function installOverrides() {
 }
 
 // Try to install overrides immediately
-installOverrides();
-
-// Also try after DOM loads
-document.addEventListener('DOMContentLoaded', installOverrides);
-
-// And keep trying every 50ms until both are installed (max 10 attempts)
-let attempts = 0;
-const installInterval = setInterval(() => {
+if (typeof addMessage !== 'undefined' && typeof showButtons !== 'undefined') {
+  console.log('Functions available immediately, installing overrides...');
   installOverrides();
-  attempts++;
-  if ((originalAddMessage && originalShowButtons) || attempts >= 10) {
-    clearInterval(installInterval);
-  }
-}, 50);
+} else {
+  console.log('Functions not ready yet, will retry...');
+  // Functions not ready yet, wait for them
+  let attempts = 0;
+  const maxAttempts = 20;
+  const installInterval = setInterval(() => {
+    if (typeof addMessage !== 'undefined' && typeof showButtons !== 'undefined' && !originalAddMessage && !originalShowButtons) {
+      console.log('Functions now available, installing overrides...');
+      installOverrides();
+      if (originalAddMessage && originalShowButtons) {
+        console.log('✓ i18n overrides successfully installed');
+        clearInterval(installInterval);
+      }
+    }
+    attempts++;
+    if (attempts >= maxAttempts) {
+      console.warn('Could not install i18n overrides after', maxAttempts, 'attempts');
+      clearInterval(installInterval);
+    }
+  }, 100); // Changed from 50ms to 100ms to reduce aggression
+}
 
 // Helper functions for direct translation access
 window.tc = function(key) {
