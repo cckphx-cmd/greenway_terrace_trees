@@ -24,7 +24,7 @@ const translations = {
     // Hero Section
     'hero.title': 'Free Trees for Midtown Grand District',
     'hero.subtitle': '& Surrounding Neighborhoods',
-    'hero.description': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
+    'hero.description': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I applied for and won a grant for our whole district where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
     'hero.cta': 'Click the Roadrunner to Get Started',
 
     // Stats Section
@@ -216,7 +216,7 @@ const translations = {
     // Hero Section
     'hero.title': 'Árboles Gratis para el Distrito Midtown Grand',
     'hero.subtitle': 'y Vecindarios Cercanos',
-    'hero.description': 'Hola, soy Courtney, su vecina de Greenway Terrace. Solicité y gané una subvención para nuestro vecindario donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
+    'hero.description': 'Hola, soy Courtney, su vecina de Greenway Terrace. Solicité y gané una subvención para todo nuestro distrito donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
     'hero.cta': 'Haga Clic en el Correcaminos para Comenzar',
 
     // Stats Section
