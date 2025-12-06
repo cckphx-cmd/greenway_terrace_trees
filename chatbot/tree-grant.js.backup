@@ -306,41 +306,30 @@ function showSplitAddressInput(onSubmit) {
 function normalizeAddress(address) {
     let normalized = address.toUpperCase().trim();
 
-    // Remove periods, commas, and normalize spaces (be very forgiving)
-    normalized = normalized.replace(/[.,]/g, '').replace(/\s+/g, ' ');
+    // Remove periods and extra spaces
+    normalized = normalized.replace(/\./g, '').replace(/\s+/g, ' ');
 
-    // Expand common abbreviations (more flexible matching)
+    // Expand common abbreviations
     const abbreviations = {
-        'ST ': 'STREET ',
-        'ST$': 'STREET',
+        ' ST': ' STREET',
         ' AVE': ' AVENUE',
-        'AVE$': 'AVENUE',
         ' RD': ' ROAD',
-        'RD$': 'ROAD',
         ' DR': ' DRIVE',
-        'DR$': 'DRIVE',
         ' LN': ' LANE',
-        'LN$': 'LANE',
         ' BLVD': ' BOULEVARD',
-        'BLVD$': 'BOULEVARD',
         ' PL': ' PLACE',
-        'PL$': 'PLACE',
         ' CT': ' COURT',
-        'CT$': 'COURT',
-        '^N ': 'NORTH ',
         ' N ': ' NORTH ',
-        '^S ': 'SOUTH ',
         ' S ': ' SOUTH ',
-        '^E ': 'EAST ',
         ' E ': ' EAST ',
-        '^W ': 'WEST ',
         ' W ': ' WEST ',
     };
 
-    // Apply abbreviation expansions with regex for better matching
+    // Apply abbreviation expansions
     for (const [abbr, full] of Object.entries(abbreviations)) {
-        const regex = new RegExp(abbr, 'g');
-        normalized = normalized.replace(regex, full);
+        if (normalized.includes(abbr)) {
+            normalized = normalized.replace(abbr, full);
+        }
     }
 
     return normalized.trim();
@@ -697,21 +686,11 @@ Thank you for your interest in making Phoenix greener!`);
     clearInput();
 }
 
-function startAddressVerification(attemptNumber = 1) {
-    // Initialize address attempts if not set
-    if (!state.data.addressAttempts) {
-        state.data.addressAttempts = 0;
-    }
-
+function startAddressVerification() {
     updateProgress('Step 1: Address Verification', 10);
+    addMessage(`Perfect! Let's see if your home is in the eligible area. This will just take a second.
 
-    let message = attemptNumber === 1
-        ? `Perfect! Let's see if your home is in the eligible area. This will just take a second.
-
-Go ahead and enter your street address below:`
-        : `Let's try that address again. Make sure to include the street number, direction (N/S/E/W), street name, and street type (Ave/St/Dr/Rd).`;
-
-    message += `
+Go ahead and enter your street address below:
 
 <div class="important-box">
 <strong>GOOD EXAMPLES:</strong><br>
@@ -722,17 +701,10 @@ Go ahead and enter your street address below:`
 <strong>IMPORTANT:</strong><br>
 • Single-family homes or duplexes/triplexes only<br>
 • No apartments or condos with 4+ units
-</div>`;
-
-    if (attemptNumber > 1) {
-        message += `<br><em>Attempt ${attemptNumber} of 3</em>`;
-    }
-
-    addMessage(message);
+</div>`);
 
     showTextInput('Enter your address...', (address) => {
         state.data.userAddress = address;
-        state.data.addressAttempts = attemptNumber;
         // Note: addMessage already called by showTextInput
 
         const result = lookupAddress(address);
@@ -742,13 +714,7 @@ Go ahead and enter your street address below:`
             state.data.eligible = true;
             askAddressConfirmation(result.address);
         } else {
-            // Allow up to 3 attempts
-            if (attemptNumber < 3) {
-                addMessage(`Hmm, I couldn't find that address in our eligible list. Don't worry - typos happen! Let's try again.`);
-                startAddressVerification(attemptNumber + 1);
-            } else {
-                showNotEligible();
-            }
+            showNotEligible();
         }
     });
 }
@@ -898,15 +864,7 @@ Check back with <a href="https://www.phoenix.gov/administration/departments/heat
 </div>
 
 Thank you for your interest in growing green in Phoenix! We hope you can take advantage of one of the alternative programs listed above.`);
-
-    showButtons([
-        { text: "← Back to main menu", className: 'back-button', action: () => {
-            addMessage("← Back to main menu", true);
-            // Reset address attempts
-            state.data.addressAttempts = 0;
-            showMainMenu();
-        }}
-    ]);
+    clearInput();
 }
 
 function showMainMenu() {
@@ -1016,8 +974,6 @@ function askTreeSelectionDirect() {
         action: () => {
             if (totalTrees === 0) {
                 addMessage("Please select at least one tree before continuing.");
-                // Re-show the tree selection with buttons
-                setTimeout(() => askTreeSelectionDirect(), 100);
                 return;
             } else {
                 // Build tree list with quantities

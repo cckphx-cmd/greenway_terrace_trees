@@ -1,12 +1,12 @@
 // ============================================
 // INTERNATIONALIZATION SYSTEM
-// Greenway Terrace Trees Site
+// Midtown Grand District Trees Site
 // ============================================
 
 const translations = {
   en: {
     // Navigation
-    'nav.logo': 'Greenway Terrace Trees',
+    'nav.logo': 'Midtown Grand District Trees',
     'nav.checkEligibility': 'Check Eligibility',
     'nav.about': 'About',
     'nav.browseTrees': 'Browse Trees',
@@ -21,7 +21,7 @@ const translations = {
     'deadline.plantingDate': 'January 24, 2026',
 
     // Hero Section
-    'hero.title': 'Free Trees for Greenway Terrace',
+    'hero.title': 'Free Trees for Midtown Grand District',
     'hero.subtitle': '& Surrounding Neighborhoods',
     'hero.description': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.",
     'hero.cta': 'Click the Roadrunner to Get Started',
@@ -34,7 +34,7 @@ const translations = {
 
     // Eligibility Section
     'eligibility.title': 'Check Your Eligibility',
-    'eligibility.description': 'This grant covers Greenway Terrace and surrounding neighborhoods.',
+    'eligibility.description': 'This grant covers the Midtown Grand District.',
     'eligibility.boundaries': 'Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).',
     'eligibility.chatbotNote': 'If your house is within this outlined area click the roadrunner icon to confirm your address is included.',
     'eligibility.eligible': 'Great news! Your address is eligible for free trees.',
@@ -103,7 +103,7 @@ const translations = {
     'chatbot.greetingButton': "Let's Get Started!",
 
     // Chatbot Messages
-    'chatbot.welcome': "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Greenway Terrace Community Canopy program.",
+    'chatbot.welcome': "Hi, I'm Roadrunner! 🌳 Your neighborhood tree grant specialist. I'm here to help you get free trees for your front yard through the Midtown Grand District Community Canopy program.",
     'chatbot.apply': "Apply now",
     'chatbot.askQuestion': "Ask a question",
     'chatbot.browseSpecies': "Browse species",
@@ -146,7 +146,7 @@ const translations = {
     // About Page
     'about.title': 'About This Project',
     'about.intro': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I've been here for 10 years and my family has been in this neighborhood since it was built. I put this project together to help us get as many trees as possible to as many homes as possible.",
-    'about.backstory': 'I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision only. We won. The city then expanded eligibility to over 600 homes in the surrounding area, which means more of our neighbors can benefit.',
+    'about.backstory': 'I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision. We won! The city was so impressed with the response that they expanded eligibility to the entire Midtown Grand District - over 600 homes total. What started as a grant just for Greenway Terrace is now available to our entire district.',
     'about.heading1': "Here's why this matters.",
     'about.question1': "Have you ever wondered why our neighborhood isn't built in straight lines? Or why the houses all sit at slightly different angles on their lots?",
     'about.usedToBe': "They don't build them like they used to.",
@@ -173,7 +173,7 @@ const translations = {
     'shade.button': 'See Your Shade',
 
     // Footer
-    'footer.title': 'Greenway Terrace Tree Grant',
+    'footer.title': 'Midtown Grand District Tree Grant',
     'footer.description': 'A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.',
     'footer.quickLinks': 'Quick Links',
     'footer.resources': 'Resources',
@@ -181,7 +181,7 @@ const translations = {
     'footer.heatOffice': 'Heat Response Office',
     'footer.treeGuide': 'Arizona Tree Care Guide',
     'footer.courtneyWork': "Courtney's Work",
-    'footer.copyright': '© 2025 Greenway Terrace Community Canopy Grant'
+    'footer.copyright': '© 2025 Midtown Grand District Community Canopy Grant'
   },
 
   es: {
