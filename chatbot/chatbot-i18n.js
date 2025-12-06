@@ -111,6 +111,7 @@ const translationMap = {
     "water": "agua",
     "You can select up to 2 trees for your property.": "Puede seleccionar hasta 2 árboles para su propiedad.",
     "Learn more about tree options and the program": "Aprenda más sobre las opciones de árboles y el programa",
+    "See detailed information about all tree options": "Ver información detallada sobre todas las opciones de árboles",
     "Select my trees & apply": "Seleccionar mis árboles y solicitar",
     "Browse all tree options": "Explorar todas las opciones de árboles",
     "Retake quiz": "Volver a hacer el cuestionario",
