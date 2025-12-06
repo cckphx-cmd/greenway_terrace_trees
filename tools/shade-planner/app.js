@@ -12,10 +12,10 @@ let currentTreeSize = 'medium';
 let currentHouseType = 'user';
 let animationInterval = null;
 
-// Metro Phoenix center coordinates
+// Default coordinates - 2133 W Edgemont Ave, Phoenix, AZ
 const PHOENIX = {
-  lat: 33.4484,
-  lng: -112.0740
+  lat: 33.4793129,
+  lng: -112.1063521
 };
 
 // Tree size presets

@@ -6,7 +6,7 @@
 const translations = {
   en: {
     // Navigation
-    'nav.logo': 'Midtown Grand District Trees',
+    'nav.logo': 'Midtown Grand District',
     'nav.checkEligibility': 'Check Eligibility',
     'nav.about': 'About',
     'nav.browseTrees': 'Browse Trees',
@@ -155,6 +155,7 @@ const translations = {
     'about.restoration': "As trees have come down from storms, age, and disease, we've lost the shade that once kept our homes cool. I know that when older homes start showing their age, our first instinct is to slash and burn. Add different windows. Tear things down. But what we should really be doing is reclaiming the heat mitigation strategies that were already here. These gorgeous mid-century ranch homes were designed to stay cool. We just need to restore what made them work.",
     'about.personalReason': "I applied for this grant for one simple reason: my trees died and I'm not in a financial place to replace them. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.",
     'about.callToAction': 'Join me in bringing the shade back.',
+    'about.signature': '— Courtney Kingsbury',
 
     // Planner Page
     'planner.title': 'Tree Placement Planner',
@@ -196,7 +197,7 @@ const translations = {
 
   es: {
     // Navigation
-    'nav.logo': 'Árboles del Distrito Midtown Grand',
+    'nav.logo': 'Distrito Midtown Grand',
     'nav.checkEligibility': 'Verificar Elegibilidad',
     'nav.about': 'Acerca de',
     'nav.browseTrees': 'Ver Árboles',
@@ -345,6 +346,7 @@ const translations = {
     'about.restoration': 'A medida que los árboles han caído por tormentas, edad y enfermedades, hemos perdido la sombra que una vez mantuvo frescas nuestras casas. Sé que cuando las casas más viejas comienzan a mostrar su edad, nuestro primer instinto es arrasar y quemar. Agregar ventanas diferentes. Derribar cosas. Pero lo que realmente deberíamos estar haciendo es reclamar las estrategias de mitigación del calor que ya estaban aquí. Estas hermosas casas estilo ranch de mediados de siglo fueron diseñadas para mantenerse frescas. Solo necesitamos restaurar lo que las hacía funcionar.',
     'about.personalReason': 'Solicité esta subvención por una razón simple: mis árboles murieron y no estoy en una situación financiera para reemplazarlos. ¿Este sitio web, el bot de elegibilidad y la herramienta de colocación de árboles? Los construí para hacer este proceso más fácil para todos nosotros.',
     'about.callToAction': 'Únase a mí para traer de vuelta la sombra.',
+    'about.signature': '— Courtney Kingsbury',
 
     // Planner Page
     'planner.title': 'Planificador de Colocación de Árboles',

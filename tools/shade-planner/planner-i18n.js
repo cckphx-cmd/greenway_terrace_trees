@@ -7,8 +7,8 @@
 const translations = {
   en: {
     // Header
-    'header.title': 'Tree Placement Planner',
-    'header.subtitle': 'Plan strategic tree placement for maximum shade',
+    'header.title': 'Midtown Grand District',
+    'header.subtitle': 'Tree Placement Planner',
 
     // Disclaimer
     'disclaimer': '⚠️ IMPORTANT: Trees must be placed in your front yard (toward the street) to qualify for the grant program.',
@@ -45,13 +45,23 @@ const translations = {
     'step3.date': 'Date:',
     'step3.june21': 'June 21 (Summer Solstice)',
     'step3.aug1': 'August 1 (Peak Heat)',
-    'step3.july15': 'July 15 (Mid-Summer)'
+    'step3.july15': 'July 15 (Mid-Summer)',
+    'step3.sept15': 'September 15 (Late Summer)',
+    'step3.animate': '▶ Animate Shadows Through Day',
+
+    // Shade Coverage
+    'shade.title': 'Shade Coverage',
+    'shade.placeholder': 'Place trees and buildings to see shade analysis.',
+
+    // Recommendation
+    'recommendation.title': 'Recommendation',
+    'recommendation.button': 'Find Best Tree Placement'
   },
 
   es: {
     // Header
-    'header.title': 'Planificador de Colocación de Árboles',
-    'header.subtitle': 'Planifique la colocación estratégica de árboles para máxima sombra',
+    'header.title': 'Distrito Midtown Grand',
+    'header.subtitle': 'Planificador de Colocación de Árboles',
 
     // Disclaimer
     'disclaimer': '⚠️ IMPORTANTE: Los árboles deben colocarse en su jardín delantero (hacia la calle) para calificar para el programa de subvención.',
@@ -88,7 +98,17 @@ const translations = {
     'step3.date': 'Fecha:',
     'step3.june21': '21 de junio (Solsticio de Verano)',
     'step3.aug1': '1 de agosto (Calor Máximo)',
-    'step3.july15': '15 de julio (Mediados de Verano)'
+    'step3.july15': '15 de julio (Mediados de Verano)',
+    'step3.sept15': '15 de septiembre (Fin de Verano)',
+    'step3.animate': '▶ Animar Sombras Durante el Día',
+
+    // Shade Coverage
+    'shade.title': 'Cobertura de Sombra',
+    'shade.placeholder': 'Coloque árboles y edificios para ver el análisis de sombra.',
+
+    // Recommendation
+    'recommendation.title': 'Recomendación',
+    'recommendation.button': 'Encontrar Mejor Ubicación para Árboles'
   }
 };
 
@@ -189,11 +209,28 @@ function updatePageText() {
 
   // Date options
   const dateSelect = document.getElementById('date-select');
-  if (dateSelect && dateSelect.options.length >= 3) {
+  if (dateSelect && dateSelect.options.length >= 4) {
     dateSelect.options[0].text = t('step3.june21');
     dateSelect.options[1].text = t('step3.aug1');
     dateSelect.options[2].text = t('step3.july15');
+    dateSelect.options[3].text = t('step3.sept15');
   }
+
+  // Animate button
+  const animateBtn = document.querySelector('.animate-btn');
+  if (animateBtn) animateBtn.textContent = t('step3.animate');
+
+  // Shade Coverage section
+  const shadeCoverageTitle = document.querySelector('.tool-section:nth-of-type(4) h3');
+  const shadePlaceholder = document.querySelector('#results p');
+  if (shadeCoverageTitle) shadeCoverageTitle.textContent = t('shade.title');
+  if (shadePlaceholder) shadePlaceholder.textContent = t('shade.placeholder');
+
+  // Recommendation section
+  const recommendationTitle = document.querySelector('.tool-section:nth-of-type(5) h3');
+  const recommendationBtn = document.querySelector('.tool-section:nth-of-type(5) .btn');
+  if (recommendationTitle) recommendationTitle.textContent = t('recommendation.title');
+  if (recommendationBtn) recommendationBtn.textContent = t('recommendation.button');
 }
 
 // Initialize on DOM load

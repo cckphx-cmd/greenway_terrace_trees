@@ -12,9 +12,9 @@ This guide will walk you through setting up Google Sheets to automatically colle
 
 In the first row of your spreadsheet, add these column headers (in this exact order):
 
-| A | B | C | D | E | F | G | H | I | J | K | L | M | N |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Timestamp | Address | Status | First Name | Last Name | Email | Phone | Trees | Stump Removal | Complex Install | T-Shirt Size | Landlord Name | Landlord Email | Landlord Phone |
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N | O |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Timestamp | Address | Status | Landlord Permission Status | First Name | Last Name | Email | Phone | Trees | Stump Removal | Complex Install | T-Shirt Size | Landlord Name | Landlord Email | Landlord Phone |
 
 ## Step 3: Create Google Apps Script
 
@@ -36,6 +36,7 @@ function doPost(e) {
       data.submittedAt || new Date().toISOString(),
       data.address || '',
       data.homeownerStatus || '',
+      data.landlordPermissionStatus || 'N/A',
       data.firstName || '',
       data.lastName || '',
       data.email || '',
@@ -90,8 +91,8 @@ function doPost(e) {
 
 ## Step 5: Add URL to Chatbot
 
-1. Open `/Users/CCK85/greenway_terrace_trees/chatbot/tree-grant.js`
-2. Find line 1176 that says:
+1. Open `chatbot/tree-grant.js` in your repository
+2. Search for `GOOGLE_SHEETS_URL` and find the line that says:
    ```javascript
    const GOOGLE_SHEETS_URL = ''; // Paste your Google Apps Script Web App URL here
    ```
