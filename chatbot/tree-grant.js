@@ -1594,42 +1594,7 @@ function submitSubmission() {
         });
     }
 
-    // Send via Email (mailto link - opens user's email client)
-    const emailSubject = `Tree Grant Submission - ${submissionData.firstName} ${submissionData.lastName}`;
-    const emailBody = `
-NEW TREE GRANT SUBMISSION
-
-Submitted: ${submissionData.submittedAt}
-
-APPLICANT INFO:
-Name: ${submissionData.firstName} ${submissionData.lastName}
-Phone: ${submissionData.phone}
-Email: ${submissionData.email}
-Address: ${submissionData.address}
-Homeowner Status: ${submissionData.homeownerStatus}
-
-LANDLORD INFO (if applicable):
-Name: ${submissionData.landlordName}
-Email: ${submissionData.landlordEmail}
-Phone: ${submissionData.landlordPhone}
-
-TREE SELECTION:
-Trees: ${submissionData.trees}
-
-PROPERTY INFO:
-Stump Removal Needed: ${submissionData.stumpRemoval}
-Complex Install: ${submissionData.complexInstall}
-
-PERKS:
-T-shirt Size: ${submissionData.tshirtSize}
-    `.trim();
-
-    // Create mailto link (will open in default email client)
-    const mailtoLink = `mailto:kayla.killoren@phoenix.gov?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-    // Auto-send email (opens in new window)
-    window.open(mailtoLink, '_blank');
-
+    // Show confirmation message
     setTimeout(() => {
         updateProgress('Complete!', 100);
         addMessage(`<strong>🎉 Woohoo! You're all set!</strong><br><br>
