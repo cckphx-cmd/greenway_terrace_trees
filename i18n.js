@@ -439,10 +439,10 @@ function updatePageText() {
   // Update navigation
   const navLinks = document.querySelectorAll('.nav-links a');
   if (navLinks.length >= 5) {
-    navLinks[0].textContent = t('nav.checkEligibility');
-    navLinks[1].textContent = t('nav.about');
+    navLinks[0].textContent = t('nav.grantMap');
+    navLinks[1].textContent = t('nav.seeYourShade');
     navLinks[2].textContent = t('nav.browseTrees');
-    navLinks[3].textContent = t('nav.treePlanner');
+    navLinks[3].textContent = t('nav.about');
     navLinks[4].textContent = t('nav.faq');
   }
 
