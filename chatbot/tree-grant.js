@@ -1582,7 +1582,7 @@ function submitSubmission() {
 
     // Send to Google Sheets
     // SETUP INSTRUCTIONS IN GOOGLE_SHEETS_SETUP.md
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbywLIVrGZ1I6ty64Yo8PiDyRsjTZJeYCWcqTUbfljPY4WFsCyCBOSNIuUY51TI8-9Rw/exec';
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzKQ1vBZwivdDAEQCLbYg9Cj36C2KgDetyp70AoxyvSClNaKH6MJqHWvebXwpZy2mg_/exec';
     if (GOOGLE_SHEETS_URL) {
         fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
