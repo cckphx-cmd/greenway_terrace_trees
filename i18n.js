@@ -186,7 +186,7 @@ const translations = {
 
   es: {
     // Navigation
-    'nav.logo': 'Árboles de Greenway Terrace',
+    'nav.logo': 'Árboles del Distrito Midtown Grand',
     'nav.checkEligibility': 'Verificar Elegibilidad',
     'nav.about': 'Acerca de',
     'nav.browseTrees': 'Ver Árboles',
@@ -201,7 +201,7 @@ const translations = {
     'deadline.plantingDate': '24 de enero de 2026',
 
     // Hero Section
-    'hero.title': 'Árboles Gratis para Greenway Terrace',
+    'hero.title': 'Árboles Gratis para el Distrito Midtown Grand',
     'hero.subtitle': 'y Vecindarios Cercanos',
     'hero.description': 'Hola, soy Courtney, su vecina de Greenway Terrace. Solicité y gané una subvención para nuestro vecindario donde la ciudad proporcionará dos árboles de sombra gratis que plantan profesionalmente en su jardín delantero sin costo alguno para usted.',
     'hero.cta': 'Haga Clic en el Correcaminos para Comenzar',
@@ -214,7 +214,7 @@ const translations = {
 
     // Eligibility Section
     'eligibility.title': 'Verifique Su Elegibilidad',
-    'eligibility.description': 'Esta subvención cubre Greenway Terrace y vecindarios circundantes.',
+    'eligibility.description': 'Esta subvención cubre el Distrito Midtown Grand.',
     'eligibility.boundaries': 'Límites del área elegible: Thomas Rd (Sur), McDowell Rd (Norte), 23rd Ave (Oeste), 19th Ave (Este).',
     'eligibility.chatbotNote': 'Si su casa está dentro de esta área delineada, haga clic en el ícono del correcaminos para confirmar que su dirección está incluida.',
     'eligibility.eligible': '¡Buenas noticias! Su dirección es elegible para árboles gratis.',
@@ -283,7 +283,7 @@ const translations = {
     'chatbot.greetingButton': '¡Comencemos!',
 
     // Chatbot Messages
-    'chatbot.welcome': "¡Hola, soy Correcaminos! 🌳 Su especialista en subvenciones de árboles del vecindario. Estoy aquí para ayudarle a obtener árboles gratis para su jardín delantero a través del programa Community Canopy de Greenway Terrace.",
+    'chatbot.welcome': "¡Hola, soy Correcaminos! 🌳 Su especialista en subvenciones de árboles del vecindario. Estoy aquí para ayudarle a obtener árboles gratis para su jardín delantero a través del programa Community Canopy del Distrito Midtown Grand.",
     'chatbot.apply': "Solicitar ahora",
     'chatbot.askQuestion': "Hacer una pregunta",
     'chatbot.browseSpecies': "Explorar especies",
@@ -326,7 +326,7 @@ const translations = {
     // About Page
     'about.title': 'Acerca de Este Proyecto',
     'about.intro': 'Hola, soy Courtney, su vecina de Greenway Terrace. He estado aquí durante 10 años y mi familia ha estado en este vecindario desde que se construyó. Armé este proyecto para ayudarnos a obtener tantos árboles como sea posible para la mayor cantidad de hogares posible.',
-    'about.backstory': 'Solicité la subvención Community Canopy de la Ciudad de Phoenix solo para las casas de la subdivisión Greenway Terrace. Ganamos. Luego, la ciudad expandió la elegibilidad a más de 600 hogares en el área circundante, lo que significa que más de nuestros vecinos pueden beneficiarse.',
+    'about.backstory': 'Solicité la subvención Community Canopy de la Ciudad de Phoenix para las casas de la subdivisión Greenway Terrace. ¡Ganamos! La ciudad quedó tan impresionada con la respuesta que expandió la elegibilidad a todo el Distrito Midtown Grand - más de 600 hogares en total. Lo que comenzó como una subvención solo para Greenway Terrace ahora está disponible para todo nuestro distrito.',
     'about.heading1': 'Por qué esto importa.',
     'about.question1': '¿Alguna vez se ha preguntado por qué nuestro vecindario no está construido en líneas rectas? ¿O por qué todas las casas están en ángulos ligeramente diferentes en sus lotes?',
     'about.usedToBe': 'Ya no los construyen como antes.',
@@ -353,7 +353,7 @@ const translations = {
     'shade.button': 'Ver Tu Sombra',
 
     // Footer
-    'footer.title': 'Subvención de Árboles de Greenway Terrace',
+    'footer.title': 'Subvención de Árboles del Distrito Midtown Grand',
     'footer.description': 'Una iniciativa de Community Canopy a través de la Oficina de Respuesta y Mitigación del Calor de la Ciudad de Phoenix, financiada por el Servicio Forestal del USDA.',
     'footer.quickLinks': 'Enlaces Rápidos',
     'footer.resources': 'Recursos',
@@ -361,7 +361,7 @@ const translations = {
     'footer.heatOffice': 'Oficina de Respuesta al Calor',
     'footer.treeGuide': 'Guía de Cuidado de Árboles de Arizona',
     'footer.courtneyWork': 'Trabajo de Courtney',
-    'footer.copyright': '© 2025 Subvención Community Canopy de Greenway Terrace'
+    'footer.copyright': '© 2025 Subvención Community Canopy del Distrito Midtown Grand'
   }
 };
 

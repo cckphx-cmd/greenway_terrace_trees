@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Trees for Greenway Terrace | Community Canopy Grant</title>
+    <title>Free Trees for Midtown Grand District | Community Canopy Grant</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -154,11 +154,11 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8rem 2rem 4rem;
+            padding: 4rem 2rem 3rem;
             position: relative;
         }
 
@@ -167,7 +167,7 @@
             text-align: center;
             animation: fadeInUp 1s ease-out;
             background: rgba(253, 248, 240, 0.92);
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 30px;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -272,7 +272,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -307,7 +307,7 @@
 
         /* Section Styling */
         section {
-            padding: 5rem 2rem;
+            padding: 3.5rem 2rem;
         }
 
         .section-header {
@@ -1428,7 +1428,7 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            Greenway Terrace Trees
+            Midtown Grand District Trees
         </div>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         <div class="nav-content">
@@ -1449,7 +1449,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 style="font-size: 2.8rem; line-height: 1.1;" data-i18n="hero.title">Free Trees for Greenway Terrace</h1>
+            <h1 style="font-size: 2.8rem; line-height: 1.1;" data-i18n="hero.title">Free Trees for Midtown Grand District</h1>
             <p class="hero-subtitle" style="font-size: 1.4rem;" data-i18n="hero.subtitle">& Surrounding Neighborhoods</p>
             <p style="font-size: 1.1rem; line-height: 1.6; margin: 1rem auto; text-align: center; max-width: 650px;" data-i18n="hero.description"></p>
             <div class="hero-buttons">
@@ -1482,7 +1482,7 @@
     <section class="map-section" id="eligibility">
         <div class="section-header" style="margin-bottom: 1rem;">
             <h2>Check Your Eligibility</h2>
-            <p>This grant covers Greenway Terrace and surrounding neighborhoods. <strong>Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).</strong></p>
+            <p>This grant covers the Midtown Grand District. <strong>Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).</strong></p>
         </div>
 
         <div class="map-container" style="text-align: center; padding: 1rem 2rem 3rem;">
@@ -1971,7 +1971,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h3 data-i18n="footer.title">Greenway Terrace Tree Grant</h3>
+                <h3 data-i18n="footer.title">Midtown Grand District Tree Grant</h3>
                 <p data-i18n="footer.description">A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
             </div>
             <div class="footer-links">
@@ -1993,7 +1993,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-i18n="footer.copyright">© 2025 Greenway Terrace Community Canopy Grant</p>
+            <p data-i18n="footer.copyright">© 2025 Midtown Grand District Community Canopy Grant</p>
         </div>
     </footer>
 
@@ -2181,6 +2181,32 @@
             closeGreeting();
             toggleChatbot();
         }
+
+        // Listen for navigation requests from chatbot iframe
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'navigate') {
+                // Close chatbot
+                const widget = document.getElementById('chatbotWidget');
+                const button = document.getElementById('chatbotButton');
+                if (widget && widget.classList.contains('open')) {
+                    widget.classList.remove('open');
+                    if (button) button.style.display = 'flex';
+                }
+
+                // Navigate to target section
+                if (event.data.target === 'planner') {
+                    const plannerSection = document.getElementById('planner');
+                    if (plannerSection) {
+                        plannerSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else if (event.data.target === 'trees') {
+                    const treesSection = document.getElementById('trees');
+                    if (treesSection) {
+                        treesSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        });
 
         // Auto-open chatbot on page load
         window.addEventListener('load', function() {

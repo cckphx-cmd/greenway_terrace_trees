@@ -677,11 +677,20 @@ Do you agree to these terms and wish to continue with the online submission?`, f
 }
 
 function showPaperSubmissionOption() {
+    // Get current language for form link
+    const currentLang = window.getChatbotLanguage ? window.getChatbotLanguage() : 'en';
+    const formLink = currentLang === 'es'
+        ? '../paper-application-spanish.pdf'
+        : '../paper-application.pdf';
+    const formText = currentLang === 'es'
+        ? 'Descargar Formulario de Solicitud en Papel (PDF)'
+        : 'Download Paper Submission Form (PDF)';
+
     addMessage(`No problem! You can still apply using our paper submission form.<br><br>
 
 <div class="important-box">
 <strong>Paper Submission Option:</strong><br><br>
-📄 <a href="../paper-application.pdf" download class="link">Download Paper Submission Form (PDF)</a><br><br>
+📄 <a href="${formLink}" download class="link">${formText}</a><br><br>
 
 <strong>Drop-off Location:</strong><br>
 2133 W Edgemont Ave<br>
@@ -694,7 +703,12 @@ The paper submission form includes all the same questions and tree options. Simp
 
 Thank you for your interest in making Phoenix greener!`);
 
-    clearInput();
+    showButtons([
+        { text: "← Back to main menu", className: 'back-button', action: () => {
+            addMessage("← Back to main menu", true);
+            showMainMenu();
+        }}
+    ]);
 }
 
 function startAddressVerification(attemptNumber = 1) {
@@ -938,7 +952,7 @@ function askTreeSelectionDirect() {
     if (!state.data.treeQuantities) {
         state.data.treeQuantities = {};
         addMessage(`Let's select your trees!<br><br>You can choose up to 2 trees total. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
-        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> Not sure about tree heights or placement? Use our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to see how different tree sizes and locations will create shade for you and your neighbors!</div>`);
+        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> Not sure about tree heights or placement? <a href="javascript:void(0)" onclick="if(window.parent !== window) { window.parent.postMessage({type: 'navigate', target: 'planner'}, '*'); } else { window.location.href='../index.html#planner'; }" class="link">Use our Tree Placement Planner</a> to see how different tree sizes and locations will create shade!</div>`);
     }
 
     // Calculate total trees selected
@@ -1209,7 +1223,7 @@ function showTreeRecommendations() {
     });
 
     recommendationHTML += `<br>You can select up to 2 trees for your property.<br><br>
-<a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" class="link" target="_blank">Learn more about tree options and the program</a>`;
+<a href="javascript:void(0)" onclick="if(window.parent !== window) { window.parent.postMessage({type: 'navigate', target: 'trees'}, '*'); } else { window.location.href='../index.html#trees'; }" class="link">See detailed information about all tree options</a>`;
 
     addMessage(recommendationHTML);
 
@@ -1249,7 +1263,7 @@ function askTreeSelection(recommendations) {
 
         addMessage(`<br>But you can browse all native and non-native options. Click a tree multiple times to select 2 of the same tree. Scroll to see all choices:`);
 
-        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> Use our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to test different tree sizes and locations to see how they'll create shade for you and your neighbors!</div>`);
+        addMessage(`<div class="info-box">💡 <strong>Tip:</strong> <a href="javascript:void(0)" onclick="if(window.parent !== window) { window.parent.postMessage({type: 'navigate', target: 'planner'}, '*'); } else { window.location.href='../index.html#planner'; }" class="link">Use our Tree Placement Planner</a> to test different tree sizes and locations to see how they'll create shade!</div>`);
     }
 
     // Calculate total trees selected
@@ -1620,7 +1634,7 @@ ${state.data.firstName}, thank you so much for submitting! We're thrilled to be 
 • <strong>Planting week: January 24, 2026</strong><br><br>
 
 <strong>🌳 Plan Your Tree Placement:</strong><br>
-Visit our <a href="../index.html#planner" class="link" target="_blank">Tree Placement Planner</a> to see where your trees will create the most shade for you and your neighbors! Test different locations and tree heights before you place your yard flags.<br><br>
+Visit our <a href="javascript:void(0)" onclick="if(window.parent !== window) { window.parent.postMessage({type: 'navigate', target: 'planner'}, '*'); } else { window.location.href='../index.html#planner'; }" class="link">Tree Placement Planner</a> to see where your trees will create the most shade for you and your neighbors! Test different locations and tree heights before you place your yard flags.<br><br>
 
 <strong>Questions?</strong><br>
 Contact: Kayla Killoren at <a href="mailto:kayla.killoren@phoenix.gov" class="link">kayla.killoren@phoenix.gov</a><br><br>
