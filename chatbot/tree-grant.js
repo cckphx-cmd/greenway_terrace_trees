@@ -654,7 +654,7 @@ Before we begin, please review our data privacy policy.
 Your information will be stored for the duration of the program and up to one year after for record-keeping purposes.<br><br>
 
 <strong>Contact:</strong><br>
-For privacy questions, email <a href="mailto:kayla.killoren@phoenix.gov">kayla.killoren@phoenix.gov</a>
+For privacy questions, email <a href="mailto:cckphx@gmail.com">cckphx@gmail.com</a>
 </div><br>
 
 Do you agree to these terms and wish to continue with the online submission?`, false, true); // Skip scroll on first message
