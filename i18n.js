@@ -7,7 +7,8 @@ const translations = {
   en: {
     // Navigation
     'nav.logo': 'Midtown Grand District',
-    'nav.checkEligibility': 'Check Eligibility',
+    'nav.grantMap': 'Grant Map',
+    'nav.seeYourShade': 'See Your Shade',
     'nav.about': 'About',
     'nav.browseTrees': 'Browse Trees',
     'nav.treePlanner': 'See Your Shade',
@@ -33,10 +34,10 @@ const translations = {
     'stats.cooler': 'Cooler Under Shade',
 
     // Eligibility Section
-    'eligibility.title': 'Check Your Eligibility',
-    'eligibility.description': 'This grant covers the Midtown Grand District.',
+    'eligibility.title': 'Grant Map',
+    'eligibility.description': 'This grant covers the entire Midtown Grand District.',
     'eligibility.boundaries': 'Eligible area boundaries: Thomas Rd (South), McDowell Rd (North), 23rd Ave (West), 19th Ave (East).',
-    'eligibility.chatbotNote': 'If your house is within this outlined area click the roadrunner icon to confirm your address is included.',
+    'eligibility.chatbotNote': 'If your house is within this outlined area, click the roadrunner icon to confirm your address and request your trees.',
     'eligibility.eligible': 'Great news! Your address is eligible for free trees.',
     'eligibility.applyNow': 'Apply now!',
     'eligibility.maybeEligible': 'Your address appears to be eligible. Please verify the exact address when you apply.',
@@ -146,14 +147,14 @@ const translations = {
     // About Page
     'about.title': 'About This Project',
     'about.intro': "Hi, I'm Courtney, your neighbor over in Greenway Terrace. I've been here for 10 years and my family has been in this neighborhood since it was built. I put this project together to help us get as many trees as possible to as many homes as possible.",
-    'about.backstory': 'I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision. We won! The city was so impressed with the response that they expanded eligibility to the entire Midtown Grand District - over 600 homes total. What started as a grant just for Greenway Terrace is now available to our entire district.',
+    'about.backstory': 'I applied for the City of Phoenix Community Canopy grant for the homes in the Greenway Terrace subdivision only. We won! The city was generous when we met and allowed us to expanded eligibility to the entire Midtown Grand District.',
     'about.heading1': "Here's why this matters.",
     'about.question1': "Have you ever wondered why our neighborhood isn't built in straight lines? Or why the houses all sit at slightly different angles on their lots?",
     'about.usedToBe': "They don't build them like they used to.",
     'about.sunPath': "Our homes, and more importantly our trees, were strategically placed based on the science of Sun Path Diagrams and Shadow Analysis. These tools map exactly where the sun will be at any time of day, any day of the year, and predict how shadows will move across properties throughout the seasons. Mid-century builders used this science to angle houses and position trees so that a single tree could shade your house in the morning and your neighbor's driveway in the afternoon. It was intentional. It was brilliant.",
     'about.lostIt': "And over time, we've lost it.",
     'about.restoration': "As trees have come down from storms, age, and disease, we've lost the shade that once kept our homes cool. I know that when older homes start showing their age, our first instinct is to slash and burn. Add different windows. Tear things down. But what we should really be doing is reclaiming the heat mitigation strategies that were already here. These gorgeous mid-century ranch homes were designed to stay cool. We just need to restore what made them work.",
-    'about.personalReason': "I applied for this grant for one simple reason: my trees died and I'm not in a financial place to replace them. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.",
+    'about.personalReason': "I applied for this grant for one simple reason: I want to keep this district cool. This website, the eligibility bot, and the tree placement tool? I built those to make this process easier for all of us.",
     'about.callToAction': 'Join me in bringing the shade back.',
     'about.signature': '— Courtney Kingsbury',
 
@@ -163,7 +164,7 @@ const translations = {
 
     // Forms Section
     'forms.title': 'Download Forms',
-    'forms.subtitle': 'Need to submit by mail or get landlord permission? Download the forms you need below.',
+    'forms.subtitle': 'Need to drop off a paper application or get landlord permission? Download the forms you need below.',
     'forms.paperApp': 'Paper Application',
     'forms.paperAppEn': 'Paper Application (English)',
     'forms.paperAppEs': 'Paper Application (Spanish)',
@@ -198,7 +199,8 @@ const translations = {
   es: {
     // Navigation
     'nav.logo': 'Distrito Midtown Grand',
-    'nav.checkEligibility': 'Verificar Elegibilidad',
+    'nav.grantMap': 'Mapa de Subvención',
+    'nav.seeYourShade': 'Ver Tu Sombra',
     'nav.about': 'Acerca de',
     'nav.browseTrees': 'Ver Árboles',
     'nav.treePlanner': 'Ver Tu Sombra',
@@ -224,10 +226,10 @@ const translations = {
     'stats.cooler': 'Más Fresco Bajo la Sombra',
 
     // Eligibility Section
-    'eligibility.title': 'Verifique Su Elegibilidad',
-    'eligibility.description': 'Esta subvención cubre el Distrito Midtown Grand.',
+    'eligibility.title': 'Mapa de Subvención',
+    'eligibility.description': 'Esta subvención cubre todo el Distrito Midtown Grand.',
     'eligibility.boundaries': 'Límites del área elegible: Thomas Rd (Sur), McDowell Rd (Norte), 23rd Ave (Oeste), 19th Ave (Este).',
-    'eligibility.chatbotNote': 'Si su casa está dentro de esta área delineada, haga clic en el ícono del correcaminos para confirmar que su dirección está incluida.',
+    'eligibility.chatbotNote': 'Si su casa está dentro de esta área delineada, haga clic en el ícono del correcaminos para confirmar su dirección y solicitar sus árboles.',
     'eligibility.eligible': '¡Buenas noticias! Su dirección es elegible para árboles gratis.',
     'eligibility.applyNow': '¡Solicite ahora!',
     'eligibility.maybeEligible': 'Su dirección parece ser elegible. Por favor verifique la dirección exacta cuando aplique.',
@@ -337,14 +339,14 @@ const translations = {
     // About Page
     'about.title': 'Acerca de Este Proyecto',
     'about.intro': 'Hola, soy Courtney, su vecina de Greenway Terrace. He estado aquí durante 10 años y mi familia ha estado en este vecindario desde que se construyó. Armé este proyecto para ayudarnos a obtener tantos árboles como sea posible para la mayor cantidad de hogares posible.',
-    'about.backstory': 'Solicité la subvención Community Canopy de la Ciudad de Phoenix para las casas de la subdivisión Greenway Terrace. ¡Ganamos! La ciudad quedó tan impresionada con la respuesta que expandió la elegibilidad a todo el Distrito Midtown Grand - más de 600 hogares en total. Lo que comenzó como una subvención solo para Greenway Terrace ahora está disponible para todo nuestro distrito.',
+    'about.backstory': 'Solicité la subvención Community Canopy de la Ciudad de Phoenix para las casas de la subdivisión Greenway Terrace solamente. ¡Ganamos! La ciudad fue generosa cuando nos reunimos y nos permitió expandir la elegibilidad a todo el Distrito Midtown Grand.',
     'about.heading1': 'Por qué esto importa.',
     'about.question1': '¿Alguna vez se ha preguntado por qué nuestro vecindario no está construido en líneas rectas? ¿O por qué todas las casas están en ángulos ligeramente diferentes en sus lotes?',
     'about.usedToBe': 'Ya no los construyen como antes.',
     'about.sunPath': 'Nuestras casas, y más importante aún, nuestros árboles, fueron colocados estratégicamente basándose en la ciencia de los Diagramas de Trayectoria Solar y Análisis de Sombras. Estas herramientas mapean exactamente dónde estará el sol en cualquier momento del día, cualquier día del año, y predicen cómo se moverán las sombras a través de las propiedades durante las estaciones. Los constructores de mediados de siglo usaron esta ciencia para angular las casas y posicionar los árboles para que un solo árbol pudiera dar sombra a su casa por la mañana y al camino de entrada de su vecino por la tarde. Fue intencional. Fue brillante.',
     'about.lostIt': 'Y con el tiempo, lo hemos perdido.',
     'about.restoration': 'A medida que los árboles han caído por tormentas, edad y enfermedades, hemos perdido la sombra que una vez mantuvo frescas nuestras casas. Sé que cuando las casas más viejas comienzan a mostrar su edad, nuestro primer instinto es arrasar y quemar. Agregar ventanas diferentes. Derribar cosas. Pero lo que realmente deberíamos estar haciendo es reclamar las estrategias de mitigación del calor que ya estaban aquí. Estas hermosas casas estilo ranch de mediados de siglo fueron diseñadas para mantenerse frescas. Solo necesitamos restaurar lo que las hacía funcionar.',
-    'about.personalReason': 'Solicité esta subvención por una razón simple: mis árboles murieron y no estoy en una situación financiera para reemplazarlos. ¿Este sitio web, el bot de elegibilidad y la herramienta de colocación de árboles? Los construí para hacer este proceso más fácil para todos nosotros.',
+    'about.personalReason': 'Solicité esta subvención por una razón simple: quiero mantener este distrito fresco. ¿Este sitio web, el bot de elegibilidad y la herramienta de colocación de árboles? Los construí para hacer este proceso más fácil para todos nosotros.',
     'about.callToAction': 'Únase a mí para traer de vuelta la sombra.',
     'about.signature': '— Courtney Kingsbury',
 
@@ -354,7 +356,7 @@ const translations = {
 
     // Forms Section
     'forms.title': 'Descargar Formularios',
-    'forms.subtitle': '¿Necesita enviar por correo o obtener permiso del propietario? Descargue los formularios que necesita a continuación.',
+    'forms.subtitle': '¿Necesita entregar una solicitud en papel o obtener permiso del propietario? Descargue los formularios que necesita a continuación.',
     'forms.paperApp': 'Solicitud en Papel',
     'forms.paperAppEn': 'Solicitud en Papel (Inglés)',
     'forms.paperAppEs': 'Solicitud en Papel (Español)',
