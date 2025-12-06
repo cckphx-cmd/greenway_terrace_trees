@@ -133,6 +133,11 @@ const translationMap = {
     "/2 trees)": "/2 árboles)",
     "trees)": "árboles)",
     "Please select at least one tree before continuing.": "Por favor seleccione al menos un árbol antes de continuar.",
+    "Current selection:": "Selección actual:",
+    "Selected:": "Seleccionado:",
+    "(1/2 trees)": "(1/2 árboles)",
+    "(1/2 árboles)": "(1/2 árboles)",
+    "Great! You selected:": "¡Genial! Seleccionó:",
 
     // Landlord section - with permission
     "Perfect! Please have your landlord complete and sign the": "¡Perfecto! Por favor pídale a su propietario que complete y firme el",
@@ -151,6 +156,34 @@ const translationMap = {
     "What's your full name?": "¿Cuál es su nombre completo?",
     "What's your email address?": "¿Cuál es su dirección de correo electrónico?",
     "What's your phone number?": "¿Cuál es su número de teléfono?",
+
+    // Property questions
+    "Now, a few questions about your property:": "Ahora, algunas preguntas sobre su propiedad:",
+    "Do you have any fully dead trees or stumps that are blocking where new trees should be planted?": "¿Tiene árboles completamente muertos o tocones que estén bloqueando donde se deben plantar los nuevos árboles?",
+    "If that's the only available spot for new trees, they can be removed at no cost as part of this program.": "Si ese es el único lugar disponible para árboles nuevos, se pueden remover sin costo como parte de este programa.",
+    "Yes, need removal": "Sí, necesito remoción",
+    "Do you have anything that makes it a complex install?": "¿Tiene algo que haga que sea una instalación compleja?",
+    "Examples: Turf, River rock, Fully shaded area, Other obstacles": "Ejemplos: Césped, Piedra de río, Área completamente sombreada, Otros obstáculos",
+    "Please describe what makes it complex:": "Por favor describa qué lo hace complejo:",
+    "e.g., Turf and river rock": "ej., Césped y piedra de río",
+    "⏰ Important:": "⏰ Importante:",
+    "Please provide the requested information so we can confirm our contractors have enough time scheduled for your home. This project involves 600+ homes in a 5-day window, so accurate scheduling is essential.": "Por favor proporcione la información solicitada para que podamos confirmar que nuestros contratistas tienen suficiente tiempo programado para su hogar. Este proyecto involucra más de 600 hogares en una ventana de 5 días, por lo que la programación precisa es esencial.",
+
+    // Contact info
+    "Almost done! I just need a way to reach you so we can coordinate your tree planting. This is exciting! 🎉": "¡Casi terminamos! Solo necesito una forma de comunicarme con usted para que podamos coordinar la plantación de sus árboles. ¡Esto es emocionante! 🎉",
+    "What's the best phone number to reach you?": "¿Cuál es el mejor número de teléfono para comunicarnos con usted?",
+    "(The planting crew will use this to schedule with you)": "(El equipo de plantación usará esto para programar con usted)",
+    "(555) 555-5555": "(555) 555-5555",
+    "Perfect! And what email should we use?": "¡Perfecto! ¿Y qué correo electrónico deberíamos usar?",
+    "your@email.com": "su@email.com",
+    "Got it! ✓": "¡Entendido! ✓",
+    "Nice! And what name should we put on your submission?": "¡Bien! ¿Y qué nombre deberíamos poner en su solicitud?",
+    "First name": "Nombre",
+    "Great! And your last name?": "¡Genial! ¿Y su apellido?",
+    "Last name": "Apellido",
+
+    // T-shirt
+    "One more thing! We'd like to give you a free t-shirt as a thank you for participating. What size would you like?": "¡Una cosa más! Nos gustaría darle una camiseta gratis como agradecimiento por participar. ¿Qué talla le gustaría?",
 
     // Front yard confirmation
     "Perfect! Just to confirm:<br><br><strong>The tree(s) will be planted in your FRONT YARD, correct?</strong><br><br>This is a requirement of the program.": "¡Perfecto! Solo para confirmar:<br><br><strong>¿Los árboles se plantarán en su JARDÍN DELANTERO, correcto?</strong><br><br>Este es un requisito del programa.",
