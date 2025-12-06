@@ -1095,6 +1095,8 @@ function handleTreeSelectionDirect(treeName) {
     // Check if we can add more trees
     if (totalTrees >= 2) {
         addMessage("You've already selected 2 trees. Please remove one first if you want to change your selection.");
+        // Re-show the selection buttons so they can remove or confirm
+        setTimeout(() => askTreeSelectionDirect(), 100);
         return;
     }
 
@@ -1372,6 +1374,8 @@ function handleTreeSelection(treeName, recommendations) {
         // Check if limit reached
         if (totalTrees >= 2) {
             addMessage("You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.");
+            // Re-show the selection buttons
+            setTimeout(() => askTreeSelection(recommendations), 100);
             return;
         }
         // Add the tree

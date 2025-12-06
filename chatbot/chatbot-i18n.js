@@ -133,11 +133,18 @@ const translationMap = {
     "/2 trees)": "/2 árboles)",
     "trees)": "árboles)",
     "Please select at least one tree before continuing.": "Por favor seleccione al menos un árbol antes de continuar.",
+    "You've already selected 2 trees. Please remove one first if you want to change your selection.": "Ya ha seleccionado 2 árboles. Por favor elimine uno primero si desea cambiar su selección.",
+    "You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.": "Ya ha seleccionado 2 árboles. Por favor elimine uno primero o haga clic en 'Terminé de seleccionar árboles'.",
     "Current selection:": "Selección actual:",
     "Selected:": "Seleccionado:",
+    "Selected 2nd": "Seleccionado 2do",
+    "Removed 1": "Eliminado 1",
     "(1/2 trees)": "(1/2 árboles)",
     "(1/2 árboles)": "(1/2 árboles)",
+    "(2/2 trees)": "(2/2 árboles)",
     "Great! You selected:": "¡Genial! Seleccionó:",
+    "No trees selected yet": "Aún no se han seleccionado árboles",
+    "✕ Remove": "✕ Eliminar",
 
     // Landlord section - with permission
     "Perfect! Please have your landlord complete and sign the": "¡Perfecto! Por favor pídale a su propietario que complete y firme el",
