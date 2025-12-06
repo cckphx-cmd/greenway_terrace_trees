@@ -215,6 +215,10 @@ const translationMap = {
     "I'm having trouble connecting right now. You can still apply using the menu options, or contact cckphx@gmail.com for help!": "Tengo problemas para conectarme en este momento. ¡Aún puede solicitar usando las opciones del menú, o contactar a cckphx@gmail.com para obtener ayuda!",
     "Yes, start application": "Sí, comenzar solicitud",
 
+    // AI Chat errors
+    "Roadrunner is typing...": "Correcaminos está escribiendo...",
+    "Send": "Enviar",
+
     // Submission
     "Submit Application": "Enviar Solicitud",
     "Start over": "Empezar de nuevo",
