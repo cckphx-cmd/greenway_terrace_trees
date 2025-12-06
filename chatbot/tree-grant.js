@@ -1398,7 +1398,7 @@ function handleTreeSelection(treeName, recommendations) {
 
 function collectPropertyInfo() {
     updateProgress('Step 4: Property Information', 70);
-    addMessage(`Now, a few questions about your property:<br><br><strong>Do you have any fully dead trees or stumps that are blocking where new trees should be planted?</strong><br><br><em>If that's the only available spot for new trees, they can be removed at no cost as part of this program.</em>`);
+    addMessage(`<div class="important-box"><strong>⏰ Important:</strong> Please provide the requested information so we can confirm our contractors have enough time scheduled for your home. This project involves 600+ homes in a 5-day window, so accurate scheduling is essential.</div><br>Now, a few questions about your property:<br><br><strong>Do you have any fully dead trees or stumps that are blocking where new trees should be planted?</strong><br><br><em><u>If that's the only available spot for new trees, they can be removed at no cost as part of this program.</u></em>`);
     showButtons([
         { text: "Yes, need removal", action: () => {
             addMessage("Yes, need removal", true);
@@ -1516,6 +1516,12 @@ function askTShirtSize() {
 
 function showReview() {
     updateProgress('Step 5: Review & Submit', 90);
+
+    // Add landlord permission reminder if applicable
+    const landlordReminder = (state.data.homeownerStatus === 'renter_approved')
+        ? `<div class="important-box"><strong>⚠️ REMINDER:</strong> <strong>Your submission won't be approved until we receive your signed landlord permission form</strong> at kayla.killoren@phoenix.gov</div><br>`
+        : '';
+
     const review = `
 <strong>Application Review</strong><br><br>
 
@@ -1530,6 +1536,7 @@ ${state.data.landlordName ? `<strong>Landlord:</strong> ${state.data.landlordNam
 <strong>Phone:</strong> ${state.data.userPhone}<br>
 <strong>T-shirt size:</strong> ${state.data.tshirtSize}<br><br>
 
+${landlordReminder}
 <strong>Is everything correct?</strong>
 `;
     addMessage(review);
@@ -1555,6 +1562,7 @@ function submitSubmission() {
         submittedAt: new Date().toISOString(),
         address: state.data.confirmedAddress,
         homeownerStatus: state.data.homeownerStatus,
+        landlordPermissionStatus: state.data.homeownerStatus === 'renter_approved' ? '⚠️ PENDING - Awaiting signed form' : 'N/A',
         landlordName: state.data.landlordName || 'N/A',
         landlordEmail: state.data.landlordEmail || 'N/A',
         landlordPhone: state.data.landlordPhone || 'N/A',

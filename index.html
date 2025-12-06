@@ -1967,6 +1967,46 @@
         </div>
     </section>
 
+    <!-- Forms/Resources Section -->
+    <section style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" id="resources">
+        <div class="section-header">
+            <h2 data-i18n="forms.title">Download Forms</h2>
+            <p data-i18n="forms.subtitle">Need to submit by mail or get landlord permission? Download the forms you need below.</p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            <!-- Paper Application -->
+            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--terracotta);">📄</div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 1rem;" data-i18n="forms.paperApp">Paper Application</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.95rem;">Download and mail in your tree grant application</p>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="paper-application.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.paperAppEn">📥 Download (English)</span>
+                    </a>
+                    <a href="#" onclick="alert('Spanish version coming soon! / ¡Versión en español próximamente!'); return false;" class="btn btn-secondary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem; opacity: 0.6;">
+                        <span data-i18n="forms.paperAppEs">📥 Descargar (Español) - Próximamente</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Landlord Permission Form -->
+            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--teal);">🏠</div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 1rem;" data-i18n="forms.landlordForm">Landlord Permission Form</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.95rem;">Required if you're a renter</p>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="#" onclick="alert('English version coming soon!'); return false;" class="btn btn-secondary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem; opacity: 0.6;">
+                        <span data-i18n="forms.landlordFormEn">📥 Download (English) - Coming Soon</span>
+                    </a>
+                    <a href="forms/landlord-permission-form-spanish.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.landlordFormEs">📥 Descargar (Español)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">

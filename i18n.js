@@ -160,6 +160,16 @@ const translations = {
     'planner.title': 'Tree Placement Planner',
     'planner.description': 'Use our interactive tool to plan where to place your trees for maximum shade benefit. Draw your house and neighbors\' houses, place trees, and see realistic shadow simulations throughout the day. Get AI-powered recommendations for optimal placement!',
 
+    // Forms Section
+    'forms.title': 'Download Forms',
+    'forms.subtitle': 'Need to submit by mail or get landlord permission? Download the forms you need below.',
+    'forms.paperApp': 'Paper Application',
+    'forms.paperAppEn': 'Paper Application (English)',
+    'forms.paperAppEs': 'Paper Application (Spanish)',
+    'forms.landlordForm': 'Landlord Permission Form',
+    'forms.landlordFormEn': 'Landlord Permission Form (English)',
+    'forms.landlordFormEs': 'Landlord Permission Form (Spanish)',
+
     // Shade Visualization Section
     'shade.title': 'See Where Your Shade Will Fall',
     'shade.subtitle': 'Pick the perfect spot before you plant',
@@ -339,6 +349,16 @@ const translations = {
     // Planner Page
     'planner.title': 'Planificador de Colocación de Árboles',
     'planner.description': 'Use nuestra herramienta interactiva para planificar dónde colocar sus árboles para obtener el máximo beneficio de sombra. Dibuje su casa y las casas de sus vecinos, coloque árboles y vea simulaciones realistas de sombras durante el día. ¡Obtenga recomendaciones impulsadas por IA para una colocación óptima!',
+
+    // Forms Section
+    'forms.title': 'Descargar Formularios',
+    'forms.subtitle': '¿Necesita enviar por correo o obtener permiso del propietario? Descargue los formularios que necesita a continuación.',
+    'forms.paperApp': 'Solicitud en Papel',
+    'forms.paperAppEn': 'Solicitud en Papel (Inglés)',
+    'forms.paperAppEs': 'Solicitud en Papel (Español)',
+    'forms.landlordForm': 'Formulario de Permiso del Propietario',
+    'forms.landlordFormEn': 'Formulario de Permiso del Propietario (Inglés)',
+    'forms.landlordFormEs': 'Formulario de Permiso del Propietario (Español)',
 
     // Shade Visualization Section
     'shade.title': 'Vea Dónde Caerá Su Sombra',
