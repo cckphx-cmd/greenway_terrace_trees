@@ -1092,21 +1092,28 @@ function handleTreeSelectionDirect(treeName) {
     const currentQty = state.data.treeQuantities[treeName] || 0;
     const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
 
-    // Check if we can add more trees
-    if (totalTrees >= 2) {
-        addMessage("You've already selected 2 trees. Please remove one first if you want to change your selection.");
-        // Re-show the selection buttons so they can remove or confirm
-        setTimeout(() => askTreeSelectionDirect(), 100);
-        return;
+    // Handle triple-tap: if this tree already has 2 selected, deselect it completely
+    if (currentQty === 2) {
+        delete state.data.treeQuantities[treeName];
+        addMessage(`Removed ${treeName} (2)`, true);
     }
-
-    // Add one more of this tree (increment quantity)
-    state.data.treeQuantities[treeName] = currentQty + 1;
-
-    if (currentQty === 0) {
-        addMessage(`Selected: ${treeName}`, true);
-    } else {
+    // Handle double-tap: if this tree has 1 selected, add one more
+    else if (currentQty === 1) {
+        state.data.treeQuantities[treeName] = 2;
         addMessage(`Selected 2nd ${treeName}`, true);
+    }
+    // Handle single-tap: select first tree
+    else if (currentQty === 0) {
+        // Check if we can add more trees
+        if (totalTrees >= 2) {
+            addMessage("You've already selected 2 trees. Please remove one first if you want to change your selection.");
+            // Re-show the selection buttons so they can remove or confirm
+            setTimeout(() => askTreeSelectionDirect(), 100);
+            return;
+        }
+
+        state.data.treeQuantities[treeName] = 1;
+        addMessage(`Selected: ${treeName}`, true);
     }
 
     // Show current selection
@@ -1363,22 +1370,26 @@ function handleTreeSelection(treeName, recommendations) {
     const currentQty = state.data.treeQuantities[treeName] || 0;
     const totalTrees = Object.values(state.data.treeQuantities).reduce((sum, qty) => sum + qty, 0);
 
-    // If clicking an already selected tree, remove one (or all if only 1)
-    if (currentQty > 0) {
-        state.data.treeQuantities[treeName] = currentQty - 1;
-        if (state.data.treeQuantities[treeName] === 0) {
-            delete state.data.treeQuantities[treeName];
-        }
-        addMessage(`Removed 1 ${treeName}`, true);
-    } else {
-        // Check if limit reached
+    // Handle triple-tap: if this tree already has 2 selected, deselect it completely
+    if (currentQty === 2) {
+        delete state.data.treeQuantities[treeName];
+        addMessage(`Removed ${treeName} (2)`, true);
+    }
+    // Handle double-tap: if this tree has 1 selected, add one more
+    else if (currentQty === 1) {
+        state.data.treeQuantities[treeName] = 2;
+        addMessage(`Selected 2nd ${treeName}`, true);
+    }
+    // Handle single-tap: select first tree
+    else if (currentQty === 0) {
+        // Check if we can add more trees
         if (totalTrees >= 2) {
             addMessage("You've already selected 2 trees. Please remove one first or click 'Done selecting trees'.");
             // Re-show the selection buttons
             setTimeout(() => askTreeSelection(recommendations), 100);
             return;
         }
-        // Add the tree
+
         state.data.treeQuantities[treeName] = 1;
         addMessage(`Selected: ${treeName}`, true);
     }
