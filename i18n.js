@@ -15,10 +15,10 @@ const translations = {
     'nav.faq': 'FAQ',
 
     // Deadline Banner
-    'deadline.text': 'Applications close',
-    'deadline.date': 'December 31, 2025',
-    'deadline.time': 'at midnight',
-    'deadline.planting': 'Planting week:',
+    'deadline.text': '<strong>Applications are now CLOSED</strong>',
+    'deadline.date': 'Closed December 31, 2025',
+    'deadline.time': '',
+    'deadline.planting': '• Trees will be planted starting',
     'deadline.plantingDate': 'January 24, 2026',
 
     // Hero Section
@@ -207,10 +207,10 @@ const translations = {
     'nav.faq': 'Preguntas Frecuentes',
 
     // Deadline Banner
-    'deadline.text': 'Las solicitudes cierran el',
-    'deadline.date': '31 de diciembre de 2025',
-    'deadline.time': 'a medianoche',
-    'deadline.planting': 'Semana de plantación:',
+    'deadline.text': '<strong>Las solicitudes están CERRADAS</strong>',
+    'deadline.date': 'Cerrado el 31 de diciembre de 2025',
+    'deadline.time': '',
+    'deadline.planting': '• Los árboles se plantarán a partir del',
     'deadline.plantingDate': '24 de enero de 2026',
 
     // Hero Section
