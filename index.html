@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Trees for Greenway Terrace | Community Canopy Grant</title>
+    <title>Midtown Grand District | Community Canopy Tree Grant</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         :root {
             --desert-sand: #E8DCC4;
@@ -41,6 +39,7 @@
             line-height: 1.7;
             position: relative;
             min-height: 100vh;
+            padding-top: 120px;
         }
 
         /* Desert Background - Sonoran Desert with Saguaros and Mountains */
@@ -73,7 +72,7 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
+            top: 42px;
             width: 100%;
             background: rgba(253, 248, 240, 0.95);
             backdrop-filter: blur(20px);
@@ -113,13 +112,53 @@
             color: var(--terracotta);
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: rgba(232, 220, 196, 0.3);
+            padding: 0.4rem 0.6rem;
+            border-radius: 50px;
+            border: 1px solid rgba(199, 91, 57, 0.2);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-btn:hover {
+            background: rgba(199, 91, 57, 0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--terracotta);
+            color: white;
+            box-shadow: 0 2px 8px rgba(199, 91, 57, 0.3);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8rem 2rem 4rem;
+            padding: 4rem 2rem 3rem;
             position: relative;
         }
 
@@ -128,7 +167,7 @@
             text-align: center;
             animation: fadeInUp 1s ease-out;
             background: rgba(253, 248, 240, 0.92);
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 30px;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -203,29 +242,37 @@
             color: white;
         }
 
-        /* Deadline Banner */
+        /* Deadline Banner - STICKY AT TOP */
         .deadline-banner {
-            background: linear-gradient(135deg, var(--terracotta) 0%, #D86A4A 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #E07A4F 0%, #F08C64 100%);
             color: white;
-            padding: 1.25rem 2rem;
+            padding: 0.6rem 2rem;
+            font-weight: 600;
+            z-index: 1001;
+            font-size: 0.9rem;
             text-align: center;
-            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         .deadline-banner span {
-            background: rgba(255,255,255,0.2);
-            padding: 0.35rem 1rem;
-            border-radius: 25px;
+            background: rgba(255,255,255,0.25);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             margin: 0 0.5rem;
             font-weight: 700;
         }
+
 
         /* Stats Section */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -260,7 +307,7 @@
 
         /* Section Styling */
         section {
-            padding: 5rem 2rem;
+            padding: 3.5rem 2rem;
         }
 
         .section-header {
@@ -289,38 +336,6 @@
         .map-container {
             max-width: 1000px;
             margin: 0 auto;
-        }
-
-        #eligibility-map {
-            height: 400px;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-
-        .map-legend {
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
         }
 
         .address-checker {
@@ -530,13 +545,13 @@
 
         .trees-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
         }
 
         .tree-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
@@ -545,12 +560,12 @@
         }
 
         .tree-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
         }
 
         .tree-image-container {
-            height: 320px;
+            height: 220px;
             overflow: hidden;
             position: relative;
             background: white;
@@ -571,50 +586,50 @@
 
         .powerline-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background: var(--gold);
             color: white;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.65rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            gap: 0.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 5;
         }
 
         .tree-info {
-            padding: 1.25rem 1.5rem;
+            padding: 1rem 1.25rem;
             background: white;
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         .tree-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 0.15rem;
+            margin-bottom: 0.1rem;
         }
 
         .tree-scientific {
             font-style: italic;
             color: var(--text-light);
-            font-size: 0.85rem;
-            margin-bottom: 0.75rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .tree-quick-stats {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
         }
 
         .tree-quick-stat {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-light);
         }
 
@@ -712,27 +727,205 @@
             gap: 0.5rem;
         }
 
-        .chatbot-embed {
-            max-width: 900px;
-            margin: 0 auto;
+        /* Floating Chatbot Widget */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
             background: white;
             border-radius: 20px;
-            height: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(calc(100% + 100px));
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .chatbot-widget.open {
+            transform: translateY(0);
+        }
+
+        .chatbot-widget-header {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbot-header-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+        }
+
+        .chatbot-widget-header h3 {
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .chatbot-widget-header p {
+            font-size: 0.85rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .chatbot-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-radius: 50%;
+            transition: background 0.2s;
+            line-height: 1;
         }
 
-        .embed-placeholder {
-            text-align: center;
-            padding: 2rem;
+        .chatbot-close:hover {
+            background: rgba(255,255,255,0.2);
         }
 
-        .embed-placeholder img {
+        .chatbot-widget-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+
+        /* Floating Button */
+        .chatbot-float-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             width: 120px;
-            margin-bottom: 1rem;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+            border: none;
+            box-shadow: 0 6px 24px rgba(199, 91, 57, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 9998;
+            padding: 18px;
+        }
+
+        .chatbot-float-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(199, 91, 57, 0.5);
+        }
+
+        .chatbot-float-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Greeting popup */
+        .chatbot-greeting {
+            position: fixed;
+            bottom: 140px;
+            right: 20px;
+            width: 360px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 24px;
+            z-index: 9997;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .chatbot-greeting.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .chatbot-greeting-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 4px 8px;
+            line-height: 1;
+        }
+
+        .chatbot-greeting-close:hover {
+            color: #374151;
+        }
+
+        .chatbot-greeting h4 {
+            color: var(--terracotta);
+            font-size: 20px;
+            margin-bottom: 12px;
+            padding-right: 20px;
+        }
+
+        .chatbot-greeting p {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .chatbot-greeting-button {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-greeting-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(199, 91, 57, 0.3);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 120px);
+                bottom: 80px;
+                right: 20px;
+            }
+
+            .chatbot-float-button {
+                width: 100px;
+                height: 100px;
+            }
+
+            .chatbot-greeting {
+                width: calc(100vw - 40px);
+                right: 20px;
+                bottom: 120px;
+            }
         }
 
         /* FAQ Section */
@@ -886,37 +1079,328 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+
             .mobile-menu-btn {
                 display: block;
             }
 
-            .nav-links {
+            .nav-content {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
                 background: rgba(253, 248, 240, 0.98);
                 flex-direction: column;
-                padding: 1rem 2rem;
+                padding: 1.5rem;
                 gap: 1rem;
                 display: none;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                backdrop-filter: blur(20px);
             }
 
-            .nav-links.active {
+            .nav-content.active {
                 display: flex;
             }
 
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .nav-links a {
+                font-size: 1.05rem;
+                padding: 0.5rem 0;
+            }
+
+            .lang-switcher {
+                width: 100%;
+                justify-content: center;
+                padding: 0.5rem;
+            }
+
+            .lang-btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .deadline-banner {
+                padding: 0.6rem 1rem;
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .deadline-banner span {
+                padding: 0.2rem 0.5rem;
+                margin: 0 0.25rem;
+                display: inline-block;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 4rem 1.5rem 2rem;
+                min-height: 85vh;
+            }
+
+            .hero-content {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
             .hero h1 {
-                font-size: 2.25rem;
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem !important;
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 1rem 1.5rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Stats Section */
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 2rem 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            /* Section Styling */
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 2rem;
             }
 
             .section-header h2 {
                 font-size: 2rem;
+                margin-bottom: 0.75rem;
             }
 
+            .section-header p {
+                font-size: 1rem;
+            }
+
+            /* Map/Eligibility Section */
+            .map-container {
+                padding: 1rem !important;
+            }
+
+            .map-container img {
+                max-width: 100% !important;
+            }
+
+            .map-container p {
+                font-size: 1rem !important;
+                padding: 0 0.5rem;
+            }
+
+            /* Address Checker */
+            .address-checker {
+                padding: 1.5rem;
+                margin: 1.5rem 1rem 0;
+            }
+
+            .address-checker h3 {
+                font-size: 1.3rem;
+            }
+
+            .address-form {
+                flex-direction: column;
+            }
+
+            .address-form input {
+                min-width: 100%;
+                font-size: 1rem;
+            }
+
+            .address-form button {
+                width: 100%;
+            }
+
+            /* Trees Grid */
             .trees-grid {
                 grid-template-columns: 1fr;
+                gap: 1.25rem;
+                padding: 0 0.5rem;
+            }
+
+            .tree-card {
+                max-width: 100%;
+            }
+
+            .tree-category {
+                margin-bottom: 2rem;
+            }
+
+            .category-header h3 {
+                font-size: 1.5rem;
+            }
+
+            /* Tree Modal */
+            .modal-content {
+                width: 95%;
+                max-width: 95%;
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .close-modal {
+                font-size: 2rem;
+                padding: 0.5rem 1rem;
+            }
+
+            /* About Section */
+            .about-text h2 {
+                font-size: 2rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+            }
+
+            .feature-item {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .feature-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            .feature-text h4 {
+                font-size: 1.05rem;
+            }
+
+            .feature-text p {
+                font-size: 0.9rem;
+            }
+
+            .mascot-container {
+                padding: 1.5rem;
+            }
+
+            /* FAQ Section */
+            .faq-container {
+                padding: 0 0.5rem;
+            }
+
+            .faq-question {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer {
+                padding: 0 1.25rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-icon {
+                width: 26px;
+                height: 26px;
+                font-size: 1rem;
+            }
+
+            /* Chatbot */
+            .chatbot-float-button {
+                width: 90px;
+                height: 90px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .chatbot-float-button img {
+                width: 60%;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .footer-brand h3 {
+                font-size: 1.3rem;
+            }
+
+            .footer-brand p {
+                font-size: 0.85rem;
+            }
+
+            .footer-links h4 {
+                font-size: 1rem;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem !important;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 1.25rem 1rem;
+            }
+
+            .deadline-banner {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.75rem;
             }
         }
 
@@ -936,38 +1420,43 @@
 <body>
     <div class="desert-bg"></div>
 
+    <!-- Deadline Banner - AT TOP -->
+    <div class="deadline-banner">
+        <strong>Applications are now CLOSED</strong> <span>Closed December 31, 2025</span> • Trees will be planted starting <span>January 24, 2026</span>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            Greenway Terrace Trees
+            Midtown Grand District
         </div>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#eligibility">Check Eligibility</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#trees">Browse Trees</a></li>
-            <li><a href="#roadrunner">Status</a></li>
-            <li><a href="#faq">FAQ</a></li>
-        </ul>
+        <div class="nav-content">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#eligibility">Grant Map</a></li>
+                <li><a href="#shade">See Your Shade</a></li>
+                <li><a href="#trees">Browse Trees</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">Español</button>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Free Trees for Greenway Terrace</h1>
-            <p class="hero-subtitle">& Surrounding Neighborhoods</p>
-            <p>Hi, my name is Courtney and I'm your neighbor in Greenway Terrace. I applied for and won a grant for our neighborhood where the city will provide two free shade trees that they plant professionally in your front yard at absolutely no cost to you.</p>
+            <h1 style="font-size: 2.8rem; line-height: 1.1;" data-i18n="hero.title">Free Trees for Midtown Grand District</h1>
+            <p class="hero-subtitle" style="font-size: 1.4rem;" data-i18n="hero.subtitle">& Surrounding Neighborhoods</p>
+            <p style="font-size: 1.1rem; line-height: 1.6; margin: 1rem auto; text-align: center; max-width: 650px;" data-i18n="hero.description"></p>
             <div class="hero-buttons">
-                <a href="#roadrunner" class="btn btn-secondary">Applications Closed</a>
-                <a href="#eligibility" class="btn btn-secondary">View Eligibility</a>
+                <a href="#" onclick="document.getElementById('chatbotButton').click(); return false;" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Click the Roadrunner to Get Started</a>
             </div>
         </div>
     </section>
-
-    <!-- Deadline Banner -->
-    <div class="deadline-banner">
-        <strong>Applications are now CLOSED</strong><span>Closed December 31, 2025</span>Planting begins:<span>January 24, 2026</span>
-    </div>
 
     <!-- Stats Section -->
     <div class="stats">
@@ -989,78 +1478,60 @@
         </div>
     </div>
 
-    <!-- Eligibility Map Section -->
+    <!-- Grant Map Section -->
     <section class="map-section" id="eligibility">
-        <div class="section-header">
-            <h2>Check Your Eligibility</h2>
-            <p>This grant covers Greenway Terrace and surrounding neighborhoods within the boundaries shown below.</p>
+        <div class="section-header" style="margin-bottom: 1rem;">
+            <h2>Grant Map</h2>
+            <p>This grant covers the entire Midtown Grand District.</p>
         </div>
 
-        <div class="map-container">
-            <div id="eligibility-map"></div>
-            
-            <div class="map-legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: rgba(91, 191, 186, 0.4); border: 2px solid #5BBFBA;"></div>
-                    <span>Eligible Area</span>
-                </div>
-                <div class="legend-item">
-                    <strong>Boundaries:</strong> Thomas Rd (South) · McDowell Rd (North) · 19th Ave (East) · 23rd Ave (West)
-                </div>
-            </div>
-
-            <div class="address-checker">
-                <h3>Quick Address Check</h3>
-                <div class="address-form">
-                    <input type="text" id="address-input" placeholder="Enter your street address (e.g., 2100 W Catalina Dr)">
-                    <button onclick="checkAddress()">Check</button>
-                </div>
-                <div id="address-result"></div>
-            </div>
+        <div class="map-container" style="text-align: center; padding: 1rem 2rem 3rem;">
+            <img src="images/eligibility-map.png" alt="Eligible neighborhood boundaries map" style="max-width: 400px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin-bottom: 1.5rem;">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-dark);">If your house is within this outlined area, click the roadrunner icon to confirm your address and request your trees.</p>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <div class="about-content">
-            <div class="about-text animate-on-scroll">
-                <h2>About the Community Canopy Grant</h2>
-                <p>The Community Canopy Grant is funded by the USDA and U.S. Forest Service to help cool our neighborhoods and combat Phoenix's extreme heat. Our neighborhood was selected to receive free trees!</p>
-                <p>Choose from 16 drought-tolerant species—8 native and 8 desert-adapted—all professionally planted at no cost. Native trees are strongly recommended as temperatures continue to rise.</p>
-                
-                <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">1</div>
-                        <div class="feature-text">
-                            <h4>Professional Planting</h4>
-                            <p>Licensed arborists plant your trees. Dead trees and stumps in your front yard are removed for qualifying homes.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">2</div>
-                        <div class="feature-text">
-                            <h4>Supply Kit Included</h4>
-                            <p>Receive a maintenance bag with watering supplies to help your new trees thrive.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">3</div>
-                        <div class="feature-text">
-                            <h4>Utilities Handled</h4>
-                            <p>Contractors coordinate with 811 to mark all underground utilities before planting.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">4</div>
-                        <div class="feature-text">
-                            <h4>Front Yard Only</h4>
-                            <p>Trees must be planted within your front yard property lines for maximum community cooling benefit.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Shade Visualization Section -->
+    <section id="shade" style="background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 5rem 2rem;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="section-header">
+                <h2 data-i18n="shade.title"><a href="planner.html" style="color: inherit; text-decoration: none;">See Where Your Shade Will Fall</a></h2>
+                <p style="font-size: 1.2rem; color: var(--terracotta); font-weight: 600; margin-top: 0.5rem;" data-i18n="shade.subtitle">Pick the perfect spot before you plant</p>
             </div>
-            <div class="mascot-container animate-on-scroll">
-                <img src="images/roadrunner-mascot.png" alt="Roadrunner Mascot - Your Tree Grant Guide">
+
+            <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-dark); margin-bottom: 1.5rem;" data-i18n="shade.intro">
+                    Where you plant matters. A few feet in the wrong direction could mean a hot living room instead of a cool one. Our tool lets you see exactly where your tree's shadow will land—before you commit.
+                </p>
+
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--terracotta); margin: 2rem 0 1rem 0;" data-i18n="shade.howItWorks">How it works:</h3>
+
+                <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0;">
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: rgba(122, 158, 126, 0.05); border-radius: 10px;">
+                        <span style="background: var(--sage); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</span>
+                        <span style="font-size: 1.05rem; color: var(--text-dark); padding-top: 0.25rem;" data-i18n="shade.step1">Find your house on the map</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: rgba(122, 158, 126, 0.05); border-radius: 10px;">
+                        <span style="background: var(--sage); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</span>
+                        <span style="font-size: 1.05rem; color: var(--text-dark); padding-top: 0.25rem;" data-i18n="shade.step2">Choose a tree height (small, medium, or large)</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: rgba(122, 158, 126, 0.05); border-radius: 10px;">
+                        <span style="background: var(--sage); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</span>
+                        <span style="font-size: 1.05rem; color: var(--text-dark); padding-top: 0.25rem;" data-i18n="shade.step3">See where the shadow falls throughout a summer day</span>
+                    </li>
+                </ul>
+
+                <p id="shade-ai-help" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-dark); background: rgba(91, 191, 186, 0.1); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--teal); margin-bottom: 1.5rem;">
+                    <strong>Want help deciding?</strong> Let our AI recommend the best placement for maximum shade.
+                </p>
+
+                <p id="shade-bonus" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-light); font-style: italic;">
+                    <strong>Bonus:</strong> While <strong>this grant covers front yard trees only</strong>, use the tool to explore what backyard trees could do for you down the road—or see how your neighbor's trees might help too.
+                </p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="planner.html" class="btn btn-primary" style="display: inline-block; font-size: 1.1rem; padding: 1.25rem 2.5rem;" data-i18n="shade.button">See Your Shade</a>
             </div>
         </div>
     </section>
@@ -1068,7 +1539,7 @@
     <!-- Trees Section -->
     <section class="trees-section" id="trees">
         <div class="section-header">
-            <h2>Choose Your Trees</h2>
+            <h2>Browse Trees</h2>
             <p>Browse 16 drought-tolerant species perfect for Phoenix. Click any tree to see the full info sheet from the City of Phoenix. Trees marked "Powerline Safe" are suitable for planting near power lines.</p>
         </div>
 
@@ -1354,35 +1825,6 @@
         </div>
     </section>
 
-    <!-- Chatbot Section -->
-    <section class="chatbot-section" id="roadrunner">
-        <h2>Ask the Roadrunner</h2>
-        <p><strong>Applications for this round closed December 31, 2025.</strong><br>
-        You can still explore the chatbot to learn about the program, browse tree species, and see how the application process worked.</p>
-
-        <div class="chatbot-features">
-            <div class="chatbot-feature">
-                Learn About Trees
-            </div>
-            <div class="chatbot-feature">
-                Program Info
-            </div>
-            <div class="chatbot-feature">
-                Tree Quiz
-            </div>
-            <div class="chatbot-feature">
-                Check Eligibility
-            </div>
-        </div>
-
-        <div class="chatbot-embed">
-            <div class="embed-placeholder">
-                <img src="images/roadrunner-mascot.png" alt="Roadrunner">
-                <p><strong>Chatbot Coming Soon!</strong><br>Your Roadrunner assistant will appear here.<br>Replace this with your chatbot embed code.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
         <div class="section-header">
@@ -1422,7 +1864,7 @@
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        Great news! For qualifying homes that sign up for free trees, <strong>dead trees and stumps in your front yard will be removed</strong> as part of the professional planting service.
+                        Great news! For qualifying homes that sign up for free trees, <strong>dead trees or stumps that are blocking where new trees should be planted will be removed</strong> as part of the professional planting service.
                     </div>
                 </div>
             </div>
@@ -1525,33 +1967,73 @@
         </div>
     </section>
 
+    <!-- Forms/Resources Section -->
+    <section style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" id="resources">
+        <div class="section-header">
+            <h2 data-i18n="forms.title">Download Forms</h2>
+            <p data-i18n="forms.subtitle">Need to drop off a paper application or get landlord permission? Download the forms you need below.</p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            <!-- Paper Application -->
+            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--terracotta);">📄</div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 1rem;" data-i18n="forms.paperApp">Paper Application</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.95rem;">Drop off to Courtney Kingsbury at 2133 W Edgemont Ave</p>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="paper-application.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.paperAppEn">📥 Download (English)</span>
+                    </a>
+                    <a href="forms/paper-application-spanish.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.paperAppEs">📥 Descargar (Español)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Landlord Permission Form -->
+            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--teal);">🏠</div>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 1rem;" data-i18n="forms.landlordForm">Landlord Permission Form</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.95rem;">Required if you're a renter</p>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="forms/landlord-permission-form-english.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.landlordFormEn">📥 Download (English)</span>
+                    </a>
+                    <a href="forms/landlord-permission-form-spanish.pdf" download class="btn btn-primary" style="display: block; text-align: center; padding: 0.9rem 1.5rem; font-size: 1rem;">
+                        <span data-i18n="forms.landlordFormEs">📥 Descargar (Español)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h3>Greenway Terrace Tree Grant</h3>
-                <p>A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
+                <h3 data-i18n="footer.title">Midtown Grand District Tree Grant</h3>
+                <p data-i18n="footer.description">A Community Canopy initiative through the City of Phoenix Office of Heat Response & Mitigation, funded by the USDA Forest Service.</p>
             </div>
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4 data-i18n="footer.quickLinks">Quick Links</h4>
                 <ul>
-                    <li><a href="#eligibility">Check Eligibility</a></li>
-                    <li><a href="#trees">Browse Trees</a></li>
-                    <li><a href="#roadrunner">Application Status</a></li>
-                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#eligibility" data-i18n="nav.grantMap">Grant Map</a></li>
+                    <li><a href="#trees" data-i18n="nav.browseTrees">Browse Trees</a></li>
+                    <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Resources</h4>
+                <h4 data-i18n="footer.resources">Resources</h4>
                 <ul>
-                    <li><a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" target="_blank">City of Phoenix Grants</a></li>
-                    <li><a href="https://www.phoenix.gov/heat" target="_blank">Heat Response Office</a></li>
-                    <li><a href="https://arboretum.arizona.edu/" target="_blank">Arizona Tree Care Guide</a></li>
+                    <li><a href="https://www.phoenix.gov/administration/departments/heat/tree-shade-programs/tree-grant-programs.html" target="_blank" data-i18n="footer.cityGrants">City of Phoenix Grants</a></li>
+                    <li><a href="https://www.phoenix.gov/heat" target="_blank" data-i18n="footer.heatOffice">Heat Response Office</a></li>
+                    <li><a href="https://arboretum.arizona.edu/" target="_blank" data-i18n="footer.treeGuide">Arizona Tree Care Guide</a></li>
+                    <li><a href="https://courtneykingsbury.com" target="_blank" data-i18n="footer.courtneyWork">Courtney's Work</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Greenway Terrace Community Canopy Grant</p>
+            <p data-i18n="footer.copyright">© 2025 Midtown Grand District Community Canopy Grant</p>
         </div>
     </footer>
 
@@ -1584,83 +2066,70 @@
             'olive-tree': 'images/olive-tree.png'
         };
 
-        // Initialize map
-        document.addEventListener('DOMContentLoaded', function() {
-            const map = L.map('eligibility-map').setView([33.4730, -112.103], 15);
-            
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+        // Address checker - uses actual eligible addresses list
+        const eligibleAddresses = [
+            "1612 N 19TH AVE","1719 N 22ND AVE","1901 W HOLLY ST","1901 W MONTE VISTA RD","1901 W PALM LN","1901 W VIRGINIA AVE","1902 W GRANADA RD","1902 W HOLLY ST","1902 W MONTE VISTA RD","1902 W PALM LN","1903 W GRANADA RD","1903 W HOLLY ST","1903 W MONTE VISTA RD","1903 W PALM LN","1904 W GRANADA RD","1904 W HOLLY ST","1904 W PALM LN","1905 W CAMBRIDGE AVE","1905 W GRANADA RD","1905 W HOLLY ST","1905 W MONTE VISTA RD","1905 W PALM LN","1906 W CAMBRIDGE AVE","1906 W GRANADA RD","1906 W HOLLY ST","1906 W MONTE VISTA RD","1906 W PALM LN","1907 W GRANADA RD","1907 W HOLLY ST","1907 W MONTE VISTA RD","1907 W PALM LN","1907 W VIRGINIA AVE","1908 W GRANADA RD","1908 W HOLLY ST","1908 W MONTE VISTA RD","1908 W PALM LN","1909 W GRANADA RD","1909 W HOLLY ST","1909 W MONTE VISTA RD","1909 W PALM LN","1910 W GRANADA RD","1910 W HOLLY ST","1910 W MONTE VISTA RD","1910 W PALM LN","1911 W GRANADA RD","1911 W HOLLY ST","1911 W MONTE VISTA RD","1911 W PALM LN","1911 W WILSHIRE DR","1912 W GRANADA RD","1912 W HOLLY ST","1912 W MONTE VISTA RD","1912 W PALM LN","1913 W GRANADA RD","1913 W HOLLY ST","1913 W MONTE VISTA RD","1913 W PALM LN","1913 W VIRGINIA AVE","1914 W GRANADA RD","1914 W HOLLY ST","1914 W MONTE VISTA RD","1914 W PALM LN","1914 W VIRGINIA AVE","1914 W WILSHIRE DR","1915 W CAMBRIDGE AVE","1915 W GRANADA RD","1915 W HOLLY ST","1915 W MONTE VISTA RD","1915 W PALM LN","1916 W CAMBRIDGE AVE","1916 W HOLLY ST","1916 W MONTE VISTA RD","1916 W PALM LN","1917 W ASHLAND AVE","1917 W GRANADA RD","1917 W HOLLY ST","1917 W MONTE VISTA RD","1917 W PALM LN","1917 W WILSHIRE DR","1918 W ASHLAND AVE","1918 W GRANADA RD","1918 W HOLLY ST","1918 W MONTE VISTA RD","1918 W PALM LN","1918 W VIRGINIA AVE","1919 W ASHLAND AVE","1919 W GRANADA RD","1919 W HOLLY ST","1919 W MONTE VISTA RD","1919 W PALM LN","1919 W VIRGINIA AVE","1920 W GRANADA RD","1920 W HOLLY ST","1920 W MONTE VISTA RD","1920 W PALM LN","1921 W GRANADA RD","1921 W HOLLY ST","1921 W MONTE VISTA RD","1921 W PALM LN","1922 W GRANADA RD","1922 W HOLLY ST","1922 W MONTE VISTA RD","1922 W PALM LN","1923 W ASHLAND AVE","1923 W GRANADA RD","1923 W HOLLY ST","1923 W MONTE VISTA RD","1923 W PALM LN","1924 W ASHLAND AVE","1924 W GRANADA RD","1924 W HOLLY ST","1924 W MONTE VISTA RD","1924 W PALM LN","1924 W VIRGINIA AVE","1924 W WILSHIRE DR","1925 W HOLLY ST","1925 W PALM LN","1925 W VIRGINIA AVE","1925 W WILSHIRE DR","1926 W GRANADA RD","1926 W HOLLY ST","1927 W GRANADA RD","1927 W HOLLY ST","1927 W PALM LN","1927 W VIRGINIA AVE","1928 W HOLLY ST","1928 W MONTE VISTA RD","1928 W VIRGINIA AVE","1930 W ASHLAND AVE","1931 W ASHLAND AVE","1934 W VIRGINIA AVE","1937 W VIRGINIA AVE","1938 W VIRGINIA AVE","1948 W VIRGINIA AVE","1950 W PALM LN","1953 W GRANADA RD","1953 W MONTE VISTA RD","1954 W GRANADA RD","1954 W PALM LN","2001 W ALVARADO RD","2001 W CYPRESS ST","2001 W EDGEMONT AVE","2001 W ENCANTO BLVD","2001 W MONTE VISTA RD","2002 W ALVARADO RD","2002 W CYPRESS ST","2002 W EDGEMONT AVE","2002 W HOLLY ST","2002 W MONTE VISTA RD","2003 W CYPRESS ST","2004 W CYPRESS ST","2005 W CYPRESS ST","2005 W MONTE VISTA RD","2006 W HOLLY ST","2006 W MONTE VISTA RD","2007 W ALVARADO RD","2007 W CYPRESS ST","2007 W EDGEMONT AVE","2008 W ALVARADO RD","2008 W EDGEMONT AVE","2009 W CYPRESS ST","2009 W MONTE VISTA RD","2009 W VIRGINIA AVE","2010 W CAMBRIDGE AVE","2010 W HOLLY ST","2010 W MONTE VISTA RD","2010 W VIRGINIA AVE","2011 W CAMBRIDGE AVE","2011 W CYPRESS ST","2012 W WINDSOR AVE","2013 W ALVARADO RD","2013 W WINDSOR AVE","2014 W ALVARADO RD","2014 W CYPRESS ST","2014 W EDGEMONT AVE","2015 W MONTE VISTA RD","2015 W VIRGINIA AVE","2016 W HOLLY ST","2016 W MONTE VISTA RD","2016 W VIRGINIA AVE","2017 W EDGEMONT AVE","2018 W CAMBRIDGE AVE","2019 W ALVARADO RD","2019 W MONTE VISTA RD","2019 W VIRGINIA AVE","2020 W ALVARADO RD","2020 W CYPRESS ST","2020 W EDGEMONT AVE","2020 W HOLLY ST","2020 W MONTE VISTA RD","2020 W VIRGINIA AVE","2020 W WINDSOR AVE","2021 W CAMBRIDGE AVE","2022 W WILSHIRE DR","2023 W MONTE VISTA RD","2023 W WILSHIRE DR","2023 W WINDSOR AVE","2024 W HOLLY ST","2025 W ALVARADO RD","2025 W VIRGINIA AVE","2026 W ALVARADO RD","2026 W CAMBRIDGE AVE","2026 W CYPRESS ST","2026 W MONTE VISTA RD","2026 W VIRGINIA AVE","2026 W WILSHIRE DR","2027 W EDGEMONT AVE","2027 W MONTE VISTA RD","2028 W EDGEMONT AVE","2028 W HOLLY ST","2028 W WINDSOR AVE","2029 W CAMBRIDGE AVE","2029 W VIRGINIA AVE","2029 W WILSHIRE DR","2030 W MONTE VISTA RD","2030 W VIRGINIA AVE","2030 W WILSHIRE DR","2031 W ALVARADO RD","2031 W WINDSOR AVE","2032 W ALVARADO RD","2032 W CAMBRIDGE AVE","2032 W CYPRESS ST","2033 W EDGEMONT AVE","2033 W WILSHIRE DR","2034 W CYPRESS ST","2034 W EDGEMONT AVE","2034 W HOLLY ST","2034 W MONTE VISTA RD","2034 W WINDSOR AVE","2035 W MONTE VISTA RD","2035 W VIRGINIA AVE","2036 W VIRGINIA AVE","2036 W WILSHIRE DR","2037 W ALVARADO RD","2037 W CAMBRIDGE AVE","2037 W CYPRESS ST","2038 W ALVARADO RD","2038 W CYPRESS ST","2038 W HOLLY ST","2038 W MONTE VISTA RD","2038 W WINDSOR AVE","2039 W MONTE VISTA RD","2039 W VIRGINIA AVE","2039 W WILSHIRE DR","2039 W WINDSOR AVE","2040 W CAMBRIDGE AVE","2040 W VIRGINIA AVE","2040 W WILSHIRE DR","2041 W EDGEMONT AVE","2042 W EDGEMONT AVE","2046 W WINDSOR AVE","2047 W CAMBRIDGE AVE","2047 W EDGEMONT AVE","2047 W WINDSOR AVE","2048 W CAMBRIDGE AVE","2048 W EDGEMONT AVE","2051 W CAMBRIDGE AVE","2051 W WINDSOR AVE","2055 W EDGEMONT AVE","2055 W WINDSOR AVE","2056 W EDGEMONT AVE","2056 W WINDSOR AVE","2057 W CAMBRIDGE AVE","2058 W CAMBRIDGE AVE","2060 W WINDSOR AVE","2061 W WINDSOR AVE","2065 W CAMBRIDGE AVE","2066 W CAMBRIDGE AVE","2101 W CAMBRIDGE AVE","2101 W VIRGINIA AVE","2101 W WINDSOR AVE","2102 W CAMBRIDGE AVE","2102 W LEWIS AVE","2102 W VIRGINIA AVE","2102 W WILSHIRE DR","2104 W LEWIS AVE","2104 W WILSHIRE DR","2106 W LEWIS AVE","2107 W ALVARADO RD","2107 W CAMBRIDGE AVE","2107 W WILSHIRE DR","2108 W CAMBRIDGE AVE","2108 W VIRGINIA AVE","2109 W ALVARADO RD","2109 W WINDSOR AVE","2111 W WILSHIRE DR","2112 W VIRGINIA AVE","2112 W WILSHIRE DR","2113 W ALVARADO RD","2113 W CAMBRIDGE AVE","2114 W CAMBRIDGE AVE","2114 W LEWIS AVE","2114 W WILSHIRE DR","2115 W ALVARADO RD","2115 W VIRGINIA AVE","2116 W VIRGINIA AVE","2116 W WINDSOR AVE","2117 W WILSHIRE DR","2117 W WINDSOR AVE","2118 W LEWIS AVE","2118 W WILSHIRE DR","2119 W CAMBRIDGE AVE","2119 W EDGEMONT AVE","2120 W CAMBRIDGE AVE","2120 W WILSHIRE DR","2121 N 23RD AVE","2121 W WILSHIRE DR","2122 W LEWIS AVE","2122 W VIRGINIA AVE","2122 W WILSHIRE DR","2122 W WINDSOR AVE","2123 W WINDSOR AVE","2124 W WILSHIRE DR","2125 W CAMBRIDGE AVE","2125 W EDGEMONT AVE","2125 W VIRGINIA AVE","2126 W CAMBRIDGE AVE","2126 W VIRGINIA AVE","2128 W LEWIS AVE","2128 W WINDSOR AVE","2129 W VIRGINIA AVE","2129 W WINDSOR AVE","2130 W EDGEMONT AVE","2131 W CAMBRIDGE AVE","2132 W CAMBRIDGE AVE","2132 W VIRGINIA AVE","2133 W EDGEMONT AVE","2133 W WILSHIRE DR","2134 W WINDSOR AVE","2135 W WINDSOR AVE","2136 W LEWIS AVE","2136 W VIRGINIA AVE","2137 W CAMBRIDGE AVE","2137 W THOMAS RD","2138 W CAMBRIDGE AVE","2138 W LEWIS AVE","2139 W WILSHIRE DR","2139 W WINDSOR AVE","2140 W LEWIS AVE","2140 W WINDSOR AVE","2141 W CAMBRIDGE AVE","2141 W WILSHIRE DR","2142 W CAMBRIDGE AVE","2143 W WILSHIRE DR","2144 W LEWIS AVE","2146 W VIRGINIA AVE","2148 W ENCANTO BLVD","2148 W LEWIS AVE","2201 W CAMBRIDGE AVE","2201 W EDGEMONT AVE","2201 W MONTE VISTA RD","2201 W THOMAS RD","2201 W WINDSOR AVE","2202 GRAND AVE","2202 W EDGEMONT AVE","2202 W VIRGINIA AVE","2202 W WINDSOR AVE","2204 W VIRGINIA AVE","2205 W CAMBRIDGE AVE","2207 W EDGEMONT AVE","2207 W THOMAS RD","2207 W WINDSOR AVE","2208 W CAMBRIDGE AVE","2208 W WINDSOR AVE","2210 W EDGEMONT AVE","2211 W CAMBRIDGE AVE","2211 W WINDSOR AVE","2212 W CAMBRIDGE AVE","2212 W VIRGINIA AVE","2213 W THOMAS RD","2214 W MCDOWELL RD","2214 W WINDSOR AVE","2215 W CAMBRIDGE AVE","2215 W EDGEMONT AVE","2217 W WINDSOR AVE","2218 W CAMBRIDGE AVE","2218 W EDGEMONT AVE","2218 W VIRGINIA AVE","2221 W CAMBRIDGE AVE","2221 W THOMAS RD","2222 W MCDOWELL RD","2222 W VIRGINIA AVE","2223 W WINDSOR AVE","2224 W CAMBRIDGE AVE","2225 W CAMBRIDGE AVE","2225 W THOMAS RD","2227 W CAMBRIDGE AVE","2228 W VIRGINIA AVE","2229 W CAMBRIDGE AVE","2230 W CAMBRIDGE AVE","2231 W WINDSOR AVE","2234 W CAMBRIDGE AVE","2234 W VIRGINIA AVE","2236 W VIRGINIA AVE","2237 W CAMBRIDGE AVE","2237 W WINDSOR AVE","2240 W CAMBRIDGE AVE","2241 W CAMBRIDGE AVE","2242 N 21ST DR","2244 N 21ST DR","2244 W CAMBRIDGE AVE","2244 W WINDSOR AVE","2245 W THOMAS RD","2246 N 21ST DR","2246 W VIRGINIA AVE","2249 W VIRGINIA AVE","2256 N 21ST DR","2401 N 20TH AVE","2401 N 20TH DR","2401 N 21ST AVE","2402 N 19TH AVE","2402 N 19TH DR","2402 N 20TH AVE","2402 N 20TH DR","2407 N 20TH AVE","2407 N 20TH DR","2407 N 21ST AVE","2408 N 19TH DR","2408 N 20TH AVE","2408 N 20TH DR","2408 N 21ST AVE","2411 N 20TH DR","2412 N 20TH AVE","2413 N 20TH AVE","2413 N 21ST AVE","2414 N 19TH DR","2414 N 20TH DR","2414 N 21ST AVE","2417 N 20TH AVE","2417 N 20TH DR","2417 N 21ST AVE","2418 N 19TH DR","2418 N 20TH AVE","2418 N 20TH DR","2421 N 20TH DR","2422 N 20TH AVE","2423 N 20TH AVE","2424 N 19TH DR","2427 N 20TH AVE","2427 N 20TH DR","2428 N 20TH AVE","2428 N 21ST AVE","2430 N 19TH DR","2431 N 20TH DR","2431 N 23RD AVE","2433 N 20TH AVE","2433 N 23RD AVE","2434 N 19TH DR","2434 N 20TH AVE","2434 N 22ND AVE","2435 N 20TH DR","2435 N 23RD AVE","2436 N 22ND AVE","2437 N 20TH AVE","2437 N 23RD AVE","2438 N 20TH AVE","2438 N 22ND AVE","2439 N 23RD AVE","2440 N 19TH DR","2440 N 22ND AVE","2441 N 23RD AVE","2442 N 22ND AVE","2443 N 20TH AVE","2443 N 23RD AVE","2444 N 20TH AVE","2444 N 22ND AVE","2445 N 23RD AVE","2446 N 22ND AVE","2447 N 20TH AVE","2447 N 23RD AVE","2448 N 20TH AVE","2448 N 22ND AVE","2449 N 23RD AVE","2450 N 22ND AVE","2501 N 22ND DR","2501 N 23RD AVE","2502 N 22ND AVE","2502 N 22ND DR","2503 N 22ND DR","2503 N 23RD AVE","2504 N 22ND AVE","2504 N 22ND DR","2505 N 22ND DR","2505 N 23RD AVE","2506 N 22ND AVE","2506 N 22ND DR","2507 N 22ND DR","2507 N 23RD AVE","2508 N 22ND AVE","2508 N 22ND DR","2509 N 22ND DR","2509 N 23RD AVE","2510 N 22ND AVE","2510 N 22ND DR","2511 N 22ND DR","2511 N 23RD AVE","2512 N 22ND AVE","2512 N 22ND DR","2513 N 22ND DR","2513 N 23RD AVE","2514 N 22ND AVE","2514 N 22ND DR","2515 N 22ND DR","2515 N 23RD AVE","2516 N 22ND AVE","2516 N 22ND DR","2517 N 22ND DR","2517 N 23RD AVE","2518 N 22ND AVE","2518 N 22ND DR","2519 N 22ND DR","2519 N 23RD AVE","2520 N 19TH AVE","2520 N 22ND AVE","2520 N 22ND DR","2521 N 22ND DR","2521 N 23RD AVE","2522 N 22ND AVE","2522 N 22ND DR","2523 N 22ND DR","2523 N 23RD AVE","2524 N 19TH AVE","2524 N 22ND AVE","2524 N 22ND DR","2525 N 22ND DR","2525 N 23RD AVE","2526 N 22ND AVE","2526 N 22ND DR","2527 N 22ND DR","2527 N 23RD AVE","2528 N 19TH AVE","2528 N 22ND AVE","2528 N 22ND DR","2529 N 22ND DR","2529 N 23RD AVE","2530 N 22ND AVE","2530 N 22ND DR","2531 N 22ND DR","2531 N 23RD AVE","2532 N 22ND AVE","2532 N 22ND DR","2533 N 22ND DR","2533 N 23RD AVE","2534 N 19TH AVE","2534 N 22ND AVE","2534 N 22ND DR","2535 N 22ND DR","2535 N 23RD AVE","2536 N 22ND DR","2537 N 22ND DR","2537 N 23RD AVE","2538 N 22ND DR","2539 N 22ND DR","2540 N 19TH AVE","2540 N 22ND DR","2541 N 22ND DR","2542 N 22ND DR","2543 N 22ND DR","2544 N 22ND DR","2545 N 22ND DR","2546 N 22ND DR","2547 N 22ND DR","2548 N 22ND DR","2549 N 22ND DR","2550 N 22ND DR","2551 N 22ND DR","2552 N 22ND DR","2553 N 22ND DR","2554 N 22ND DR","2555 N 22ND DR","2557 N 22ND DR","2559 N 22ND DR","2561 N 22ND DR","2563 N 22ND DR","2565 N 22ND DR","2602 N 20TH AVE","2607 N 23RD AVE","2610 N 20TH AVE","2611 N 20TH AVE","2614 N 19TH AVE","2614 N 20TH AVE","2618 N 20TH AVE","2621 N 20TH AVE","2622 N 20TH AVE","2623 N 20TH AVE","2624 N 19TH AVE","2624 N 22ND AVE","2626 N 19TH AVE","2627 N 20TH AVE","2630 N 20TH AVE","2631 N 20TH AVE","2634 N 20TH AVE","2635 N 20TH AVE","2635 N 23RD AVE","2638 N 20TH AVE","2639 N 23RD AVE","2640 N 20TH AVE","2646 N 20TH AVE","2647 N 20TH AVE","2650 N 19TH AVE","2652 N 20TH AVE","2653 N 20TH AVE","2658 N 19TH AVE","2701 N 20TH AVE","2701 N 21ST AVE","2702 N 19TH AVE","2702 N 20TH AVE","2702 N 21ST AVE","2702 N 22ND DR","2707 N 20TH AVE","2707 N 23RD AVE","2708 N 21ST AVE","2710 N 22ND DR","2712 N 19TH AVE","2712 N 20TH DR","2713 N 20TH DR","2713 N 21ST AVE","2713 N 23RD AVE","2715 N 20TH AVE","2716 N 21ST AVE","2716 N 22ND DR","2719 N 23RD AVE","2721 N 20TH AVE","2721 N 21ST AVE","2722 N 20TH DR","2722 N 21ST AVE","2724 N 22ND DR","2725 N 23RD AVE","2727 N 20TH DR","2727 N 21ST AVE","2727 N 21ST DR","2730 N 20TH DR","2730 N 21ST AVE","2731 N 23RD AVE","2732 N 21ST DR","2733 N 21ST DR","2735 N 21ST AVE","2736 N 20TH DR","2736 N 21ST AVE","2739 N 21ST DR","2740 N 21ST DR","2744 N 20TH DR","2744 N 21ST AVE","2745 N 21ST AVE","2747 N 21ST DR","2748 N 21ST DR","2810 N 19TH AVE","2814 N 19TH AVE","2818 N 19TH AVE","2826 N 19TH AVE","2830 N 19TH AVE","2834 N 19TH AVE"
+        ];
 
-            // Define the eligible area polygon
-            const eligibleArea = [
-                [33.4806, -112.107],
-                [33.4806, -112.099],
-                [33.4653, -112.099],
-                [33.4653, -112.107],
-            ];
-
-            L.polygon(eligibleArea, {
-                color: '#5BBFBA',
-                fillColor: '#5BBFBA',
-                fillOpacity: 0.3,
-                weight: 3
-            }).addTo(map).bindPopup('<strong>Eligible Area</strong><br>Greenway Terrace & Surrounding Neighborhoods');
-
-            const corners = [
-                { pos: [33.4806, -112.107], label: 'McDowell & 23rd Ave' },
-                { pos: [33.4806, -112.099], label: 'McDowell & 19th Ave' },
-                { pos: [33.4653, -112.099], label: 'Thomas & 19th Ave' },
-                { pos: [33.4653, -112.107], label: 'Thomas & 23rd Ave' }
-            ];
-
-            corners.forEach(corner => {
-                L.circleMarker(corner.pos, {
-                    radius: 6,
-                    fillColor: '#C75B39',
-                    color: '#fff',
-                    weight: 2,
-                    fillOpacity: 1
-                }).addTo(map).bindPopup(corner.label);
-            });
-        });
-
-        // Address checker
         function checkAddress() {
-            const input = document.getElementById('address-input').value.toLowerCase();
+            const input = document.getElementById('address-input').value.toUpperCase().trim();
             const result = document.getElementById('address-result');
-            
-            const inArea = (
-                (input.includes('19th') || input.includes('20th') || input.includes('21st') || 
-                 input.includes('22nd') || input.includes('23rd')) &&
-                (input.includes('catalina') || input.includes('verde') || input.includes('greenway') ||
-                 input.includes('monte') || input.includes('roma') || input.includes('willetta') ||
-                 input.includes('lynwood') || input.includes('coronado') || input.includes('palm'))
-            );
-            
+
             if (input.length < 5) {
                 result.className = '';
                 result.style.display = 'none';
                 return;
             }
-            
-            if (inArea) {
+
+            // Normalize the input - remove extra spaces, periods
+            const normalized = input.replace(/\./g, '').replace(/\s+/g, ' ').trim();
+
+            // Check for exact match
+            const exactMatch = eligibleAddresses.some(addr => addr === normalized);
+
+            // Check for partial match (in case of slight variations)
+            const partialMatch = eligibleAddresses.some(addr =>
+                addr.includes(normalized) || normalized.includes(addr)
+            );
+
+            if (exactMatch) {
                 result.className = 'eligible';
-                result.innerHTML = 'Great news! Your address appears to be in the eligible area. <a href="#roadrunner">Apply now!</a>';
+                result.innerHTML = `${t('eligibility.eligible')} <a href="#roadrunner">${t('eligibility.applyNow')}</a>`;
+            } else if (partialMatch) {
+                result.className = 'eligible';
+                result.innerHTML = `${t('eligibility.maybeEligible')} <a href="#roadrunner">${t('eligibility.applyNow')}</a>`;
             } else {
                 result.className = 'ineligible';
-                result.innerHTML = 'We couldn\'t verify your address. Please check the map boundaries or contact us for confirmation.';
+                result.innerHTML = t('eligibility.notEligible');
             }
         }
 
-        // Modal functions - show full PDF screenshot
+        // Modal functions - show full PDF screenshot with language support
         function openModal(treeId) {
-            const imageSrc = treeImages[treeId];
+            let imageSrc = treeImages[treeId];
             if (!imageSrc) return;
+
+            // Check if Spanish language is active
+            const lang = currentLanguage || 'en';
+            if (lang === 'es') {
+                // Try to use Spanish version of tree flyer
+                const spanishSrc = imageSrc.replace('.png', '-es.png');
+                // Use Spanish version if it exists, otherwise fall back to English
+                // Note: Upload Spanish tree flyers as: blue-palo-verde-es.png, etc.
+                imageSrc = spanishSrc;
+            }
 
             document.getElementById('modalImage').src = imageSrc;
             document.getElementById('modalImage').alt = treeId.replace(/-/g, ' ');
-            
+
+            // Add error handler to fall back to English version if Spanish doesn't exist
+            document.getElementById('modalImage').onerror = function() {
+                if (lang === 'es') {
+                    this.onerror = null; // Prevent infinite loop
+                    this.src = treeImages[treeId]; // Fall back to English version
+                }
+            };
+
             document.getElementById('treeModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1673,7 +2142,8 @@
 
         // Mobile menu toggle
         function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
+            const navContent = document.querySelector('.nav-content');
+            navContent.classList.toggle('active');
         }
 
         // FAQ accordion
@@ -1703,7 +2173,8 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    document.getElementById('navLinks').classList.remove('active');
+                    const navContent = document.querySelector('.nav-content');
+                    if (navContent) navContent.classList.remove('active');
                 }
             });
         });
@@ -1712,6 +2183,115 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeModal();
         });
+
+        // Floating chatbot controls
+        function toggleChatbot() {
+            const widget = document.getElementById('chatbotWidget');
+            const button = document.getElementById('chatbotButton');
+            const iframe = document.querySelector('.chatbot-widget-iframe');
+            const isOpen = widget.classList.contains('open');
+
+            if (isOpen) {
+                widget.classList.remove('open');
+                button.style.display = 'flex';
+            } else {
+                widget.classList.add('open');
+                button.style.display = 'none';
+            }
+        }
+
+        // Close chatbot on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const widget = document.getElementById('chatbotWidget');
+                if (widget.classList.contains('open')) {
+                    toggleChatbot();
+                }
+            }
+        });
+
+        // Greeting popup functions
+        function closeGreeting() {
+            const greeting = document.getElementById('chatbotGreeting');
+            greeting.classList.remove('show');
+            localStorage.setItem('chatbotGreetingShown', 'true');
+        }
+
+        function openChatbotFromGreeting() {
+            closeGreeting();
+            toggleChatbot();
+        }
+
+        // Listen for navigation requests from chatbot iframe
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'navigate') {
+                // Close chatbot
+                const widget = document.getElementById('chatbotWidget');
+                const button = document.getElementById('chatbotButton');
+                if (widget && widget.classList.contains('open')) {
+                    widget.classList.remove('open');
+                    if (button) button.style.display = 'flex';
+                }
+
+                // Navigate to target section
+                if (event.data.target === 'planner') {
+                    const plannerSection = document.getElementById('planner');
+                    if (plannerSection) {
+                        plannerSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else if (event.data.target === 'trees') {
+                    const treesSection = document.getElementById('trees');
+                    if (treesSection) {
+                        treesSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        });
+
+        // Auto-open chatbot on page load
+        window.addEventListener('load', function() {
+            const chatbotOpened = sessionStorage.getItem('chatbotAutoOpened');
+            if (!chatbotOpened) {
+                setTimeout(function() {
+                    toggleChatbot();
+                    sessionStorage.setItem('chatbotAutoOpened', 'true');
+                }, 1000);
+            }
+        });
     </script>
+
+    <!-- Internationalization Script -->
+    <script src="i18n.js"></script>
+
+    <!-- Floating Chatbot Widget -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-widget-header">
+            <img src="images/roadrunner-mascot.png" alt="Roadrunner" class="chatbot-header-icon">
+            <div>
+                <h3>Tree Grant Assistant</h3>
+                <p>Ask me anything!</p>
+            </div>
+            <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+        </div>
+        <iframe
+            src="chatbot/index.html?v=2.1"
+            class="chatbot-widget-iframe"
+            title="Tree Grant Chatbot"
+        ></iframe>
+    </div>
+
+    <!-- Floating Chatbot Button -->
+    <button id="chatbotButton" class="chatbot-float-button" onclick="toggleChatbot()">
+        <span id="roadrunner"></span>
+        <img src="images/roadrunner-mascot.png" alt="Chat with Roadrunner">
+    </button>
+
+    <!-- Chatbot Greeting Popup -->
+    <div id="chatbotGreeting" class="chatbot-greeting">
+        <button class="chatbot-greeting-close" onclick="closeGreeting()">×</button>
+        <h4>Hi, I'm Roadrunner!</h4>
+        <p><strong>Applications closed December 31, 2025.</strong><br><br>You can still explore the tree grant program, learn about tree species, and take the tree quiz!</p>
+        <button class="chatbot-greeting-button" onclick="openChatbotFromGreeting()">Explore the Program</button>
+    </div>
 </body>
 </html>
